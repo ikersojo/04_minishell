@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 10:55:39 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/01/17 11:48:20 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/01/19 19:23:50 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ char		*ft_strcat(char *dest, const char *src);
 int			ft_strcmp(const char *s1, const char *s2);
 int			ft_count_chars(char *str, char c);
 int			ft_chars_valid(char *str, char *valid_chars);
+int			ft_strfind(char *str, char c);
 
 int			ft_abs(int n);
 int			ft_atoi(const char *str);

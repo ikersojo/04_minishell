@@ -1,13 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   01_check_input.c                                   :+:      :+:    :+:   */
+/*   ft_strfind.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/16 22:42:50 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/01/19 16:09:11 by isojo-go         ###   ########.fr       */
+/*   Created: 2023/01/19 19:22:31 by isojo-go          #+#    #+#             */
+/*   Updated: 2023/01/19 19:23:50 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+/* DESCRIPTION:
+Finds the first instance of the char c in the string str and returns the
+position in the string. If c is not found, returns -1.
+---------------------------------------------------------------------------- */
+int	ft_strfind(char *str, char c)
+{
+	int	i;
+
+	i = 0;
+	while (*(str + i))
+	{
+		if (*(str + i) == c)
+			return (i);
+		i++;
+	}
+	return (-1);
+}
