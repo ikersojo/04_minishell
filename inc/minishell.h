@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 19:44:59 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/01/17 12:13:30 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/01/19 16:09:19 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ typedef struct s_data
 	char	*input;
 	int		noff_cmds;
 	char	**cmds;
-	t_vars	**vars;
-}			t_data
+	t_vars	*vars;
+}			t_data;
 
 // FUNCTIONS:
 

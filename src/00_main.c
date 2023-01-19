@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:22:47 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/01/17 12:43:29 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/01/19 16:09:11 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,32 @@ int	main(void)
 {
 	t_data	*data;
 
-	// anular / modificar señales
+	// allocatear memoria
+	data = (t_data *)malloc(sizeof(t_data));
+	if (!data)
+		return (1);
 
-	// capturar input -> dejarlo en main
+	// capturar input -> dejarlo en main?
 
 	// dar por bueno el input
+		//syntax ok?
+			//no hay simbolos raros --> revisar que todos los chars son ascii y los especiales nos interesan
+			//abro lo mismo que cierro
+				// contador de caracter (, ), ", ", ', 
+			// no empieza ni acaba en una cosa que no sea un comando
+		// if not, syntax error
+		//todas las variables existen y estan definidas
+		//...
 
-	// allocatear memoria
+	// anular / modificar señales
 
 	// expandir el input
+		// variables a texto completo
 
 	// split del input
+		// cada instrucción por separado
+		// siempre redirgir el output? y luego si no dice nada pasarlo a STDOUT
+		
 
 	// definir estrategia de ejecución
 
@@ -49,5 +64,6 @@ int	main(void)
 		printf("captured: %s\n", data->input);
 		free (data->input);
 	}
+	free(data);
 	return (EXIT_SUCCESS);
 }
