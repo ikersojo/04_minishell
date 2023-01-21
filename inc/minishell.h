@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 19:44:59 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/01/21 18:20:15 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/01/21 22:49:41 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_data
 {
 	int		exitflag;
 	char	*input;
+	char	*ex_input;
 	t_vars	*vars;
 }			t_data;
 
@@ -49,6 +50,11 @@ void	ft_free_all(t_data *data);
 // 02_check_input.c
 
 int		ft_input_ok(t_data *data);
+
+// 03_expand_input.c
+
+void	ft_expand(t_data *data);
+
 
 //99_aux_1.c
 

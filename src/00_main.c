@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:22:47 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/01/21 18:50:38 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/01/21 22:49:41 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ int	main(int argc, char **argv, char **envp)
 
 			//hacer cosas... (ver abajo)
 			printf("\033[0;92mcaptured good input :) --> \033[0;39m%s\n", data->input);
+			
+			ft_expand(data);
 
 		}
 		free (data->input);
