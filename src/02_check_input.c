@@ -6,23 +6,13 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:42:50 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/01/21 12:42:35 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/01/21 18:46:28 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-// dar por bueno el input
-	//syntax ok?
-		//no hay simbolos raros --> revisar que todos los chars son ascii y los especiales nos interesan
-		//abro lo mismo que cierro
-			// contador de caracter (, ), ", ", ', ...
-		// no empieza ni acaba en una cosa que no sea un comando
-	// if not, syntax error
-	//todas las variables existen y estan definidas
-	//...
-
-int	ft_inquotes(char *str, int i)
+static int	ft_inquotes(char *str, int i)
 {
 	int	j;
 	int	singleq;
@@ -44,10 +34,9 @@ int	ft_inquotes(char *str, int i)
 	return (0);
 }
 
-int	ft_characters_ok(char *str)
+static int	ft_characters_ok(char *str)
 {
 	int		i;
-	char	c;
 
 	if (ft_count_chars(str, '\'') % 2 != 0)
 		return (0);
@@ -56,18 +45,14 @@ int	ft_characters_ok(char *str)
 	i = 0;
 	while (*(str + i))
 	{
-		c = *(str + i);
-		(void)c; //DEBUG
-		// if (ft_inquotes(str, i) && (!ft_isprint(c) || c != 9))
-		// 	return (0);
-		// if (!ft_inquotes(str, i) && (c == 92 || c == 59)) // add other special characters to be considered a syntax error
-		// 	return (0);
+		if (!ft_inquotes(str, i) && ft_ischarset(*(str + i), "\\;!")) // add other special characters not allowed
+			return (0);
 		i++;
 	}
 	return (1);
 }
 
-static int ft_parenthesis_ok(char *str)
+static int	ft_parenthesis_ok(char *str)
 {
 	int		i;
 	char	c;
@@ -93,14 +78,54 @@ static int ft_parenthesis_ok(char *str)
 	return (1);
 }
 
-int	ft_input_ok(char *str)
+static int	ft_var_exist(char *str, t_data *data)
 {
-	if (!ft_parenthesis_ok(str))
-		return (0);
-	if (*str == 124 || *(str + ft_strlen(str)) == 124)
-		return (0);
+	int		i;
+	char	*varname;
+	int		not_found;
 
-	if (ft_characters_ok(str) == 0)
+	not_found = 0;
+	i = 0;
+	while (*(str + i))
+	{
+		if (*(str + i) == '$')
+		{
+			varname = (char *)malloc(sizeof(char) * (ft_strlen(str) + 1));
+			if (!varname)
+				return (0);
+			ft_strlcpy(varname, str + i + 1, ft_next_space(str, i));
+			if (ft_var_pos(data, varname) == -1)
+				not_found = 1;
+			free(varname);
+			if (not_found)
+				return (0);
+		}
+		i++;
+	}
+	return (1);
+}
+
+int	ft_input_ok(t_data *data)
+{
+	char	*str;
+	int		errorflag;
+
+	errorflag = 0;
+	str = ft_strtrim(data->input, " \t");
+	if (!ft_parenthesis_ok(str) || !ft_characters_ok(str)
+		|| ft_ischarset(*str, "|>&")
+		|| ft_ischarset(*(str + ft_strlen(str)), "|>&"))
+	{
+		printf(SYNTAX_ERROR);
+		errorflag = 1;
+	}
+	if (!ft_var_exist(str, data))
+	{
+		printf(VAR_ERROR);
+		errorflag = 1;
+	}
+	free (str);
+	if (errorflag == 1)
 		return (0);
 	return (1);
 }

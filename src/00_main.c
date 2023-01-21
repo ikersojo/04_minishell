@@ -6,12 +6,11 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:22:47 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/01/21 10:10:22 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/01/21 18:50:38 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -19,7 +18,7 @@ int	main(int argc, char **argv, char **envp)
 
 	data = ft_init_data(argc, argv, envp);
 	//DEBUG: -----------------------
-		//check that the content has been correctly extracted:
+	//check that the content has been correctly extracted:
 		// printf("t_vars vars:\n");
 		// int	i;
 		// i = -1;
@@ -29,26 +28,24 @@ int	main(int argc, char **argv, char **envp)
 		// printf("MEMORY INITIALIZED!!\n\n");
 	//DEBUG: -----------------------
 
+
 	while (!data->exitflag)
 	{
-		// capturar input -> dejarlo en main?
 		data->input = readline(PROMPT);
 		if (!data->input)
 			return (EXIT_FAILURE);
 		if (ft_strlen(data->input) > 0)
-			add_history(data->input);
+			add_history(data->input); //ojo, hay que resetear el prompt si le damos a las flechas: hace algo raro!!!
 		//ver si exit o realmente vamos a hacer algo --> si ponemos exit despues de un && tendremos que salir como parte de un comando. ojo con liberar el input de la que salimos!
 		if (ft_strcmp("exit", data->input) == 0)
 			data->exitflag = 1;
-		else if (ft_input_ok(data->input))
+		else if (ft_input_ok(data))
 		{
 
 			//hacer cosas... (ver abajo)
-			printf("captured: %s\n", data->input);
+			printf("\033[0;92mcaptured good input :) --> \033[0;39m%s\n", data->input);
 
 		}
-		else
-			printf(SYNTAX_ERROR);
 		free (data->input);
 	}
 	ft_free_all(data);
@@ -60,17 +57,18 @@ int	main(int argc, char **argv, char **envp)
 
 // COSAS QUE HACER:
 
-
 	// expandir el input
 		// variables a texto completo
 
 	//------> STRING SOBRE LA QUE TRABAJAR <------------
 
-	// split del input
-		// cada instrucción por separado
-		// siempre redirgir el output? y luego si no dice nada pasarlo a STDOUT
-		
+	//definir struct de ejecutor
+	//generar lista y rellenar con los comandos,tal y como salen (redirecciones etc son tmabién comandos)
+	// ordenar comandos
 
-	// definir estrategia de ejecución
+	// notas
+		// siempre redirgir el output y luego si no dice nada pasarlo a STDOUT
+		//input y output en el struct
+		
 
 	// ejectutar cada comando
