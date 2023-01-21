@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:22:47 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/01/19 23:17:17 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/01/21 10:10:22 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,14 @@ int	main(int argc, char **argv, char **envp)
 	data = ft_init_data(argc, argv, envp);
 	//DEBUG: -----------------------
 		//check that the content has been correctly extracted:
-		printf("t_vars vars:\n");
-		int	i;
-		i = -1;
-		while (((data->vars + (++i))->val))
-			printf("    item %d: %s --> %s\n", i, ((data->vars + i)->name), ((data->vars + i)->val));
-		printf("\n\n");
-		printf("MEMORY INITIALIZED!!\n\n");
+		// printf("t_vars vars:\n");
+		// int	i;
+		// i = -1;
+		// while (((data->vars + (++i))->val))
+		// 	printf("    item %d: %s --> %s\n", i, ((data->vars + i)->name), ((data->vars + i)->val));
+		// printf("\n\n");
+		// printf("MEMORY INITIALIZED!!\n\n");
 	//DEBUG: -----------------------
-
 
 	while (!data->exitflag)
 	{
@@ -36,22 +35,20 @@ int	main(int argc, char **argv, char **envp)
 		data->input = readline(PROMPT);
 		if (!data->input)
 			return (EXIT_FAILURE);
-
-		//si no está vacio, añadirlo a history
 		if (ft_strlen(data->input) > 0)
 			add_history(data->input);
-
 		//ver si exit o realmente vamos a hacer algo --> si ponemos exit despues de un && tendremos que salir como parte de un comando. ojo con liberar el input de la que salimos!
 		if (ft_strcmp("exit", data->input) == 0)
 			data->exitflag = 1;
-		else
+		else if (ft_input_ok(data->input))
 		{
+
 			//hacer cosas... (ver abajo)
 			printf("captured: %s\n", data->input);
 
-
 		}
-		// liberar memoria
+		else
+			printf(SYNTAX_ERROR);
 		free (data->input);
 	}
 	ft_free_all(data);
@@ -62,15 +59,6 @@ int	main(int argc, char **argv, char **envp)
 
 
 // COSAS QUE HACER:
-	// dar por bueno el input
-		//syntax ok?
-			//no hay simbolos raros --> revisar que todos los chars son ascii y los especiales nos interesan
-			//abro lo mismo que cierro
-				// contador de caracter (, ), ", ", ', ...
-			// no empieza ni acaba en una cosa que no sea un comando
-		// if not, syntax error
-		//todas las variables existen y estan definidas
-		//...
 
 
 	// expandir el input
