@@ -8,4 +8,4 @@ https://www.cs.purdue.edu/homes/grr/SystemsProgrammingBook/Book/Chapter5-Writing
 
 # Initial Flowchart Diagram
 
-![Minishell Basic Digram](doc/diagram/Minishell%20Basic.drawio.svg)
+![Minishell Basic Digram](doc/diagram/Minishell_Basic.drawio.svg)
