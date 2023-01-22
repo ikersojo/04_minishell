@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 10:55:39 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/01/21 18:19:39 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/01/22 09:58:39 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,15 @@ char		*ft_strchr(const char *s, int c);
 char		*ft_strdup(const char *s1);
 void		ft_striteri(char *s, void (*f)(unsigned int, char *));
 char		*ft_strjoin(const char *s1, const char *s2);
-size_t		ft_strlcat(char *dest, const char *src, size_t n);
-size_t		ft_strlcpy(char *dest, const char *src, size_t n);
-size_t		ft_strlen(const char *str);
+int			ft_strlcat(char *dest, const char *src, int n);
+int			ft_strlcpy(char *dest, const char *src, int n);
+int			ft_strlen(const char *str);
 char		*ft_strmapi(const char *s, char (*f)(unsigned int, char));
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 char		*ft_strnstr(const char *haystack, const char *needle, size_t n);
 char		*ft_strrchr(const char *s, int c);
 char		*ft_strtrim(const char *s1, const char *set);
-char		*ft_substr(const char *s, unsigned int start, size_t len);
+char		*ft_substr(const char *s, int start, int len);
 char		*ft_strcat(char *dest, const char *src);
 int			ft_strcmp(const char *s1, const char *s2);
 int			ft_count_chars(char *str, char c);

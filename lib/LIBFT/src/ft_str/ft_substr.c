@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 15:27:47 by isojo-go          #+#    #+#             */
-/*   Updated: 2022/10/11 21:20:30 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/01/22 09:57:22 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ substring begins at index start and is of size len. If start and len aren’t
 refering to a valid substring, the behavior is undefined.
 If the allocation fails, the function returns NULL.
 ---------------------------------------------------------------------------- */
-char	*ft_substr(const char *s, unsigned int start, size_t len)
+char	*ft_substr(const char *s, int start, int len)
 {
 	char	*sub;
-	size_t	i;
+	int	i;
 
-	if (s == NULL || len == 0 || ft_strlen(s) < (size_t)start)
+	if (s == NULL || len == 0 || ft_strlen(s) < start)
 		return (NULL);
 	if ((ft_strlen(s) - start) < len)
 		len = ft_strlen(s) - start;

@@ -6,13 +6,13 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:42:50 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/01/21 18:46:28 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/01/22 10:43:14 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-static int	ft_inquotes(char *str, int i)
+int	ft_inquotes(char *str, int i)
 {
 	int	j;
 	int	singleq;

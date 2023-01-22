@@ -29,10 +29,10 @@ should not happen (as it means that either size is incorrect or that dst is
 not a proper "C" string). The check exists to prevent potential security
 problems in incorrect code.
 ---------------------------------------------------------------------------- */
-size_t	ft_strlcat(char *dest, const char *src, size_t n)
+int	ft_strlcat(char *dest, const char *src, int n)
 {
-	size_t	i;
-	size_t	res;
+	int	i;
+	int	res;
 
 	if (n == 0)
 		return (ft_strlen(src));

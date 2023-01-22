@@ -20,10 +20,10 @@ and guarantee to NUL-terminate the result (as long as there is at least one
 byte free in dest).
 Note that a byte for the NULL should be included in size.
 ---------------------------------------------------------------------------- */
-size_t	ft_strlcpy(char *dest, const char *src, size_t n)
+int	ft_strlcpy(char *dest, const char *src, int n)
 {
-	size_t	i;
-	size_t	res;
+	int	i;
+	int	res;
 
 	res = ft_strlen(src);
 	if (n == 0)

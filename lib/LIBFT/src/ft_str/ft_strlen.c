@@ -17,9 +17,9 @@ The strlen() function calculates the length of the string pointed
 to by str, excluding the terminating null byte ('\0').The strlen()
 function returns the number of bytes.
 ---------------------------------------------------------------------------- */
-size_t	ft_strlen(const char *str)
+int	ft_strlen(const char *str)
 {
-	size_t	len;
+	int	len;
 
 	if (!str)
 		return (0);
