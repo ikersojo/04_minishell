@@ -12,36 +12,63 @@
 
 #include "../inc/minishell.h"
 
+t_cmd	*ft_cmdnew(char *str, int index)
+{
+	t_cmd	*new;
+
+	new = (t_cmd *)malloc(sizeof(t_cmd));
+	if (new == NULL)
+		return (NULL);
+	new->str = str;
+	new->index = index;
+	new->next = NULL;
+	return (new);
+}
+
+t_cmd	*ft_cmdlast(t_cmd *cmd)
+{
+	if (cmd == NULL)
+		return (NULL);
+	while (cmd->next)
+		cmd = cmd->next;
+	return (cmd);
+}
+
+void	ft_cmdadd_back(t_cmd **cmd, t_cmd *new)
+{
+	t_cmd	*tmp;
+
+	if (new && cmd)
+	{
+		if (*cmd == NULL)
+			*cmd = new;
+		else
+		{
+			tmp = ft_cmdlast(*cmd);
+			tmp->next = new;
+		}
+	}
+}
+
 void	ft_parse(t_data *data)
 {
 	int		i;
 	int		index;
 	t_cmd	*temp;
+	char	*str;
 
 	index = 0;
 	i = 0;
 	while (*(data->ex_input + i))
 	{
-		if (*(data->ex_input + i) = ' ')
+		if (*(data->ex_input + i) == ' ')
 			i++;
 		else
 		{
-			temp = (t_cmd *)malloc(sizeof(t_cmd));
-			if (!temp)
-			{
-				ft_free_all(data);
-				ft_exit_w_error(MALLOC_ERROR);
-			}
-			temp->index = index++;
-			temp->str = ft_substr(data->ex_input, i, ft_next_space(data->ex_input, i));
-
+			str = ft_substr(data->ex_input, i, ft_next_space(data->ex_input, i));
+			temp = ft_cmdnew(str, index++);
+			ft_cmdadd_back(&data->cmd, temp);
+			i += ft_next_space(data->input, i);
 		}
-
-		temp = data->cmd->next;
 	}
 }
-
-
-
-
-	temp = data->cmd;

@@ -64,6 +64,7 @@ int		ft_inquotes(char *str, int i);
 
 void	ft_expand(t_data *data);
 
+void	ft_parse(t_data *data);
 
 //99_aux_1.c
 

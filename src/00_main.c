@@ -49,14 +49,14 @@ int	main(int argc, char **argv, char **envp)
 
 			printf("\033[0;92mexpanded good input :) --> \033[0;39m%s\n", data->ex_input); // DEBUG
 
-			// ft_parse(data); WIP
+			ft_parse(data);
 
-			// t_cmd *temp = data->cmd;
-			// while (temp)
-			// {
-			// 	printf("cmd %d: %s\n", data->cmd->index, data->cmd->str);
-			// 	temp = data->cmd->next;
-			// }
+			t_cmd *temp = data->cmd;
+			while (temp)
+			{
+				printf("cmd %d: %s\n", data->cmd->index, data->cmd->str);
+				temp = data->cmd->next;
+			}
 
 
 		}
