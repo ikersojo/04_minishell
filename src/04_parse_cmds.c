@@ -6,13 +6,13 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:45:07 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/01/22 11:16:09 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/01/24 19:59:41 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-t_cmd	*ft_cmdnew(char *str, int index)
+static t_cmd	*ft_cmdnew(char *str, int index)
 {
 	t_cmd	*new;
 
@@ -25,7 +25,7 @@ t_cmd	*ft_cmdnew(char *str, int index)
 	return (new);
 }
 
-t_cmd	*ft_cmdlast(t_cmd *cmd)
+static t_cmd	*ft_cmdlast(t_cmd *cmd)
 {
 	if (cmd == NULL)
 		return (NULL);
@@ -34,7 +34,7 @@ t_cmd	*ft_cmdlast(t_cmd *cmd)
 	return (cmd);
 }
 
-void	ft_cmdadd_back(t_cmd **cmd, t_cmd *new)
+static void	ft_cmdadd_back(t_cmd **cmd, t_cmd *new)
 {
 	t_cmd	*tmp;
 
@@ -63,12 +63,35 @@ void	ft_parse(t_data *data)
 	{
 		if (*(data->ex_input + i) == ' ')
 			i++;
-		else
+		else if (ft_ischarset(*(data->ex_input + i), "()<>|&")) // identificar dobles
 		{
-			str = ft_substr(data->ex_input, i, ft_next_space(data->ex_input, i));
+			str = ft_substr(data->ex_input, i, 1);
 			temp = ft_cmdnew(str, index++);
 			ft_cmdadd_back(&data->cmd, temp);
-			i += ft_next_space(data->input, i);
+			i++;
 		}
+		// else
+		// {
+		// 	str = ft_substr(data->ex_input, i, ft_endwrd(data->ex_input, i));
+		// 	temp = ft_cmdnew(str, index++);
+		// 	ft_cmdadd_back(&data->cmd, temp);
+		// 	i += ft_endwrd(data->ex_input, i);
+		// }
 	}
+}
+
+void	ft_freecmd(t_data *data)
+{
+	t_cmd	*tmp;
+	t_cmd	*current;
+
+	tmp = data->cmd;
+	while(tmp)
+	{
+		current = tmp;
+		tmp = tmp->next;
+		free (current->str);
+		free (current);
+	}
+	data->cmd = NULL;
 }

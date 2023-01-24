@@ -6,11 +6,13 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:22:47 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/01/22 11:16:09 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/01/24 19:56:34 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+int	g_outfd;
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -28,7 +30,6 @@ int	main(int argc, char **argv, char **envp)
 		// printf("MEMORY INITIALIZED!!\n\n");
 	//DEBUG: -----------------------
 
-
 	while (!data->exitflag)
 	{
 		data->input = readline(data->prompt);
@@ -43,24 +44,32 @@ int	main(int argc, char **argv, char **envp)
 		{
 
 			//hacer cosas... (ver abajo)
-			printf("\033[0;92mcaptured good input :) --> \033[0;39m%s\n", data->input); // DEBUG
+			// printf("\033[0;92mcaptured good input :) --> \033[0;39m%s\n", data->input); // DEBUG
 			
 			ft_expand(data);
 
-			printf("\033[0;92mexpanded good input :) --> \033[0;39m%s\n", data->ex_input); // DEBUG
+			// printf("\033[0;92mexpanded good input :) --> \033[0;39m%s\n", data->ex_input); // DEBUG
 
 			ft_parse(data);
 
 			t_cmd *temp = data->cmd;
 			while (temp)
 			{
-				printf("cmd %d: %s\n", data->cmd->index, data->cmd->str);
-				temp = data->cmd->next;
+				printf("cmd %d: %s\n", temp->index, temp->str);
+				temp = temp->next;
 			}
 
+			// ft_launch_process("ls -lap", envp);
 
+			// printf("    freeing data->ex_input (%p)\n", data->ex_input);
+			free (data->ex_input);
+			data->ex_input = NULL;
+
+			ft_freecmd(data);
 		}
+		// printf("    freeing data->input (%p)\n", data->input);
 		free (data->input);
+		data->input = NULL;
 	}
 	ft_free_all(data);
 	return (EXIT_SUCCESS);

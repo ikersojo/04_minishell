@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:42:50 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/01/22 10:43:14 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/01/24 09:37:18 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ static int	ft_var_exist(char *str, t_data *data)
 			varname = (char *)malloc(sizeof(char) * (ft_strlen(str) + 1));
 			if (!varname)
 				return (0);
-			ft_strlcpy(varname, str + i + 1, ft_next_space(str, i));
+			ft_strlcpy(varname, str + i + 1, ft_endwrd(str, i));
 			if (ft_var_pos(data, varname) == -1)
 				not_found = 1;
 			free(varname);

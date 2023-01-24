@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_next_space.c                                    :+:      :+:    :+:   */
+/*   ft_endwrd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 18:14:12 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/01/21 18:17:16 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/01/24 09:39:04 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@ returns the number of characters after position i.
 If no space chracters are found on the string it returns the remaining amount
 of chars until the end of the string.
 ---------------------------------------------------------------------------- */
-int	ft_next_space(char *str, int i)
+int	ft_endwrd(char *str, int i)
 {
 	int	len;
 
 	len = 0;
 	while (*(str + i))
 	{
-		if (ft_isspace(*(str + i)))
+		if (ft_isspace(*(str + i)) || ft_ischarset(*(str + i), ")\"\'}]"))
 			return (len);
 		len++;
 		i++;

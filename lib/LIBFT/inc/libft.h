@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 10:55:39 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/01/22 09:58:39 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/01/24 09:37:18 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int			ft_strcmp(const char *s1, const char *s2);
 int			ft_count_chars(char *str, char c);
 int			ft_chars_valid(char *str, char *valid_chars);
 int			ft_strfind(char *str, char c);
-int			ft_next_space(char *str, int i);
+int			ft_endwrd(char *str, int i);
 
 int			ft_abs(int n);
 int			ft_atoi(const char *str);

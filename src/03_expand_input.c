@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:44:09 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/01/22 10:14:13 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/01/24 09:37:18 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static int	ft_expand_var(t_data *data, int i, int j)
 		ft_free_all(data);
 		ft_exit_w_error(MALLOC_ERROR);
 	}
-	ft_strlcpy(varname, data->input + i + 1, ft_next_space(data->input, i));
+	ft_strlcpy(varname, data->input + i + 1, ft_endwrd(data->input, i));
 	pos = ft_var_pos(data, varname);
 	free(varname);
 	k = 0;
@@ -70,7 +70,7 @@ void	ft_expand(t_data *data)
 		if (*(data->input + i) == '$')
 		{
 			j += ft_expand_var(data, i, j);
-			i += ft_next_space(data->input, i);
+			i += ft_endwrd(data->input, i);
 		}
 		else if (ft_isspace(*(data->input + i))) // garantizamos que todos los espacios, tabulaciones etc son un único espacio
 		{

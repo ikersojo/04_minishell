@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 19:44:59 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/01/22 10:46:05 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/01/24 12:41:06 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 // MESSAGES
 # define PROMPT			"\033[0;92m) minishell_42 > \033[0;39m"
 # define MALLOC_ERROR	"Memory could not be allocated.\n"
-# define SYNTAX_ERROR	"\033[0;31mSyntax error.\033[0;39m\n"
-# define VAR_ERROR		"\033[0;31mUser variable not defined.\033[0;39m\n"
+# define SYNTAX_ERROR	"Syntax error.\n"
+# define VAR_ERROR		"User variable not defined.\n"
 //... ver cuales necesitamos para incluir aquí. el subject permite perror, o sea que muchos no tendremos que codificar
 
 // DATA STRUCTS
@@ -65,6 +65,9 @@ int		ft_inquotes(char *str, int i);
 void	ft_expand(t_data *data);
 
 void	ft_parse(t_data *data);
+void	ft_freecmd(t_data *data);
+
+void	ft_launch_process(char *str, char **envp);
 
 //99_aux_1.c
 

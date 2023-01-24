@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:43:22 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/01/22 10:09:50 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/01/24 10:12:35 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,44 @@ void	ft_free_all(t_data *data) // estoy liberando algo de más... revisar
 	int	i;
 
 	if (data->input != NULL)
+	{
+		// printf("    FREEALL freeing data->input (%p)\n", data->input); // DEBUG
 		free (data->input);
+	}
 	if (data->ex_input != NULL)
+	{
+		// printf("    FREEALL freeing data->ex_input (%p)\n", data->ex_input); // DEBUG
 		free (data->ex_input);
+	}
 	if (data->user != NULL)
+	{
+		// printf("    FREEALL freeing data->user (%p)\n", data->user); // DEBUG
 		free (data->user);
+	}
+
 	if (data->prompt != NULL)
+	{
+		// printf("    FREEALL freeing data->prompt (%p)\n", data->prompt); // DEBUG
 		free (data->prompt);
+	}
+
 	if (data->vars != NULL)
 	{
+		// printf("    FREEALL data->vars is in (%p)\n", data->vars); // DEBUG
 		i = 0;
 		while ((data->vars + i)->name)
 		{
+			// printf("    FREEALL freeing (data->vars + %d)->name (%p)\n", i, (data->vars + i)->name); // DEBUG
 			free((data->vars + i)->name);
+			// printf("    FREEALL freeing (data->vars + %d)->val (%p)\n", i, (data->vars + i)->val); // DEBUG
 			free((data->vars + i++)->val);
 		}
+		free((data->vars + i)->name);
+		free((data->vars + i)->val);
+		// printf("    FREEALL freeing data->vars (%p)\n", data->vars); // DEBUG
 		free(data->vars);
 	}
+	// printf("    FREEALL freeing data (%p)\n", data); // DEBUG
 	free (data);
 }
 
@@ -44,12 +65,14 @@ static void	ft_alloc_vars(t_data *data, char **envp)
 	i = 0;
 	while (*(envp + i))
 		i++;
-	data->vars = (t_vars *)malloc(sizeof(t_vars) * (i)); // ver is hay que implementar el añadir nuevas variables, y si es que si, tendremos que dejar hueco
+	data->vars = (t_vars *)malloc(sizeof(t_vars) * (i + 1)); // ver is hay que implementar el añadir nuevas variables, y si es que si, tendremos que dejar hueco
 	if (!data->vars)
 	{
 		free (data);
 		ft_exit_w_error(SYNTAX_ERROR);
 	}
+	(data->vars + i + 1)->name = NULL;
+	(data->vars + i + 1)->val = NULL;
 }
 
 static void	ft_import_envp(t_data *data, char **envp)
