@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 18:18:26 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/01/25 19:30:38 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/01/26 22:35:48 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,21 @@ int	ft_endsub(char *str, int i, char *charset)
 		j++;
 	}
 	return (j);
+}
+
+void	ft_clear_screen(void)
+{
+	system("clear");
+	ft_putstr_fd(GREEN, 1);
+	ft_putstr_fd("                                                     \n", 1);
+	ft_putstr_fd("           :::      ::::::::                         \n", 1);
+	ft_putstr_fd("         :+:      :+:    :+:                         \n", 1);
+	ft_putstr_fd("       +:+ +:+         +:+                           \n", 1);
+	ft_putstr_fd("     +#+  +:+       +#+       minishell 42 by:       \n", 1);
+	ft_putstr_fd("   +#+#+#+#+#+   +#+            isojo-go             \n", 1);
+	ft_putstr_fd("        #+#    #+#              mvalient             \n", 1);
+	ft_putstr_fd("       ###   ########.fr                             \n", 1);
+	ft_putstr_fd("                                                     \n", 1);
+	ft_putstr_fd(DEF_COLOR, 1);
+
 }

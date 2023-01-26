@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 19:44:59 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/01/25 19:15:08 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/01/26 16:10:08 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ typedef struct s_cmd
 {
 	int				index;
 	char			*str;
+	int				infd;
+	int				outfd;
 	struct s_cmd	*next;
 }					t_cmd;
 
@@ -67,10 +69,11 @@ void	ft_parse(t_data *data);
 void	ft_freecmd(t_data *data);
 
 //05_exec_cmds.c
-void	ft_launch_process(char *str, char **envp);
+void	ft_exec_cmds(t_data *data, char **envp);
 
 //99_aux_1.c
 int		ft_var_pos(t_data *data, char *varname);
 int		ft_endsub(char *str, int i, char *charset);
+void	ft_clear_screen(void);
 
 #endif

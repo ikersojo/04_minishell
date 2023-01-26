@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:22:47 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/01/24 19:56:34 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/01/26 16:09:24 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	main(int argc, char **argv, char **envp)
 		// printf("MEMORY INITIALIZED!!\n\n");
 	//DEBUG: -----------------------
 
+	ft_clear_screen();
 	while (!data->exitflag)
 	{
 		data->input = readline(data->prompt);
@@ -59,7 +60,7 @@ int	main(int argc, char **argv, char **envp)
 				temp = temp->next;
 			}
 
-			// ft_launch_process("ls -lap", envp);
+			ft_exec_cmds(data, envp);
 
 			// printf("    freeing data->ex_input (%p)\n", data->ex_input);
 			free (data->ex_input);
