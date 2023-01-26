@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:42:50 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/01/24 09:37:18 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/01/26 10:39:36 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,15 @@ static int	ft_characters_ok(char *str)
 	i = 0;
 	while (*(str + i))
 	{
-		if (!ft_inquotes(str, i) && ft_ischarset(*(str + i), "\\;!")) // add other special characters not allowed
+		if (!ft_inquotes(str, i) && ft_ischarset(*(str + i), "\\;,:!")) // add other special characters not allowed
+			return (0);
+		if (!ft_inquotes(str, i) && ft_ischarset(*(str + i), "<>|&")
+			&& (*(str + i + 1) && ft_ischarset(*(str + i + 1), "<>|&")
+			&& *(str + i) != *(str + i + 1)))
+			return (0);
+		if (!ft_inquotes(str, i) && ft_ischarset(*(str + i), "<>|&")
+			&& (*(str + i + 1) && ft_ischarset(*(str + i + 1), "<>|&"))
+			&& (*(str + i + 2) && ft_ischarset(*(str + i + 2), "<>|&")))
 			return (0);
 		i++;
 	}

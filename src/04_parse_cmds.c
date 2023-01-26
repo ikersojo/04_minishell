@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:45:07 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/01/24 19:59:41 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/01/26 10:43:46 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,22 +61,23 @@ void	ft_parse(t_data *data)
 	i = 0;
 	while (*(data->ex_input + i))
 	{
-		if (*(data->ex_input + i) == ' ')
-			i++;
-		else if (ft_ischarset(*(data->ex_input + i), "()<>|&")) // identificar dobles
+		if (i != 0 && ft_ischarset(*(data->ex_input + i - 1), "<>"))
 		{
-			str = ft_substr(data->ex_input, i, 1);
-			temp = ft_cmdnew(str, index++);
-			ft_cmdadd_back(&data->cmd, temp);
-			i++;
+			str = ft_substr(data->ex_input, i, ft_endwrd(data->ex_input, i));
+			i += ft_endwrd(data->ex_input, i);
 		}
-		// else
-		// {
-		// 	str = ft_substr(data->ex_input, i, ft_endwrd(data->ex_input, i));
-		// 	temp = ft_cmdnew(str, index++);
-		// 	ft_cmdadd_back(&data->cmd, temp);
-		// 	i += ft_endwrd(data->ex_input, i);
-		// }
+		else
+		{
+			str = ft_substr(data->ex_input, i, ft_endsub(data->ex_input, i, "()<>|&"));
+			i += ft_endsub(data->ex_input, i, "()<>|&");
+
+		}
+		if (ft_strcmp(str, " ") != 0)
+		{
+			temp = ft_cmdnew(ft_strtrim(str, " \t"), index++);
+			ft_cmdadd_back(&data->cmd, temp);
+		}
+		free (str);
 	}
 }
 

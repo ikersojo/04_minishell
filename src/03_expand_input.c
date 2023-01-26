@@ -6,13 +6,13 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:44:09 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/01/24 09:37:18 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/01/25 19:14:37 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	ft_get_expanded_len(t_data *data)
+static int	ft_get_expanded_len(t_data *data)
 {
 	int	len;
 	int	i;
@@ -72,7 +72,7 @@ void	ft_expand(t_data *data)
 			j += ft_expand_var(data, i, j);
 			i += ft_endwrd(data->input, i);
 		}
-		else if (ft_isspace(*(data->input + i))) // garantizamos que todos los espacios, tabulaciones etc son un único espacio
+		else if (ft_isspace(*(data->input + i)))
 		{
 			if (!ft_isspace(*(data->input + i + 1)) && j != 0)
 				*(data->ex_input + j++) = ' ';

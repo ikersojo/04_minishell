@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:43:22 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/01/24 10:12:35 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/01/26 10:45:50 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,10 @@ void	ft_free_all(t_data *data) // estoy liberando algo de más... revisar
 		// printf("    FREEALL freeing data->vars (%p)\n", data->vars); // DEBUG
 		free(data->vars);
 	}
+
+	if (data->cmd != NULL)
+		ft_freecmd(data);
+	
 	// printf("    FREEALL freeing data (%p)\n", data); // DEBUG
 	free (data);
 }
@@ -114,7 +118,7 @@ t_data	*ft_init_data(int argc, char **argv, char **envp)
 	if (!data)
 		ft_exit_w_error(MALLOC_ERROR);
 	data->exitflag = 0;
-	ft_import_envp(data, envp); // he pensado en importarlas por si tenemos que añadir más despues
+	ft_import_envp(data, envp);
 	data->prompt = ft_strjoin(data->user, PROMPT);
 	// anular / modificar señales
 	return (data);

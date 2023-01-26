@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 18:18:26 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/01/21 18:19:42 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/01/25 19:30:38 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,27 @@ int	ft_var_pos(t_data *data, char *varname)
 		i++;
 	}
 	return (-1);
+}
+
+int	ft_endsub(char *str, int i, char *charset)
+{
+	int	j;
+
+	j = 0;
+	while (*(str + j + i))
+	{
+		if (ft_ischarset(*(str + j + i), charset))
+		{
+			if (j == 0)
+			{
+				if(*(str + j + i + 1) == *(str + j + i))
+					return (2);
+				return (1);
+			}
+			else
+				break;
+		}
+		j++;
+	}
+	return (j);
 }

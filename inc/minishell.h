@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 19:44:59 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/01/24 12:41:06 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/01/25 19:15:08 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 # define MALLOC_ERROR	"Memory could not be allocated.\n"
 # define SYNTAX_ERROR	"Syntax error.\n"
 # define VAR_ERROR		"User variable not defined.\n"
-//... ver cuales necesitamos para incluir aquí. el subject permite perror, o sea que muchos no tendremos que codificar
 
 // DATA STRUCTS
 typedef struct s_cmd
@@ -61,16 +60,17 @@ int		ft_input_ok(t_data *data);
 int		ft_inquotes(char *str, int i);
 
 // 03_expand_input.c
-
 void	ft_expand(t_data *data);
 
+// 04_parse_cmds.c
 void	ft_parse(t_data *data);
 void	ft_freecmd(t_data *data);
 
+//05_exec_cmds.c
 void	ft_launch_process(char *str, char **envp);
 
 //99_aux_1.c
-
 int		ft_var_pos(t_data *data, char *varname);
+int		ft_endsub(char *str, int i, char *charset);
 
 #endif
