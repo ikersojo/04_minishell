@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 18:18:26 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/01/26 22:35:48 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/01/28 17:23:15 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,24 @@ int	ft_endsub(char *str, int i, char *charset)
 	return (j);
 }
 
+int	ft_endredir(char *str, int i)
+{
+	int	j;
+
+	j = 0;
+	while (ft_ischarset(*(str + i + j), "<>"))
+		j++;
+	while (ft_isspace(*(str + i + j)))
+		j++;
+	while (*(str + i + j))
+	{
+		if (ft_isspace(*(str + i + j)) || ft_ischarset(*(str + i + j), "<>)\"\'}]"))
+			break ;
+		j++;
+	}	
+	return (j);
+}
+
 void	ft_clear_screen(void)
 {
 	system("clear");
@@ -61,9 +79,9 @@ void	ft_clear_screen(void)
 	ft_putstr_fd("           :::      ::::::::                         \n", 1);
 	ft_putstr_fd("         :+:      :+:    :+:                         \n", 1);
 	ft_putstr_fd("       +:+ +:+         +:+                           \n", 1);
-	ft_putstr_fd("     +#+  +:+       +#+       minishell 42 by:       \n", 1);
-	ft_putstr_fd("   +#+#+#+#+#+   +#+            isojo-go             \n", 1);
-	ft_putstr_fd("        #+#    #+#              mvalient             \n", 1);
+	ft_putstr_fd("     +#+  +:+       +#+        \t\tminishell 42 by:  \n", 1);
+	ft_putstr_fd("   +#+#+#+#+#+   +#+           \t\tmvalient          \n", 1);
+	ft_putstr_fd("        #+#    #+#             \t\tisojo-go          \n", 1);
 	ft_putstr_fd("       ###   ########.fr                             \n", 1);
 	ft_putstr_fd("                                                     \n", 1);
 	ft_putstr_fd(DEF_COLOR, 1);

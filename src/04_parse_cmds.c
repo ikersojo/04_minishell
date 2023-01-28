@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:45:07 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/01/26 10:43:46 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/01/28 17:18:48 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,12 @@ static t_cmd	*ft_cmdnew(char *str, int index)
 		return (NULL);
 	new->str = str;
 	new->index = index;
+	new->is_outfd = 0;
+	new->is_infd = 0;
+	if (*str == '>')
+		new->is_outfd = 1;
+	if (*str == '<')
+		new->is_infd = 1;
 	new->next = NULL;
 	return (new);
 }
@@ -61,16 +67,15 @@ void	ft_parse(t_data *data)
 	i = 0;
 	while (*(data->ex_input + i))
 	{
-		if (i != 0 && ft_ischarset(*(data->ex_input + i - 1), "<>"))
+		if (ft_ischarset(*(data->ex_input + i), "<>"))
 		{
-			str = ft_substr(data->ex_input, i, ft_endwrd(data->ex_input, i));
-			i += ft_endwrd(data->ex_input, i);
+			str = ft_substr(data->ex_input, i, ft_endredir(data->ex_input, i));
+			i += ft_endredir(data->ex_input, i);
 		}
 		else
 		{
 			str = ft_substr(data->ex_input, i, ft_endsub(data->ex_input, i, "()<>|&"));
 			i += ft_endsub(data->ex_input, i, "()<>|&");
-
 		}
 		if (ft_strcmp(str, " ") != 0)
 		{

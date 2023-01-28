@@ -6,17 +6,16 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:22:47 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/01/26 16:09:24 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/01/28 17:24:24 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	g_outfd;
-
 int	main(int argc, char **argv, char **envp)
 {
 	t_data	*data;
+
 
 	data = ft_init_data(argc, argv, envp);
 	//DEBUG: -----------------------
@@ -53,12 +52,12 @@ int	main(int argc, char **argv, char **envp)
 
 			ft_parse(data);
 
-			t_cmd *temp = data->cmd;
-			while (temp)
-			{
-				printf("cmd %d: %s\n", temp->index, temp->str);
-				temp = temp->next;
-			}
+			// t_cmd *temp = data->cmd; // DEBUG
+			// while (temp) // DEBUG
+			// {
+			// 	printf("cmd %d: %s\n", temp->index, temp->str); // DEBUG
+			// 	temp = temp->next; // DEBUG
+			// }
 
 			ft_exec_cmds(data, envp);
 
