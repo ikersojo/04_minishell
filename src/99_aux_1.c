@@ -6,28 +6,29 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 18:18:26 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/01/28 17:23:15 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/01/30 23:17:07 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-/* DESCRIPTION:
-Returns the position of the variable varname in the data->vars array.
-if the variable is not found returns -1.
----------------------------------------------------------------------------- */
-int	ft_var_pos(t_data *data, char *varname)
+char	*ft_get_var(t_data *data, char *name)
 {
-	int	i;
+	t_vars	*temp;
+	char	*str;
 
-	i = 0;
-	while ((data->vars + i)->name)
+	temp = data->vars;
+	while (temp)
 	{
-		if (ft_strcmp(varname, (data->vars + i)->name) == 0)
-			return (i);
-		i++;
+		if (ft_strcmp(name, temp->name) == 0)
+		{
+			str = ft_strdup(temp->val);
+			return (str);
+		}
+		temp = temp->next;
 	}
-	return (-1);
+	str = ft_strdup("unknown");
+	return (str);
 }
 
 int	ft_endsub(char *str, int i, char *charset)
@@ -85,5 +86,29 @@ void	ft_clear_screen(void)
 	ft_putstr_fd("       ###   ########.fr                             \n", 1);
 	ft_putstr_fd("                                                     \n", 1);
 	ft_putstr_fd(DEF_COLOR, 1);
+}
 
+int	ft_inside(char *str, int i, char c)
+{
+	int	j;
+	int	count;
+
+	count = 0;
+	j = 0;
+	while (j < i)
+	{
+		if (*(str + j) == c)
+			count++;
+		j++;
+	}
+	if (count % 2 != 0)
+		return (1);
+	return (0);
+}
+
+int	ft_inquotes(char *str, int i)
+{
+	if (ft_inside(str, i, '\"') || ft_inside(str, i, '\''))
+		return (1);
+	return (0);
 }

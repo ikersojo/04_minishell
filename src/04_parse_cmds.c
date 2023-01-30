@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:45:07 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/01/28 17:18:48 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/01/30 22:16:37 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,20 +84,4 @@ void	ft_parse(t_data *data)
 		}
 		free (str);
 	}
-}
-
-void	ft_freecmd(t_data *data)
-{
-	t_cmd	*tmp;
-	t_cmd	*current;
-
-	tmp = data->cmd;
-	while(tmp)
-	{
-		current = tmp;
-		tmp = tmp->next;
-		free (current->str);
-		free (current);
-	}
-	data->cmd = NULL;
 }

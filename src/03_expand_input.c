@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:44:09 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/01/25 19:14:37 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/01/30 23:12:49 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,19 @@
 static int	ft_get_expanded_len(t_data *data)
 {
 	int	len;
-	int	i;
-	int	count;
+	int	n;
+	t_vars	*temp;
 
 	len = 0;
-	i = 0;
-	while ((data->vars + i)->name)
+	temp = data->vars;
+	while (temp)
 	{
-		if (ft_strlen((data->vars + i)->name) > len)
-			len = ft_strlen((data->vars + i)->name);
-		i++;
+		if (ft_strlen(temp->name) > len)
+			len = ft_strlen(temp->name);
+		temp = temp->next;
 	}
-	count = ft_count_chars(data->input, '$');
-	len = len * count + ft_strlen(data->input) + 1;
+	n = ft_count_chars(data->input, '$') + ft_count_chars(data->input, '~');
+	len = len * n + ft_strlen(data->input) + 1;
 	return (len);
 }
 
@@ -35,24 +35,30 @@ static int	ft_expand_var(t_data *data, int i, int j)
 {
 	int		k;
 	char	*varname;
-	int		pos;
+	char	*varvalue;
 
-	varname = (char *)malloc(sizeof(char) * (ft_strlen(data->input) + 1));
-	if (!varname)
+	if (*(data->input + i) == '~')
+		varvalue = ft_get_var(data, "HOME");
+	else
 	{
-		ft_free_all(data);
-		ft_exit_w_error(MALLOC_ERROR);
+		varname = (char *)malloc(sizeof(char) * (ft_strlen(data->input) + 1));
+		if (!varname)
+		{
+			ft_free_all(data);
+			ft_exit_w_error(MALLOC_ERROR);
+		}
+		ft_strlcpy(varname, data->input + i + 1, ft_endwrd(data->input, i));
+		varvalue = ft_get_var(data, varname);
+		free(varname);
 	}
-	ft_strlcpy(varname, data->input + i + 1, ft_endwrd(data->input, i));
-	pos = ft_var_pos(data, varname);
-	free(varname);
 	k = 0;
-	while (*((data->vars + pos)->val + k))
-		*(data->ex_input + j++) = *((data->vars + pos)->val + k++);
+	while (*(varvalue + k))
+		*(data->ex_input + j++) = *(varvalue + k++);
+	free(varvalue);
 	return (k);
 }
 
-void	ft_expand(t_data *data)
+void	ft_expand(t_data *data) // ojo con diferneciar comillas simples y dobles para las vars
 {
 	int 	i;
 	int		j;
@@ -67,12 +73,17 @@ void	ft_expand(t_data *data)
 	j = 0;
 	while(*(data->input + i))
 	{
-		if (*(data->input + i) == '$')
+		if (*(data->input + i) == '$' && !ft_inside(data->input, i, '\''))
 		{
 			j += ft_expand_var(data, i, j);
 			i += ft_endwrd(data->input, i);
 		}
-		else if (ft_isspace(*(data->input + i)))
+		else if (*(data->input + i) == '~' && !ft_inquotes(data->input, i))
+		{
+			j += ft_expand_var(data, i, j);
+			i += ft_endwrd(data->input, i);
+		}
+		else if (ft_isspace(*(data->input + i)) && !ft_inquotes(data->input, i))
 		{
 			if (!ft_isspace(*(data->input + i + 1)) && j != 0)
 				*(data->ex_input + j++) = ' ';

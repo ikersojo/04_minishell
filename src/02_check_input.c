@@ -6,33 +6,11 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:42:50 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/01/26 10:39:36 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/01/30 23:01:20 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-int	ft_inquotes(char *str, int i)
-{
-	int	j;
-	int	singleq;
-	int	doubleq;
-
-	singleq = 0;
-	doubleq = 0;
-	j = 0;
-	while (j < i)
-	{
-		if (*(str + j) == '\'')
-			singleq++;
-		if (*(str + j) == '\"')
-			doubleq++;
-		j++;
-	}
-	if (singleq % 2 != 0 || doubleq % 2 != 0)
-		return (1);
-	return (0);
-}
 
 static int	ft_characters_ok(char *str)
 {
@@ -91,6 +69,7 @@ static int	ft_var_exist(char *str, t_data *data)
 	int		i;
 	char	*varname;
 	int		not_found;
+	char	*varvalue;
 
 	not_found = 0;
 	i = 0;
@@ -102,9 +81,11 @@ static int	ft_var_exist(char *str, t_data *data)
 			if (!varname)
 				return (0);
 			ft_strlcpy(varname, str + i + 1, ft_endwrd(str, i));
-			if (ft_var_pos(data, varname) == -1)
+			varvalue = ft_get_var(data, varname);
+			if (ft_strcmp(varvalue, "unknown") == 0)
 				not_found = 1;
 			free(varname);
+			free(varvalue);
 			if (not_found)
 				return (0);
 		}
