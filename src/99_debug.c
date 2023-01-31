@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 20:46:36 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/01/30 23:12:49 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/01/31 22:03:37 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,9 @@ void	ft_show_parsed(t_data *data)
 	while (temp)
 	{
 		printf("    parsed cmd %d: %s\n", temp->index, temp->str);
+		printf("    infd %d outfd %d par %d (%d) and %d or %d\n",
+			temp->is_infd, temp->is_outfd, temp->is_par, temp->par_lvl,
+			temp->is_and, temp->is_or);
 		temp = temp->next;
 	}
 	printf("\n    ----------------\033[0;39m\n\n");
