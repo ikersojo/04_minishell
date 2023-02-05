@@ -6,12 +6,15 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 19:44:59 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/01/30 23:17:07 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/05 22:37:06 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
+// DEBUG OR PRODUCTION (1 or 0)
+# define DEBUG 1
 
 // INCLUDES
 # include "../lib/LIBFT/inc/libft.h"
@@ -30,12 +33,17 @@ typedef struct s_cmd
 {
 	int				index;
 	char			*str;
+	int				is_exec;
 	int				is_infd;
 	int				is_outfd;
 	int				is_par;
-	int				par_lvl;
+	int				is_pipe;
 	int				is_and;
 	int				is_or;
+	int				pipe;
+	int				par_lvl;
+	int				infd;
+	int				outfd;
 	struct s_cmd	*next;
 }					t_cmd;
 
@@ -73,7 +81,7 @@ void	ft_expand(t_data *data);
 // 04_parse_cmds
 void	ft_parse(t_data *data);
 
-//05_exec_cmds
+//06_exec_cmds / heredoc /run_cmd
 void	ft_exec_cmds(t_data *data, char **envp);
 void	ft_heredoc(char *eof, int outfd);
 
@@ -88,6 +96,8 @@ int		ft_inside(char *str, int i, char c);
 // 99_degub
 void	ft_check_data_init(t_data *data);
 void	ft_show_parsed(t_data *data);
+void	ft_launch_piped_process(char *str, char **envp);
+void	ft_launch_process(char *str, int outfd, char **envp);
 
 // 99_free_data
 void	ft_free_all(t_data *data);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   05_exec_cmds_2.c                                   :+:      :+:    :+:   */
+/*   06_heredoc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 16:04:10 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/01/28 17:16:37 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/05 22:37:06 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	ft_heredoc(char *eof, int outfd)
 	{
 		tempfd = open(".tempfd", O_WRONLY | O_CREAT | O_TRUNC, 0666);
 		ft_checkline(eof, tempfd);
+		close (tempfd);
 	}
 	else
 		ft_checkline(eof, outfd);

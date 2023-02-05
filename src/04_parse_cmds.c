@@ -6,11 +6,25 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:45:07 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/01/31 22:21:45 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/05 16:00:31 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+static void	ft_init_cmd(t_cmd *new)
+{
+	new->infd = STDIN_FILENO;
+	new->outfd = STDOUT_FILENO;
+	new->is_exec = 0;
+	new->par_lvl = 0;
+	new->is_outfd = 0;
+	new->is_infd = 0;
+	new->is_par = 0;
+	new->is_and = 0;
+	new->is_or = 0;
+	new->is_pipe = 0;
+}
 
 static t_cmd	*ft_cmdnew(char *str, int index)
 {
@@ -21,22 +35,24 @@ static t_cmd	*ft_cmdnew(char *str, int index)
 		return (NULL);
 	new->str = str;
 	new->index = index;
-	new->is_outfd = 0;
-	new->is_infd = 0;
-	new->is_par = 0;
-	new->par_lvl = 0;
-	new->is_and = 0;
-	new->is_or = 0;
+	ft_init_cmd(new);
 	if (*str == '>')
 		new->is_outfd = 1;
-	if (*str == '<')
+	else if (*str == '<')
 		new->is_infd = 1;
-	if (*str == '(' || *str == ')')
+	else if (*str == '(' || *str == ')')
 		new->is_par = 1;
-	if (*str == '&' && *(str + 1) == '&')
+	else if (*str == '&' && *(str + 1) == '&')
 		new->is_and = 1;
-	if (*str == '|' && *(str + 1) == '|')
-		new->is_or = 1;
+	else if (*str == '|')
+	{
+		if (*(str + 1) == '|')
+			new->is_or = 1;
+		else
+			new->is_pipe = 1;
+	}
+	else
+		new->is_exec = 1;
 	new->next = NULL;
 	return (new);
 }

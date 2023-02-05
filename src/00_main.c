@@ -6,13 +6,23 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:22:47 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/01/30 23:14:15 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/05 22:30:19 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-#define DEBUG 1
+static void	ft_process_input(t_data *data, char **envp)
+{
+	ft_expand(data);
+	ft_parse(data);
+	if (DEBUG == 1)
+		ft_show_parsed(data);
+	ft_exec_cmds(data, envp);
+	free (data->ex_input);
+	data->ex_input = NULL;
+	ft_freecmd(data);
+}
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -29,20 +39,12 @@ int	main(int argc, char **argv, char **envp)
 		if (!data->input)
 			return (EXIT_FAILURE);
 		if (ft_strlen(data->input) > 0)
-			add_history(data->input); //ojo, hay que resetear el prompt si le damos a las flechas: hace algo raro!!!
+			add_history(data->input);
+			//ojo, hay que resetear el prompt si le damos a las flechas: hace algo raro!!!
 		if (ft_strcmp("exit", data->input) == 0)
 			data->exitflag = 1;
 		else if (ft_input_ok(data))
-		{
-			ft_expand(data);
-			ft_parse(data);
-			if (DEBUG == 1)
-				ft_show_parsed(data);
-			// ft_exec_cmds(data, envp);
-			free (data->ex_input);
-			data->ex_input = NULL;
-			ft_freecmd(data);
-		}
+			ft_process_input(data, envp);
 		free (data->input);
 		data->input = NULL;
 	}
@@ -54,5 +56,7 @@ int	main(int argc, char **argv, char **envp)
 
 
 // COSAS PENDIENTES POR HACER:
-	// arreglar redireccion desde o a sdtin. exec commands no funciona bien :(
 	// ordenar comandos y usar paraentesis
+	// built-ins
+	// añadir funcion = para incluir nuevos envp
+	// añadir $?
