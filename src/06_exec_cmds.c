@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:45:39 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/06 23:08:28 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/06 23:20:39 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,31 @@ static int	ft_addvar(t_data *data, char *s)
 {
 	t_vars	*tmp;
 	int		loc;
+	char	*name;
+	char	*name_tr;
+	char	*val;
 
 	loc = ft_strfind(s, '=');
-	printf("loc = %d", loc); // DEBUG
-	tmp = ft_varsnew(ft_substr(s, 0, loc), ft_substr(s, loc + 1, ft_strlen(s) - loc));
-	ft_varsadd_back(&data->vars, tmp);
+	name = ft_substr(s, 0, loc);
+	name_tr = ft_strtrim(name, " \t");
+	free (name);
+	val = ft_substr(s, loc + 1, ft_strlen(s) - loc);
+	tmp = data->vars;
+	while (tmp)
+	{
+		if (ft_strcmp(name_tr, tmp->name) == 0)
+		{
+			tmp->val = ft_strtrim(val, " \t");
+			break ;
+		}
+		tmp = tmp->next;
+	}
+	if (tmp == NULL)
+	{
+		tmp = ft_varsnew(name_tr, ft_strtrim(val, " \t"));
+		ft_varsadd_back(&data->vars, tmp);
+	}
+	free (val);
 	return (0);
 }
 
