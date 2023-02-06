@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:45:39 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/05 22:37:06 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/06 22:24:07 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,33 +66,35 @@ void	ft_exec_cmds(t_data *data, char **envp)
 {
 	t_cmd	*temp;
 	pid_t	pid;
+	int		status;
 
 	pid = fork();
 	if (pid == -1)
 		ft_exit_w_error("errno");
 	if (pid > 0)
 	{
-		waitpid(pid, NULL, 0);
-		printf("\033[0;93m    child process for execution completed\033[0;39m\n"); // DEBUG
+		waitpid(pid, &data->last_status, 0);
+		ft_mod_status(data, data->last_status);
+		// printf("\033[0;93m    child process for execution completed (exit: %d)\033[0;39m\n", data->last_status); // DEBUG
 	}
 	else
 	{
 		ft_setup_redir(data, envp);
-		ft_show_parsed(data); //DEBUG
+		// ft_show_parsed(data); //DEBUG
 		temp = data->cmd;
 		while (temp)
 		{
 			if(temp->is_exec == 1)
 			{
 				if (temp->next && temp->next->is_pipe)
-					ft_launch_piped_process(temp->str, envp);
+					status = ft_launch_piped_process(temp->str, envp);
 				else
-					ft_launch_process(temp->str, temp->outfd, envp);
+					status = ft_launch_process(temp->str, temp->outfd, envp);
 			}
 			temp = temp->next;
 		}
-		printf("\033[0;93m    exec loop completed\033[0;39m\n"); // DEBUG
+		// printf("\033[0;93m    exec loop completed\033[0;39m\n"); // DEBUG
 		ft_free_all(data);
-		exit(EXIT_SUCCESS);
+		exit(status);
 	}
 }

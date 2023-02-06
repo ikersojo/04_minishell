@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 22:32:55 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/05 22:37:06 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/06 22:24:07 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,11 @@ static void	ft_run_command(char *arg, char **envp)
 		ft_exit_w_error("Command not found\n");
 }
 
-void	ft_launch_piped_process(char *str, char **envp)
+int	ft_launch_piped_process(char *str, char **envp)
 {
 	pid_t	pid;
 	int		fd[2];
+	int		status;
 
 	if (pipe(fd) == -1)
 		ft_exit_w_error("errno");
@@ -74,33 +75,38 @@ void	ft_launch_piped_process(char *str, char **envp)
 	{
 		close(*(fd + 1));
 		dup2(*(fd + 0), STDIN_FILENO);
-		waitpid(pid, NULL, 0);
-		printf("\033[0;93m    command executed\033[0;39m\n"); // DEBUG
+		waitpid(pid, &status, 0);
+		return (WEXITSTATUS(status));
+		// printf("\033[0;93m    command executed\033[0;39m\n"); // DEBUG
 	}
 	else
 	{
 		close(*(fd + 0));
 		dup2(*(fd + 1), STDOUT_FILENO);
 		ft_run_command(str, envp);
+		return (EXIT_FAILURE);
 	}
 }
 
-void	ft_launch_process(char *str, int outfd, char **envp)
+int	ft_launch_process(char *str, int outfd, char **envp)
 {
 	pid_t	pid;
+	int		status;
 
 	pid = fork();
 	if (pid == -1)
 		ft_exit_w_error("errno");
 	if (pid > 0)
 	{
-		waitpid(pid, NULL, 0);
-		printf("\033[0;93m    command executed\033[0;39m\n"); // DEBUG
+		waitpid(pid, &status, 0);
+		// printf("\033[0;93m    command executed\033[0;39m\n"); // DEBUG
+		return (WEXITSTATUS(status));
 	}
 	else
 	{
 		if (outfd != STDOUT_FILENO)
 			dup2(outfd, STDOUT_FILENO);
 		ft_run_command(str, envp);
+		return (EXIT_FAILURE);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 19:44:59 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/05 22:37:06 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/06 22:13:20 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct s_data
 	char	*prompt;
 	char	*input;
 	char	*ex_input;
+	int		last_status;
 	t_vars	*vars;
 	t_cmd	*cmd;
 }			t_data;
@@ -71,6 +72,7 @@ t_data	*ft_init_data(int argc, char **argv, char **envp);
 t_vars	*ft_varsnew(char *name, char *val);
 t_vars	*ft_varslast(t_vars *vars);
 void	ft_varsadd_back(t_vars **vars, t_vars *new);
+void	ft_mod_status(t_data *data, int status);
 
 // 02_check_input
 int		ft_input_ok(t_data *data);
@@ -96,8 +98,8 @@ int		ft_inside(char *str, int i, char c);
 // 99_degub
 void	ft_check_data_init(t_data *data);
 void	ft_show_parsed(t_data *data);
-void	ft_launch_piped_process(char *str, char **envp);
-void	ft_launch_process(char *str, int outfd, char **envp);
+int		ft_launch_piped_process(char *str, char **envp);
+int		ft_launch_process(char *str, int outfd, char **envp);
 
 // 99_free_data
 void	ft_free_all(t_data *data);

@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:43:22 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/01/30 22:43:27 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/06 22:17:35 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ static void	ft_import_envp(t_data *data, char **envp)
 			ft_varsadd_back(&data->vars, tmp);
 		}
 	}
+	tmp = ft_varsnew(ft_strdup("?"), ft_strdup("0"));
+	ft_varsadd_back(&data->vars, tmp);
 }
 
 static char	*ft_gen_prompt(t_data *data)

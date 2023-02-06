@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 22:32:37 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/01/30 22:33:27 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/06 22:13:57 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,18 @@ void	ft_varsadd_back(t_vars **vars, t_vars *new)
 			tmp = ft_varslast(*vars);
 			tmp->next = new;
 		}
+	}
+}
+
+void	ft_mod_status(t_data *data, int status)
+{
+	t_vars	*tmp;
+
+	tmp = data->vars;
+	while (tmp)
+	{
+		if (*tmp->name == '?')
+			tmp->val = ft_itoa(status);
+		tmp = tmp->next;
 	}
 }
