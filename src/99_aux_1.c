@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 18:18:26 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/01/30 23:17:07 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/06 22:44:43 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,5 +110,19 @@ int	ft_inquotes(char *str, int i)
 {
 	if (ft_inside(str, i, '\"') || ft_inside(str, i, '\''))
 		return (1);
+	return (0);
+}
+
+int	ft_is_var_definition(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (*(str + i))
+	{
+		if (*(str + i) == '=' && !ft_inquotes(str, i))
+			return (1);
+		i++;
+	}
 	return (0);
 }

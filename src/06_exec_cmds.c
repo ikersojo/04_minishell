@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:45:39 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/06 22:24:07 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/06 23:08:28 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,31 @@ static void	ft_setup_redir(t_data *data, char **envp)
 	}
 }
 
+static int	ft_addvar(t_data *data, char *s)
+{
+	t_vars	*tmp;
+	int		loc;
+
+	loc = ft_strfind(s, '=');
+	printf("loc = %d", loc); // DEBUG
+	tmp = ft_varsnew(ft_substr(s, 0, loc), ft_substr(s, loc + 1, ft_strlen(s) - loc));
+	ft_varsadd_back(&data->vars, tmp);
+	return (0);
+}
+
 void	ft_exec_cmds(t_data *data, char **envp)
 {
 	t_cmd	*temp;
 	pid_t	pid;
 	int		status;
 
+	temp = data->cmd;
+	while (temp)
+	{
+		if (temp->is_var == 1)
+			status =ft_addvar(data, temp->str);
+		temp = temp->next;
+	}
 	pid = fork();
 	if (pid == -1)
 		ft_exit_w_error("errno");
@@ -80,11 +99,10 @@ void	ft_exec_cmds(t_data *data, char **envp)
 	else
 	{
 		ft_setup_redir(data, envp);
-		// ft_show_parsed(data); //DEBUG
 		temp = data->cmd;
 		while (temp)
 		{
-			if(temp->is_exec == 1)
+			if (temp->is_exec == 1)
 			{
 				if (temp->next && temp->next->is_pipe)
 					status = ft_launch_piped_process(temp->str, envp);

@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:45:07 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/05 16:00:31 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/06 22:49:28 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static void	ft_init_cmd(t_cmd *new)
 	new->is_and = 0;
 	new->is_or = 0;
 	new->is_pipe = 0;
+	new->is_var = 0;
 }
 
 static t_cmd	*ft_cmdnew(char *str, int index)
@@ -51,6 +52,8 @@ static t_cmd	*ft_cmdnew(char *str, int index)
 		else
 			new->is_pipe = 1;
 	}
+	else if (ft_is_var_definition(str))
+		new->is_var = 1;
 	else
 		new->is_exec = 1;
 	new->next = NULL;

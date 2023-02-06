@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:22:47 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/05 22:30:19 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/06 23:10:21 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ int	main(int argc, char **argv, char **envp)
 
 
 // COSAS PENDIENTES POR HACER:
-	// ordenar comandos y usar paraentesis
+	// ordenar comandos y usar paraentesis --> ahora mismo ejecuta en orden
+	// incluir || en lógica de ejecución
+	// wildcards * deben funcionar para el directorio actua
 	// built-ins
-	// añadir funcion = para incluir nuevos envp
-	// añadir $?
+	// redirigir señales (usar variable global??)

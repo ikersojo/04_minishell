@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 19:44:59 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/06 22:13:20 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/06 22:45:05 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct s_cmd
 	int				is_pipe;
 	int				is_and;
 	int				is_or;
+	int				is_var;
 	int				pipe;
 	int				par_lvl;
 	int				infd;
@@ -104,5 +105,6 @@ int		ft_launch_process(char *str, int outfd, char **envp);
 // 99_free_data
 void	ft_free_all(t_data *data);
 void	ft_freecmd(t_data *data);
+int		ft_is_var_definition(char *str);
 
 #endif
