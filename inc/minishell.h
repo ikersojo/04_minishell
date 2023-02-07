@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 19:44:59 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/06 23:33:31 by mvalient         ###   ########.fr       */
+/*   Updated: 2023/02/07 09:45:26 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <fcntl.h>
-#include <dirent.h>
+# include <dirent.h>
 
 // MESSAGES
 # define PROMPT			"\033[0;92m @ minishell_42 > \033[0;39m"

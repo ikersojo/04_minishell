@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:43:22 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/06 22:17:35 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/07 10:21:51 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static char	*ft_gen_prompt(t_data *data)
 	char	*str3;
 
 	str1 = ft_get_var(data, "USER");
-	str2 = ft_strjoin(GREEN, str1);
+	str2 = ft_strjoin("\033[0;92m\n", str1);
 	free (str1);
 	str1 = ft_strjoin(str2, PROMPT);
 	free (str2);

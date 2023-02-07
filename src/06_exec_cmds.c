@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:45:39 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/06 23:20:39 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/07 10:18:03 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,42 +22,47 @@ static char	*ft_filename(char *str)
 	return (str + i);
 }
 
-static void	ft_setup_redir(t_data *data, char **envp)
+static void	ft_redir_in(t_cmd *temp)
+{
+	printf ("\033[0;93m    redirecting input... \033[0;39m\n"); // DEBUG
+	if (*(temp->str + 1) == '<')
+	{
+		ft_heredoc(ft_filename(temp->str), temp->outfd);
+		if(temp->outfd == STDOUT_FILENO)
+			temp->next->infd = open(".tempfd", O_RDONLY);
+	}
+	else
+		temp->next->infd = open(ft_filename(temp->str), O_RDONLY);
+	if (temp->next->infd == -1)
+		ft_exit_w_error("errno");
+	dup2(temp->next->infd, STDIN_FILENO);
+	close(temp->next->infd);
+}
+
+static void	ft_redir_out(t_cmd *temp)
+{
+	printf ("\033[0;93m    redirecting output... \033[0;39m\n"); // DEBUG
+	if (*(temp->next->str + 1) == '>')
+		temp->outfd = open(ft_filename(temp->next->str),
+			O_WRONLY | O_CREAT | O_APPEND, 0666);
+	else
+		temp->outfd = open(ft_filename(temp->next->str),
+			O_WRONLY | O_CREAT | O_TRUNC, 0666);
+	if (temp->outfd == -1)
+		ft_exit_w_error("errno");
+}
+
+static void	ft_setup_redir(t_data *data)
 {
 	t_cmd	*temp;
 
-	(void)envp;
 	temp = data->cmd;
 	while (temp)
 	{
 		if (temp->next && temp->next->is_outfd == 1)
-		{
-			printf ("\033[0;93m    redirecting output... \033[0;39m\n"); // DEBUG
-			if (*(temp->next->str + 1) == '>')
-				temp->outfd = open(ft_filename(temp->next->str),
-					O_WRONLY | O_CREAT | O_APPEND, 0666);
-			else
-				temp->outfd = open(ft_filename(temp->next->str),
-					O_WRONLY | O_CREAT | O_TRUNC, 0666);
-			if (temp->outfd == -1)
-				ft_exit_w_error("errno");
-		}
+			ft_redir_out(temp);
 		if (temp->is_infd && temp->next)
-		{
-			printf ("\033[0;93m    redirecting input... \033[0;39m\n"); // DEBUG
-			if (*(temp->str + 1) == '<')
-			{
-				ft_heredoc(ft_filename(temp->str), temp->outfd);
-				if(temp->outfd == STDOUT_FILENO)
-					temp->next->infd = open(".tempfd", O_RDONLY);
-			}
-			else
-				temp->next->infd = open(ft_filename(temp->str), O_RDONLY);
-			if (temp->next->infd == -1)
-				ft_exit_w_error("errno");
-			dup2(temp->next->infd, STDIN_FILENO);
-			close(temp->next->infd);
-		}
+			ft_redir_in(temp);
 		temp = temp->next;
 	}
 }
@@ -118,7 +123,7 @@ void	ft_exec_cmds(t_data *data, char **envp)
 	}
 	else
 	{
-		ft_setup_redir(data, envp);
+		ft_setup_redir(data);
 		temp = data->cmd;
 		while (temp)
 		{

@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:22:47 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/06 23:23:11 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/07 10:35:43 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,9 @@ int	main(int argc, char **argv, char **envp)
 	// wildcards * deben funcionar para el directorio actua
 	// built-ins
 	// redirigir señales (usar variable global??)
+	// cd para actualizar directorio
+		// al actualizar directorio, actualzar prompt
+		// si vamos a actualizar el prompt en cada vuelta, podemos cambiar el color en función de si el último comando está ok
+		
+	
 

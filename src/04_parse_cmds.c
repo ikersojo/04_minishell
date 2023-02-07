@@ -6,14 +6,16 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:45:07 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/06 22:49:28 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/07 09:45:26 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-static void	ft_init_cmd(t_cmd *new)
+static void	ft_init_cmd(t_cmd *new, char *str, int index)
 {
+	new->str = str;
+	new->index = index;
 	new->infd = STDIN_FILENO;
 	new->outfd = STDOUT_FILENO;
 	new->is_exec = 0;
@@ -34,9 +36,7 @@ static t_cmd	*ft_cmdnew(char *str, int index)
 	new = (t_cmd *)malloc(sizeof(t_cmd));
 	if (new == NULL)
 		return (NULL);
-	new->str = str;
-	new->index = index;
-	ft_init_cmd(new);
+	ft_init_cmd(new, str, index);
 	if (*str == '>')
 		new->is_outfd = 1;
 	else if (*str == '<')
