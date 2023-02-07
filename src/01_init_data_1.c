@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:43:22 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/07 10:21:51 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/07 21:54:22 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	ft_import_envp(t_data *data, char **envp)
 	ft_varsadd_back(&data->vars, tmp);
 }
 
-static char	*ft_gen_prompt(t_data *data)
+char	*ft_gen_prompt(t_data *data)
 {
 	char	*str1;
 	char	*str2;
@@ -48,7 +48,10 @@ static char	*ft_gen_prompt(t_data *data)
 	str2 = ft_get_var(data, "PWD");
 	str3 = ft_strjoin(BLUE, str2);
 	free (str2);
-	str2 = ft_strjoin(str3, " $ \033[0;39m");
+	if (data->last_status == 0)
+		str2 = ft_strjoin(str3, "\033[0;92m $ \033[0;39m");
+	else
+		str2 = ft_strjoin(str3, "\033[0;31m $ \033[0;39m");
 	free (str3);
 	str3 = ft_strjoin(str1, str2);
 	free (str1);
@@ -68,7 +71,6 @@ t_data	*ft_init_data(int argc, char **argv, char **envp)
 		ft_exit_w_error(MALLOC_ERROR);
 	data->exitflag = 0;
 	ft_import_envp(data, envp);
-	data->prompt = ft_gen_prompt(data);
 	// anular / modificar señales
 	return (data);
 }

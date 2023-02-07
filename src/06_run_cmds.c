@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 22:32:55 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/07 10:18:03 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/07 22:08:06 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static char	*ft_get_path(char *cmd, char **envp)
 	char	*aux;
 
 	i = 0;
-	while (ft_strnstr(*(envp + i), "PATH", 4) == NULL)
+	while (ft_strnstr(*(envp + i), "PATH", 4) == NULL) // modificar a nuestro user var
 		i++;
 	path_tab = ft_split(*(envp + i), ':');
 	i = 0;

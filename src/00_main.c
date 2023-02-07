@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:22:47 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/07 10:35:43 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/07 22:08:06 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,10 @@ int	main(int argc, char **argv, char **envp)
 	data = ft_init_data(argc, argv, envp);
 	if (DEBUG == 1)
 		ft_check_data_init(data);
-	// ft_clear_screen(); // commented for easier debug. remove for production!
+	ft_clear_screen(); // commented for easier debug. remove for production!
 	while (!data->exitflag)
 	{
+		data->prompt = ft_gen_prompt(data);
 		data->input = readline(data->prompt);
 		if (!data->input)
 			return (EXIT_FAILURE);

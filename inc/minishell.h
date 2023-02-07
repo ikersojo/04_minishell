@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 19:44:59 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/07 09:45:26 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/07 21:54:22 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ t_vars	*ft_varsnew(char *name, char *val);
 t_vars	*ft_varslast(t_vars *vars);
 void	ft_varsadd_back(t_vars **vars, t_vars *new);
 void	ft_mod_status(t_data *data, int status);
+char	*ft_gen_prompt(t_data *data);
 
 // 02_check_input
 int		ft_input_ok(t_data *data);
