@@ -6,7 +6,7 @@
 #    By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/20 16:19:35 by isojo-go          #+#    #+#              #
-#    Updated: 2023/01/30 22:25:49 by isojo-go         ###   ########.fr        #
+#   Updated: 2023/02/11 15:44:30 by mvalient         ###   ########.fr       # #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ OBJ	=	$(SRC:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
 
 ## Compilation flags:
 CC			=	gcc
-CFLAGS		=	-Wall -Wextra -Werror
+CFLAGS		=	-Wall -Wextra -Werror -g
 RM			=	rm -rf
 
 ## Extras:
