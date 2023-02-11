@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 19:44:59 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/07 21:54:22 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/11 16:12:40 by mvalient         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int		ft_inside(char *str, int i, char c);
 
 //99_aux_vars
 t_vars  *getenv_local(t_vars *list, char *name);
-int setenv_local(t_vars *list, char *name, char *value);
+int setenv_local(t_vars *list, char *name, char *value, int overwrite);
 
 // 99_degub
 void	ft_check_data_init(t_data *data);
