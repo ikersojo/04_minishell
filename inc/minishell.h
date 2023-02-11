@@ -22,6 +22,7 @@
 # include <readline/history.h>
 # include <fcntl.h>
 # include <dirent.h>
+#include <wait.h>
 
 // MESSAGES
 # define PROMPT			"\033[0;92m @ minishell_42 > \033[0;39m"
@@ -97,6 +98,10 @@ void	ft_clear_screen(void);
 char	*ft_get_var(t_data *data, char *name);
 int		ft_inquotes(char *str, int i);
 int		ft_inside(char *str, int i, char c);
+
+//99_aux_vars
+t_vars  *getenv_local(t_vars *list, char *name);
+int setenv_local(t_vars *list, char *name, char *value);
 
 // 99_degub
 void	ft_check_data_init(t_data *data);
