@@ -17,3 +17,9 @@ https://www.cs.purdue.edu/homes/grr/SystemsProgrammingBook/Book/Chapter5-Writing
 ## Job Flowchart
 
 ![Job Flowchart](doc/diagram/Job%20Flowchart.svg)
+
+## Debug a Child process
+    
+    set detach-on-fork off
+    set follow-fork-mode child
+    
