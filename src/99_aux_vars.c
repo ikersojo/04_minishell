@@ -55,7 +55,8 @@ int	setenv_local(t_vars *list, char *name, char *value, int overwrite)
 	}
 	else if (overwrite)
 	{
-		new->val = value;
+		free(new->val);
+		new->val = ft_strdup(value);
 		return (0);
 	}
 	return (1);
