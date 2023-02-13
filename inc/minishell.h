@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 19:44:59 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/11 16:12:40 by mvalient         ###   ########.fr       */
+/*   Updated: 2023/02/13 22:42:08 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@
 # include <readline/history.h>
 # include <fcntl.h>
 # include <dirent.h>
-#include <wait.h>
+# include <sys/wait.h>
 
 // MESSAGES
-# define PROMPT			"\033[0;92m @ minishell_42 > \033[0;39m"
+# define PROMPT			"\033[0;92m >> $ \033[0;39m"
 # define MALLOC_ERROR	"Memory could not be allocated.\n"
 # define SYNTAX_ERROR	"Syntax error.\n"
 # define VAR_ERROR		"User variable not defined.\n"
@@ -60,7 +60,6 @@ typedef struct s_vars
 typedef struct s_data
 {
 	int		exitflag;
-	char	*prompt;
 	char	*input;
 	char	*ex_input;
 	int		last_status;
@@ -76,7 +75,6 @@ t_vars	*ft_varsnew(char *name, char *val);
 t_vars	*ft_varslast(t_vars *vars);
 void	ft_varsadd_back(t_vars **vars, t_vars *new);
 void	ft_mod_status(t_data *data, int status);
-char	*ft_gen_prompt(t_data *data);
 
 // 02_check_input
 int		ft_input_ok(t_data *data);

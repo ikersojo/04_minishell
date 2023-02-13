@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   06_exec_cmds.c                                     :+:      :+:    :+:   */
+/*   05_exec_cmds.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:45:39 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/07 10:18:03 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/13 22:42:08 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ static char	*ft_filename(char *str)
 
 static void	ft_redir_in(t_cmd *temp)
 {
-	printf ("\033[0;93m    redirecting input... \033[0;39m\n"); // DEBUG
 	if (*(temp->str + 1) == '<')
 	{
 		ft_heredoc(ft_filename(temp->str), temp->outfd);
@@ -41,7 +40,6 @@ static void	ft_redir_in(t_cmd *temp)
 
 static void	ft_redir_out(t_cmd *temp)
 {
-	printf ("\033[0;93m    redirecting output... \033[0;39m\n"); // DEBUG
 	if (*(temp->next->str + 1) == '>')
 		temp->outfd = open(ft_filename(temp->next->str),
 			O_WRONLY | O_CREAT | O_APPEND, 0666);

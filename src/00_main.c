@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:22:47 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/07 22:08:06 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/13 22:42:08 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,20 +28,17 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_data	*data;
 
-
 	data = ft_init_data(argc, argv, envp);
 	if (DEBUG == 1)
 		ft_check_data_init(data);
 	ft_clear_screen(); // commented for easier debug. remove for production!
 	while (!data->exitflag)
 	{
-		data->prompt = ft_gen_prompt(data);
-		data->input = readline(data->prompt);
+		data->input = readline(PROMPT);
 		if (!data->input)
 			return (EXIT_FAILURE);
 		if (ft_strlen(data->input) > 0)
 			add_history(data->input);
-			//ojo, hay que resetear el prompt si le damos a las flechas: hace algo raro!!!
 		if (ft_strcmp("exit", data->input) == 0)
 			data->exitflag = 1;
 		else if (ft_input_ok(data))
