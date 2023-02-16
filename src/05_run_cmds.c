@@ -6,13 +6,13 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 22:32:55 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/16 18:08:50 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/16 23:00:54 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-static char	*ft_get_path(char *cmd, t_data *data)
+char	*ft_get_path(char *cmd, t_data *data)
 {
 	int		i;
 	char	**path_tab;
@@ -37,25 +37,30 @@ static char	*ft_get_path(char *cmd, t_data *data)
 	return (path);
 }
 
-static char	**ft_get_args(char *arg)
+char	**ft_get_args(char *arg)
 {
 	char	**cmd;
 	int		i;
+	int		j;
 	char	*mod;
 
 	mod = (char *)malloc(ft_strlen(arg) + 1);
 	if (mod == NULL)
 		return NULL;
 	i = 0;
+	j = 0;
 	while (*(arg + i))
 	{
+		if (ft_ischarset(*(arg + i), "\"\'") && !ft_inquotes(arg, i))
+			i++;
 		if (*(arg + i) == ' ' && !ft_inquotes(arg, i))
-			*(mod + i) = '+';
+			*(mod + j) = '+';
 		else
-			*(mod + i) = *(arg + i);
+			*(mod + j) = *(arg + i);
 		i++;
+		j++;
 	}
-	*(mod + i) = '\0';
+	*(mod + j) = '\0';
 	cmd = ft_split(mod, '+');
 	free(mod);
 	return (cmd);

@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 18:18:26 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/06 22:44:43 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/16 23:08:56 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	ft_endsub(char *str, int i, char *charset)
 	j = 0;
 	while (*(str + j + i))
 	{
-		if (ft_ischarset(*(str + j + i), charset))
+		if (ft_ischarset(*(str + j + i), charset) && !ft_inquotes(str, j + i))
 		{
 			if (j == 0)
 			{
@@ -53,6 +53,22 @@ int	ft_endsub(char *str, int i, char *charset)
 	}
 	return (j);
 }
+
+// int	ft_endquote(char *str, int i)
+// {
+// 	int		j;
+// 	char	c;
+
+// 	c = *(str + i);
+// 	j = 0;
+// 	while (*(str + i + j))
+// 	{
+// 		if (*(str + i + j) == c)
+// 			break ;
+// 		j++;
+// 	}	
+// 	return (j);
+// }
 
 int	ft_endredir(char *str, int i)
 {
@@ -93,6 +109,8 @@ int	ft_inside(char *str, int i, char c)
 	int	j;
 	int	count;
 
+	if (*(str + i) == c)
+		return (0);
 	count = 0;
 	j = 0;
 	while (j < i)

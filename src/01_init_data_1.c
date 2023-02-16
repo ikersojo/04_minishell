@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:43:22 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/13 22:37:01 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/16 22:23:15 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ static void	ft_import_envp(t_data *data, char **envp)
 		if (loc != -1 && loc != 0)
 		{
 			tmp = ft_varsnew(ft_substr(s, 0, loc), ft_substr(s, loc + 1, ft_strlen(s) - loc));
+			if (ft_strcmp(tmp->name,"_") != 0)
+				tmp->is_exp = 1;
 			ft_varsadd_back(&data->vars, tmp);
 		}
 	}

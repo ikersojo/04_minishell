@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:45:07 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/16 18:41:24 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/16 23:00:54 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,43 @@ static void	ft_cmdadd_back(t_cmd **cmd, t_cmd *new)
 	}
 }
 
+void	ft_last_exec(t_data *data)
+{
+	t_cmd	*tmp;
+	char	**cmd;
+	char	*cmd_path;
+	int		i;
+	t_vars	*target_var;
+
+	target_var = data->vars;
+	while (target_var)
+	{
+		if (ft_strcmp(target_var->name,"_") == 0)
+			break ;
+		target_var = target_var->next;
+	}
+	tmp = data->cmd;
+	while (tmp)
+	{
+		if (tmp->is_exec == 1)
+		{
+			cmd = ft_get_args(tmp->str);
+			if (*(*(cmd + 0)) == '/' || *(*(cmd + 0)) == '.')
+				cmd_path = *(cmd + 0);
+			else
+				cmd_path = ft_get_path(*(cmd + 0), data);
+			free(target_var->val);
+			target_var->val = cmd_path;
+			i = 0;
+			while (*(cmd + i))
+				free (*(cmd + i++));
+			free (cmd);
+		}
+		tmp = tmp->next;
+	}
+}
+
+
 void	ft_parse(t_data *data)
 {
 	int		i;
@@ -101,5 +138,6 @@ void	ft_parse(t_data *data)
 			ft_cmdadd_back(&data->cmd, temp);
 		}
 		free (str);
+		ft_last_exec(data);
 	}
 }

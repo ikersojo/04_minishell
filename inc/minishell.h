@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 19:44:59 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/16 18:41:24 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/16 22:50:43 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct s_vars
 	char			*name;
 	char			*val;
 	struct s_vars	*next;
+	int				is_exp;
 }					t_vars;
 
 typedef struct s_data
@@ -92,6 +93,8 @@ void	ft_exec_cmds(t_data *data, char **envp);
 void	ft_heredoc(char *eof, int outfd);
 int		ft_launch_piped_process(char *str, t_data *data, char **envp);
 int		ft_launch_process(char *str, int outfd, t_data *data, char **envp);
+char	*ft_get_path(char *cmd, t_data *data);
+char	**ft_get_args(char *arg);
 
 //99_aux
 int		ft_endsub(char *str, int i, char *charset);
@@ -104,6 +107,7 @@ int		ft_inside(char *str, int i, char c);
 //99_aux_vars
 t_vars  *getenv_local(t_vars *list, char *name);
 int 	setenv_local(t_vars *list, char *name, char *value, int overwrite);
+// int	ft_endquote(char *str, int i);
 
 // 99_degub
 void	ft_show_vars(t_data *data);

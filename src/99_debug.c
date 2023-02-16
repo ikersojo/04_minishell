@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 20:46:36 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/16 15:31:46 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/16 22:33:47 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_show_vars(t_data *data)
 	temp = data->vars;
 	while (temp)
 	{
-		printf("%s=%s\n", temp->name, temp->val);
+		printf("%s=%s (export = %d)\n", temp->name, temp->val, temp->is_exp);
 		temp = temp->next;
 	}
 	printf("\n    ----------------\033[0;39m\n\n");
@@ -52,7 +52,7 @@ void	ft_check_cmd(char *cmd_path, char **cmd)
 	printf("    cmd_path: %s\n\n", cmd_path);
 	while (*(cmd + i))
 	{
-		printf("    cmd[%d]: %s\n", i, *(cmd + i));
+		printf("    arg[%d]: %s\n", i, *(cmd + i));
 		i++;
 	}
 	printf("\n    ----------------\033[0;39m\n\n");
