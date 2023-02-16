@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:44:09 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/01/30 23:12:49 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/16 12:14:29 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static int	ft_expand_var(t_data *data, int i, int j)
 	return (k);
 }
 
-void	ft_expand(t_data *data) // ojo con diferneciar comillas simples y dobles para las vars
+void	ft_expand(t_data *data)
 {
 	int 	i;
 	int		j;

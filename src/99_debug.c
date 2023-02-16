@@ -6,24 +6,21 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 20:46:36 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/06 22:48:33 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/16 15:31:46 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	ft_check_data_init(t_data *data)
+void	ft_show_vars(t_data *data)
 {
 	t_vars	*temp;
-	int		i;
 
 	printf("\033[0;93m\n    ----------------\n\n");
-	printf("    env parameters imported to vars list:\n");
-	i = 0;
 	temp = data->vars;
 	while (temp)
 	{
-		printf("    env %d: %s  -->  %s\n", i++, temp->name, temp->val);
+		printf("%s=%s\n", temp->name, temp->val);
 		temp = temp->next;
 	}
 	printf("\n    ----------------\033[0;39m\n\n");
@@ -38,10 +35,25 @@ void	ft_show_parsed(t_data *data)
 	while (temp)
 	{
 		printf("    parsed cmd %d: %s\n", temp->index, temp->str);
-		printf("    var def %d exec %d infd %d (fd=%d) outfd %d (fd=%d) pipe %d par %d (%d) and %d or %d\n",
-			temp->is_var, temp->is_exec, temp->is_infd, temp->infd, temp->is_outfd, temp->outfd, temp->is_pipe,
-			temp->is_par, temp->par_lvl, temp->is_and, temp->is_or);
+		printf("    var def %d exec %d infd %d (fd=%d) outfd %d (fd=%d) pipe %d\n",
+			temp->is_var, temp->is_exec, temp->is_infd, temp->infd, temp->is_outfd,
+			temp->outfd, temp->is_pipe);
 		temp = temp->next;
+	}
+	printf("\n    ----------------\033[0;39m\n\n");
+}
+
+void	ft_check_cmd(char *cmd_path, char **cmd)
+{
+	int	i;
+
+	i = 0;
+	printf("\033[0;93m\n    ----------------\n\n");
+	printf("    cmd_path: %s\n\n", cmd_path);
+	while (*(cmd + i))
+	{
+		printf("    cmd[%d]: %s\n", i, *(cmd + i));
+		i++;
 	}
 	printf("\n    ----------------\033[0;39m\n\n");
 }

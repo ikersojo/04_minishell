@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:22:47 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/13 22:42:08 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/16 18:41:24 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,9 @@ int	main(int argc, char **argv, char **envp)
 
 	data = ft_init_data(argc, argv, envp);
 	if (DEBUG == 1)
-		ft_check_data_init(data);
-	ft_clear_screen(); // commented for easier debug. remove for production!
+		ft_show_vars(data);
+	else
+		ft_clear_screen();
 	while (!data->exitflag)
 	{
 		data->input = readline(PROMPT);
@@ -40,7 +41,7 @@ int	main(int argc, char **argv, char **envp)
 		if (ft_strlen(data->input) > 0)
 			add_history(data->input);
 		if (ft_strcmp("exit", data->input) == 0)
-			data->exitflag = 1;
+			data->exitflag = 1; // modificar por built-in
 		else if (ft_input_ok(data))
 			ft_process_input(data, envp);
 		free (data->input);
@@ -50,18 +51,21 @@ int	main(int argc, char **argv, char **envp)
 	return (EXIT_SUCCESS);
 }
 
-
-
-
 // COSAS PENDIENTES POR HACER:
-	// ordenar comandos y usar paraentesis --> ahora mismo ejecuta en orden
-	// incluir || en lógica de ejecución
-	// wildcards * deben funcionar para el directorio actua
 	// built-ins
 	// redirigir señales (usar variable global??)
+	// modificar PATh con el nuestro interno a la hora de buscar comandos no built-ins
+	// añadir redir in a despues
+	// cambiar a multi-rebote
 	// cd para actualizar directorio
 		// al actualizar directorio, actualzar prompt
 		// si vamos a actualizar el prompt en cada vuelta, podemos cambiar el color en función de si el último comando está ok
 		
 	
+// Errorcillos:
+// Comillas con pipes dentro
+// exit status
+// añadir actualización de variable _= último ejecutado
 
+// martin: señales y exit
+// iker: env, export, echo $

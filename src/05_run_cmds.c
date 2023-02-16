@@ -6,13 +6,13 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 22:32:55 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/13 22:42:08 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/16 18:08:50 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-static char	*ft_get_path(char *cmd, char **envp)
+static char	*ft_get_path(char *cmd, t_data *data)
 {
 	int		i;
 	char	**path_tab;
@@ -20,9 +20,7 @@ static char	*ft_get_path(char *cmd, char **envp)
 	char	*aux;
 
 	i = 0;
-	while (ft_strnstr(*(envp + i), "PATH", 4) == NULL) // modificar a nuestro user var
-		i++;
-	path_tab = ft_split(*(envp + i), ':');
+	path_tab = ft_split(ft_get_var(data, "PATH"), ':');
 	i = 0;
 	while (*(path_tab + i))
 	{
@@ -39,7 +37,31 @@ static char	*ft_get_path(char *cmd, char **envp)
 	return (path);
 }
 
-static void	ft_run_command(char *arg, char **envp)
+static char	**ft_get_args(char *arg)
+{
+	char	**cmd;
+	int		i;
+	char	*mod;
+
+	mod = (char *)malloc(ft_strlen(arg) + 1);
+	if (mod == NULL)
+		return NULL;
+	i = 0;
+	while (*(arg + i))
+	{
+		if (*(arg + i) == ' ' && !ft_inquotes(arg, i))
+			*(mod + i) = '+';
+		else
+			*(mod + i) = *(arg + i);
+		i++;
+	}
+	*(mod + i) = '\0';
+	cmd = ft_split(mod, '+');
+	free(mod);
+	return (cmd);
+}
+
+static void	ft_run_command(char *arg, t_data *data, char **envp)
 {
 	char	**cmd;
 	char	*cmd_path;
@@ -47,8 +69,13 @@ static void	ft_run_command(char *arg, char **envp)
 	int		error_flag;
 
 	error_flag = 0;
-	cmd = ft_split(arg, ' ');
-	cmd_path = ft_get_path(*(cmd + 0), envp);
+	cmd = ft_get_args(arg);
+	if (*(*(cmd + 0)) == '/' || *(*(cmd + 0)) == '.')
+		cmd_path = *(cmd + 0);
+	else
+		cmd_path = ft_get_path(*(cmd + 0), data);
+	if (DEBUG == 1)
+		ft_check_cmd(cmd_path, cmd);
 	if (execve(cmd_path, cmd, envp) == -1)
 		error_flag = 1;
 	i = 0;
@@ -60,7 +87,7 @@ static void	ft_run_command(char *arg, char **envp)
 		ft_exit_w_error("Command not found\n");
 }
 
-int	ft_launch_piped_process(char *str, char **envp)
+int	ft_launch_piped_process(char *str, t_data *data, char **envp)
 {
 	pid_t	pid;
 	int		fd[2];
@@ -77,18 +104,17 @@ int	ft_launch_piped_process(char *str, char **envp)
 		dup2(*(fd + 0), STDIN_FILENO);
 		waitpid(pid, &status, 0);
 		return (WEXITSTATUS(status));
-		// printf("\033[0;93m    command executed\033[0;39m\n"); // DEBUG
 	}
 	else
 	{
 		close(*(fd + 0));
 		dup2(*(fd + 1), STDOUT_FILENO);
-		ft_run_command(str, envp);
+		ft_run_command(str, data, envp);
 		return (EXIT_FAILURE);
 	}
 }
 
-int	ft_launch_process(char *str, int outfd, char **envp)
+int	ft_launch_process(char *str, int outfd, t_data *data, char **envp)
 {
 	pid_t	pid;
 	int		status;
@@ -101,14 +127,13 @@ int	ft_launch_process(char *str, int outfd, char **envp)
 		waitpid(pid, &status, 0);
 		if (outfd != STDOUT_FILENO)
 			close(outfd);
-		// printf("\033[0;93m    command executed\033[0;39m\n"); // DEBUG
 		return (WEXITSTATUS(status));
 	}
 	else
 	{
 		if (outfd != STDOUT_FILENO)
 			dup2(outfd, STDOUT_FILENO);
-		ft_run_command(str, envp);
+		ft_run_command(str, data, envp);
 		return (EXIT_FAILURE);
 	}
 }

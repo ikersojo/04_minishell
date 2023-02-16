@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 19:44:59 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/13 22:42:08 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/16 18:41:24 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 // MESSAGES
 # define PROMPT			"\033[0;92m >> $ \033[0;39m"
 # define MALLOC_ERROR	"Memory could not be allocated.\n"
-# define SYNTAX_ERROR	"Syntax error.\n"
+# define SYNTAX_ERROR	"\033[0;31mSyntax error.\033[0;39m\n"
 # define VAR_ERROR		"User variable not defined.\n"
 
 // DATA STRUCTS
@@ -38,13 +38,10 @@ typedef struct s_cmd
 	int				is_exec;
 	int				is_infd;
 	int				is_outfd;
-	int				is_par;
 	int				is_pipe;
-	int				is_and;
-	int				is_or;
 	int				is_var;
+	int				is_builtin;
 	int				pipe;
-	int				par_lvl;
 	int				infd;
 	int				outfd;
 	struct s_cmd	*next;
@@ -71,9 +68,14 @@ typedef struct s_data
 
 // 01_init_data
 t_data	*ft_init_data(int argc, char **argv, char **envp);
+
+// 01_init_data: variable handling
 t_vars	*ft_varsnew(char *name, char *val);
 t_vars	*ft_varslast(t_vars *vars);
 void	ft_varsadd_back(t_vars **vars, t_vars *new);
+void	ft_varsdel(t_data *data, char *name);
+
+// 01_init_data: find and set exit status
 void	ft_mod_status(t_data *data, int status);
 
 // 02_check_input
@@ -88,6 +90,8 @@ void	ft_parse(t_data *data);
 //06_exec_cmds / heredoc /run_cmd
 void	ft_exec_cmds(t_data *data, char **envp);
 void	ft_heredoc(char *eof, int outfd);
+int		ft_launch_piped_process(char *str, t_data *data, char **envp);
+int		ft_launch_process(char *str, int outfd, t_data *data, char **envp);
 
 //99_aux
 int		ft_endsub(char *str, int i, char *charset);
@@ -99,14 +103,12 @@ int		ft_inside(char *str, int i, char c);
 
 //99_aux_vars
 t_vars  *getenv_local(t_vars *list, char *name);
-int setenv_local(t_vars *list, char *name, char *value, int overwrite);
+int 	setenv_local(t_vars *list, char *name, char *value, int overwrite);
 
 // 99_degub
-void	ft_check_data_init(t_data *data);
+void	ft_show_vars(t_data *data);
 void	ft_show_parsed(t_data *data);
-int		ft_launch_piped_process(char *str, char **envp);
-int		ft_launch_process(char *str, int outfd, char **envp);
-
+void	ft_check_cmd(char *cmd_path, char **cmd);
 // 99_free_data
 void	ft_free_all(t_data *data);
 void	ft_freecmd(t_data *data);

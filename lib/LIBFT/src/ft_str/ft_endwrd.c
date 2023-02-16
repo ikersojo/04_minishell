@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 18:14:12 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/01/25 19:51:48 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/16 14:59:46 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ft_endwrd(char *str, int i)
 	}
 	while (*(str + i))
 	{
-		if (ft_isspace(*(str + i)) || ft_ischarset(*(str + i), ")\"\'}]"))
+		if (ft_isspace(*(str + i)) || ft_ischarset(*(str + i), "/:)\"\'}]"))
 			return (len);
 		len++;
 		i++;

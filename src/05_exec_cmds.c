@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:45:39 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/13 22:42:08 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/16 18:41:24 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,12 +125,13 @@ void	ft_exec_cmds(t_data *data, char **envp)
 		temp = data->cmd;
 		while (temp)
 		{
+			if (temp->is_ifbuiltin)
 			if (temp->is_exec == 1)
 			{
 				if (temp->next && temp->next->is_pipe)
-					status = ft_launch_piped_process(temp->str, envp);
+					status = ft_launch_piped_process(temp->str, data, envp);
 				else
-					status = ft_launch_process(temp->str, temp->outfd, envp);
+					status = ft_launch_process(temp->str, temp->outfd, data, envp);
 			}
 			temp = temp->next;
 		}
