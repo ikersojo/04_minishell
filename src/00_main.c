@@ -54,8 +54,7 @@ int	main(int argc, char **argv, char **envp)
 // COSAS PENDIENTES POR HACER:
 	// built-ins
 	// redirigir señales (usar variable global??)
-	// modificar PATh con el nuestro interno a la hora de buscar comandos no built-ins
-	// añadir redir in a despues
+	// añadir redir in a despues (tiene prioridad el de la derecha)
 	// cambiar a multi-rebote
 	// cd para actualizar directorio
 		// al actualizar directorio, actualzar prompt
@@ -63,9 +62,7 @@ int	main(int argc, char **argv, char **envp)
 		
 	
 // Errorcillos:
-// Comillas con pipes dentro
 // exit status
-// añadir actualización de variable _= último ejecutado
 
 // martin: señales y exit
 // iker: env, export, echo $

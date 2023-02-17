@@ -22,7 +22,7 @@ static char	*ft_filename(char *str)
 	return (str + i);
 }
 
-static void	ft_redir_in(t_cmd *temp)
+static void	ft_redir_in_next(t_cmd *temp)
 {
 	if (*(temp->str + 1) == '<')
 	{
@@ -36,6 +36,22 @@ static void	ft_redir_in(t_cmd *temp)
 		ft_exit_w_error("errno");
 	dup2(temp->next->infd, STDIN_FILENO);
 	close(temp->next->infd);
+}
+
+static void	ft_redir_in_current(t_cmd *temp)
+{
+	if (*(temp->next->str + 1) == '<')
+	{
+		ft_heredoc(ft_filename(temp->next->str), temp->outfd);
+		if(temp->outfd == STDOUT_FILENO)
+			temp->infd = open(".tempfd", O_RDONLY);
+	}
+	else
+		temp->infd = open(ft_filename(temp->next->str), O_RDONLY);
+	if (temp->infd == -1)
+		ft_exit_w_error("errno");
+	dup2(temp->infd, STDIN_FILENO);
+	close(temp->infd);
 }
 
 static void	ft_redir_out(t_cmd *temp)
@@ -59,8 +75,12 @@ static void	ft_setup_redir(t_data *data)
 	{
 		if (temp->next && temp->next->is_outfd == 1)
 			ft_redir_out(temp);
-		if (temp->is_infd && temp->next)
-			ft_redir_in(temp);
+		// else if (temp->next && temp->next->next && temp->next->is_infd == 1 && temp->next->next->is_outfd == 1)
+		// 	ft_redir_out(temp);
+		if (temp->next && temp->next->is_infd)
+			ft_redir_in_current(temp);
+		else if (temp->is_infd && temp->next)
+			ft_redir_in_next(temp);
 		temp = temp->next;
 	}
 }

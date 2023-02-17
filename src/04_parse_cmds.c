@@ -26,6 +26,25 @@ static void	ft_init_cmd(t_cmd *new, char *str, int index)
 	new->is_builtin = 0;
 }
 
+static int	ft_is_builtin(char *str)
+{
+	if (ft_strcmp(str, "echo") == 0)
+		return (1);
+	if (ft_strcmp(str, "cd") == 0)
+		return (1);
+	if (ft_strcmp(str, "pwd") == 0)
+		return (1);
+	if (ft_strcmp(str, "export") == 0)
+		return (1);
+	if (ft_strcmp(str, "unset") == 0)
+		return (1);
+	if (ft_strcmp(str, "env") == 0)
+		return (1);
+	if (ft_strcmp(str, "exit") == 0)
+		return (1);
+	return (0);
+}
+
 static t_cmd	*ft_cmdnew(char *str, int index)
 {
 	t_cmd	*new;
@@ -42,7 +61,8 @@ static t_cmd	*ft_cmdnew(char *str, int index)
 		new->is_pipe = 1;
 	else if (ft_is_var_definition(str))
 		new->is_var = 1;
-	//swithc si es uno de cada
+	else if (ft_is_builtin(str))
+		new->is_builtin = 1;
 	else
 		new->is_exec = 1;
 	new->next = NULL;
