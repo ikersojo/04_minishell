@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:45:39 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/16 22:23:15 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/18 23:59:00 by mvalient         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,13 +133,8 @@ void	ft_exec_cmds(t_data *data, char **envp)
 	pid = fork();
 	if (pid == -1)
 		ft_exit_w_error("errno");
-	if (pid > 0)
-	{
-		waitpid(pid, &data->last_status, 0);
-		ft_mod_status(data, data->last_status);
-		// printf("\033[0;93m    child process for execution completed (exit: %d)\033[0;39m\n", data->last_status); // DEBUG
-	}
-	else
+	// Justificación del cambio: La ejecución es más natural a la vista
+	if (pid == 0)
 	{
 		ft_setup_redir(data);
 		temp = data->cmd;
@@ -158,5 +153,12 @@ void	ft_exec_cmds(t_data *data, char **envp)
 		// printf("\033[0;93m    exec loop completed\033[0;39m\n"); // DEBUG
 		ft_free_all(data);
 		exit(status);
+	}
+	else
+	{
+		waitpid(pid, &data->last_status, 0);
+		// Justificación del cambio: Utilizar una función más genérica.
+		setenv_local(data->vars, "?", ft_itoa(data->last_status), 1);
+		// printf("\033[0;93m    child process for execution completed (exit: %d)\033[0;39m\n", data->last_status); // DEBUG
 	}
 }
