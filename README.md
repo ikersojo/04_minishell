@@ -22,4 +22,5 @@ https://www.cs.purdue.edu/homes/grr/SystemsProgrammingBook/Book/Chapter5-Writing
     
     set detach-on-fork off
     set follow-fork-mode child
-    
+
+https://unix.stackexchange.com/questions/79888/what-exactly-happens-when-a-built-in-command-is-run-in-a-shell
