@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:45:07 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/16 23:00:54 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/18 21:56:08 by mvalient         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,20 @@ static void	ft_init_cmd(t_cmd *new, char *str, int index)
 
 static int	ft_is_builtin(char *str)
 {
-	if (ft_strcmp(str, "echo") == 0)
+
+	if (ft_starts_with(str, "echo"))
 		return (1);
-	if (ft_strcmp(str, "cd") == 0)
+	if (ft_starts_with(str, "cd"))
 		return (1);
-	if (ft_strcmp(str, "pwd") == 0)
+	if (ft_starts_with(str, "pwd"))
 		return (1);
-	if (ft_strcmp(str, "export") == 0)
+	if (ft_starts_with(str, "export"))
 		return (1);
-	if (ft_strcmp(str, "unset") == 0)
+	if (ft_starts_with(str, "unset"))
 		return (1);
-	if (ft_strcmp(str, "env") == 0)
+	if (ft_starts_with(str, "env"))
 		return (1);
-	if (ft_strcmp(str, "exit") == 0)
+	if (ft_starts_with(str, "exit"))
 		return (1);
 	return (0);
 }
@@ -102,13 +103,8 @@ void	ft_last_exec(t_data *data)
 	int		i;
 	t_vars	*target_var;
 
-	target_var = data->vars;
-	while (target_var)
-	{
-		if (ft_strcmp(target_var->name,"_") == 0)
-			break ;
-		target_var = target_var->next;
-	}
+	// Justificación del cambio: código repetido
+	target_var = getenv_local(data->vars, "_");
 	tmp = data->cmd;
 	while (tmp)
 	{

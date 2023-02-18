@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 19:44:59 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/16 22:50:43 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/18 22:54:23 by mvalient         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ void	ft_clear_screen(void);
 char	*ft_get_var(t_data *data, char *name);
 int		ft_inquotes(char *str, int i);
 int		ft_inside(char *str, int i, char c);
+int		ft_starts_with(const char *str, const char *start);
 
 //99_aux_vars
 t_vars  *getenv_local(t_vars *list, char *name);
