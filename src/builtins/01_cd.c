@@ -6,7 +6,7 @@
 /*   By: mvalient <mvalient@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 21:50:01 by mvalient          #+#    #+#             */
-/*   Updated: 2023/02/13 14:03:15 by mvalient         ###   ########.fr       */
+/*   Updated: 2023/02/18 23:46:53 by mvalient         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,23 +21,24 @@
 int	check_dir_permission(char *path)
 {
 	if (access(path, F_OK) == -1)
-		return (!printf("cd: Directory does not exist"));
+		return (!printf("cd: Directory does not exist\n"));
 	if (access(path, R_OK) == -1)
-		return (!printf("cd: Access denied"));
+		return (!printf("cd: Access denied\n"));
 	return (1);
 }
 
 /*
  * This builtin is ultimately the way that all user-visible commands should
  * change the current working directory.
+ * TODO : Might be interesting to create a route parser
  */
 int	cd_builtin(t_vars *env, char **cmd)
 {
-	char *rel_path;
+	char	*rel_path;
 
-	if (!ft_strcmp(cmd[0], "cd"))
+	if (ft_strcmp(cmd[0], "cd"))
 		return (!printf("RTFM: Undefined error.\n"));
-	if (cmd[2])
+	if (cmd[1] && cmd[2])
 		return (!printf("pwd: Too many arguments\n"));
 	if (!cmd[1])
 	{
@@ -53,9 +54,10 @@ int	cd_builtin(t_vars *env, char **cmd)
 			setenv_local(env, "OLDPWD", getenv_local(env, "PWD")->val, 1);
 			setenv_local(env, "PWD", cmd[1], 1);
 		}
-		else
+		else if (cmd[1][0] != '/')
 		{
-			rel_path = ft_strjoin(getenv_local(env, "PWD")->val, cmd[1]);
+			rel_path = ft_strjoin(ft_strjoin(getenv_local(env, "PWD")->val,
+						"/"), cmd[1]);
 			if (check_dir_permission(rel_path))
 			{
 				setenv_local(env, "OLDPWD", getenv_local(env, "PWD")->val, 1);
@@ -63,6 +65,8 @@ int	cd_builtin(t_vars *env, char **cmd)
 			}
 			free(rel_path);
 		}
+		else
+			return (0);
 	}
 	return (1);
 }
@@ -75,13 +79,12 @@ int	cd_builtin(t_vars *env, char **cmd)
  * 		Returns:
  * 			 0: On Success
  * 			>0: On Failure
- * TODO: Probar en profundidad
  */
-int	pwd(t_vars *env, char **cmd)
+int	pwd_builtin(t_vars *env, char **cmd)
 {
-	if (!ft_strcmp(cmd[0], "pwd"))
+	if (ft_strcmp(cmd[0], "pwd"))
 		return (printf("RTFM: Undefined error.\n"));
 	if (cmd[1])
 		return (printf("pwd: Too many arguments\n"));
-	return (!printf("%s\n", getenv_local(env,"PWD")->val));
+	return (!printf("%s\n", getenv_local(env, "PWD")->val));
 }
