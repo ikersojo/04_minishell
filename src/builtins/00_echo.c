@@ -6,37 +6,32 @@
 /*   By: mvalient <mvalient@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 22:11:56 by mvalient          #+#    #+#             */
-/*   Updated: 2023/02/01 23:30:03 by mvalient         ###   ########.fr       */
+/*   Updated: 2023/02/19 13:07:13 by mvalient         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-typedef struct s_argument
-{
-	char				*argument;
-	struct s_argument	*next;
-}					t_argument;
-
 /* Print the arguments in list to standard output.  If the
  * first word is'-n', then don't print a trailing newline. */
-int	echo_builtin(t_argument *list)
+int	echo_builtin(t_vars *env, char **cmd)
 {
+	int i;
 	int	newline;
 
+	(void)env;
+	i = 0;
 	newline = 1;
-	if (!ft_strcmp(list->argument, "-n"))
+	if (ft_strcmp(cmd[i], "echo"))
+		return (printf("RTFM: Undefined error.\n"));
+	if (!ft_strcmp(cmd[++i], "-n"))
 	{
 		newline = 0;
-		list = list->next;
+		i++;
 	}
-	while (list)
-	{
-		// TODO: Maybe create function to just print a string.
-		printf("%s ", list->argument);
-		list = list->next;
-	}
+	while (cmd[i])
+		printf("%s ", cmd[i++]);
 	if (newline)
-		ft_putchar_fd('\n', 1);
+		printf("\n");
 	return (EXIT_SUCCESS);
 }
