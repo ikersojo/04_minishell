@@ -6,7 +6,7 @@
 /*   By: mvalient <mvalient@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 22:11:56 by mvalient          #+#    #+#             */
-/*   Updated: 2023/02/19 13:07:13 by mvalient         ###   ########.fr       */
+/*   Updated: 2023/02/19 18:45:25 by mvalient         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
  * first word is'-n', then don't print a trailing newline. */
 int	echo_builtin(t_vars *env, char **cmd)
 {
-	int i;
+	int	i;
 	int	newline;
 
 	(void)env;
