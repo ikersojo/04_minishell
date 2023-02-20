@@ -6,11 +6,22 @@
 /*   By: mvalient <mvalient@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:26:53 by mvalient          #+#    #+#             */
-/*   Updated: 2023/02/20 16:11:10 by mvalient         ###   ########.fr       */
+/*   Updated: 2023/02/20 19:43:36 by mvalient         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/minishell.h"
+#include "../inc/minishell.h"
+
+
+static int	ft_export_list(t_vars *env)
+{
+	while (env)
+	{
+		printf("%s=%s\n", env->name, env->val);
+		env = env->next;
+	}
+	return (0);
+}
 
 /*
  * The supplied names are marked for automatic export to the environment of
@@ -24,14 +35,13 @@
 int	export_builtin(t_vars *env, char **cmd)
 {
 	int	i;
-	int status;
 
 	i = 0;
 	if (ft_strcmp(cmd[i++], "export"))
 		return (!printf("RTFM: Undefined error.\n"));
 	if (!cmd[i])
 	{
-		ft_export_list(env, cmd);
+		ft_export_list(env);
 	}
 	while (cmd[i])
 	{
@@ -42,16 +52,6 @@ int	export_builtin(t_vars *env, char **cmd)
 			// TODO : Trim str by first = and sentenv with part1 and part2
 		}
 		i++;
-	}
-	return (0);
-}
-
-static int	ft_export_list(t_vars *env)
-{
-	while (env)
-	{
-		printf("%s=%s\n", env->name, env->val);
-		env = env->next;
 	}
 	return (0);
 }

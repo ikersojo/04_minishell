@@ -6,11 +6,11 @@
 /*   By: mvalient <mvalient@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 20:37:00 by mvalient          #+#    #+#             */
-/*   Updated: 2023/02/14 21:21:10 by mvalient         ###   ########.fr       */
+/*   Updated: 2023/02/20 18:19:49 by mvalient         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/minishell.h"
+#include "../inc/minishell.h"
 
 /*
  * For  each  name, remove the corresponding variable or function from the
