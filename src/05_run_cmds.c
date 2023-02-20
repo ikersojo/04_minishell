@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 22:32:55 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/16 23:00:54 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/20 09:58:23 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,12 +92,58 @@ static void	ft_run_command(char *arg, t_data *data, char **envp)
 		ft_exit_w_error("Command not found\n");
 }
 
+char	*ft_lst_to_str(t_vars *tmp)
+{
+	char	*str;
+	int		i;
+	int		j;
+
+	str = (char *)malloc(ft_strlen(tmp->name) + ft_strlen(tmp->val) + 2);
+	if (str == NULL)
+		return (NULL);
+	i = 0;
+	j = 0;
+	while (*(tmp->name + j))
+		*(str + i++) = *(tmp->name + j++);
+	*(str + i++) = '=';
+	j = 0;
+	while (*(tmp->val + j))
+		*(str + i++) = *(tmp->val + j++);
+	*(str + i++) = '\0';
+	return (str);
+}
+
+char	**ft_gen_envp(t_data *data)
+{
+	t_vars	*tmp;
+	int		i;
+	int		len;
+	char	**custom_envp;
+
+	len = ft_vars_size(data);
+	custom_envp = (char **)malloc(sizeof(char *) * (len + 1));
+	if (custom_envp == NULL)
+		return (NULL);
+	i = 0;
+	tmp = data->vars;
+	while (tmp)
+	{
+		if (tmp->is_exp == 1)
+			*(custom_envp + i) = ft_lst_to_str(tmp);
+		i++;
+		tmp = tmp ->next;
+	}
+	*(custom_envp + i) = NULL;
+	return (custom_envp);
+}
+
 int	ft_launch_piped_process(char *str, t_data *data, char **envp)
 {
 	pid_t	pid;
 	int		fd[2];
 	int		status;
 
+	(void)envp;
 	if (pipe(fd) == -1)
 		ft_exit_w_error("errno");
 	pid = fork();
@@ -114,7 +160,10 @@ int	ft_launch_piped_process(char *str, t_data *data, char **envp)
 	{
 		close(*(fd + 0));
 		dup2(*(fd + 1), STDOUT_FILENO);
-		ft_run_command(str, data, envp);
+		if (data->custom_envp != NULL)
+			ft_free_custom_envp(data);
+		data->custom_envp = ft_gen_envp(data);
+		ft_run_command(str, data, data->custom_envp);
 		return (EXIT_FAILURE);
 	}
 }
@@ -124,6 +173,7 @@ int	ft_launch_process(char *str, int outfd, t_data *data, char **envp)
 	pid_t	pid;
 	int		status;
 
+	(void)envp;
 	pid = fork();
 	if (pid == -1)
 		ft_exit_w_error("errno");
@@ -138,7 +188,26 @@ int	ft_launch_process(char *str, int outfd, t_data *data, char **envp)
 	{
 		if (outfd != STDOUT_FILENO)
 			dup2(outfd, STDOUT_FILENO);
-		ft_run_command(str, data, envp);
+		if (data->custom_envp != NULL)
+			ft_free_custom_envp(data);
+		data->custom_envp = ft_gen_envp(data);
+
+
+		// //DEBUG
+		// 	int	i;
+		// 	i = 0;
+		// 	printf("SYSTEM ENVP:\n");
+		// 	while (*(envp + i))
+		// 		printf("    %s\n", *(envp + i++));
+		// 	printf("\n    -------------\n\n");
+		// 	i = 0;
+		// 	printf("CUSTOM ENVP:\n");
+		// 	while (*(data->custom_envp + i))
+		// 		printf("    %s\n", *(data->custom_envp + i++));
+		// //____
+
+
+		ft_run_command(str, data, data->custom_envp);
 		return (EXIT_FAILURE);
 	}
 }

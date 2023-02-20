@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 18:18:26 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/18 22:01:31 by mvalient         ###   ########.fr       */
+/*   Updated: 2023/02/20 09:01:42 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,4 +159,19 @@ int	ft_starts_with(const char *str, const char *start)
 		len++;
 	}
 	return (1);
+}
+
+int	ft_vars_size(t_data *data)
+{
+	t_vars	*tmp;
+	int		i;
+
+	i = 0;
+	tmp = data->vars;
+	while (tmp)
+	{
+		i++;
+		tmp = tmp ->next;
+	}
+	return (i);
 }

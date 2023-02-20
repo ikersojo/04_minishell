@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 21:01:27 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/16 10:12:00 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/20 09:56:38 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,17 @@ static void	ft_freevars(t_data *data)
 	data->vars = NULL;
 }
 
+void	ft_free_custom_envp(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (*(data->custom_envp + i))
+		free(*(data->custom_envp + i++));
+	free(data->custom_envp);
+	data->custom_envp = NULL;
+}
+
 void	ft_free_all(t_data *data)
 {
 	if (data->input != NULL)
@@ -55,5 +66,7 @@ void	ft_free_all(t_data *data)
 		ft_freevars(data);
 	if (data->cmd != NULL)
 		ft_freecmd(data);
+	if (data->custom_envp != NULL)
+		ft_free_custom_envp(data);
 	free (data);
 }
