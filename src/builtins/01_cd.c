@@ -6,7 +6,7 @@
 /*   By: mvalient <mvalient@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 21:50:01 by mvalient          #+#    #+#             */
-/*   Updated: 2023/02/18 23:46:53 by mvalient         ###   ########.fr       */
+/*   Updated: 2023/02/20 19:30:50 by mvalient         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	cd_builtin(t_vars *env, char **cmd)
 		else
 			return (0);
 	}
-	return (1);
+	return (!chdir(getenv_local(env, "PWD")->val));
 }
 
 /*
