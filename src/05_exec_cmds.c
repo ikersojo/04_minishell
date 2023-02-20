@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:45:39 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/18 23:59:00 by mvalient         ###   ########.fr       */
+/*   Updated: 2023/02/20 17:44:11 by mvalient         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,6 @@ static int	ft_addvar(t_data *data, char *s)
 void	ft_exec_cmds(t_data *data, char **envp)
 {
 	t_cmd	*temp;
-	pid_t	pid;
 	int		status;
 
 	temp = data->cmd;
@@ -130,35 +129,26 @@ void	ft_exec_cmds(t_data *data, char **envp)
 			status =ft_addvar(data, temp->str);
 		temp = temp->next;
 	}
-	pid = fork();
-	if (pid == -1)
-		ft_exit_w_error("errno");
-	// Justificación del cambio: La ejecución es más natural a la vista
-	if (pid == 0)
-	{
-		ft_setup_redir(data);
-		temp = data->cmd;
-		while (temp)
-		{
-			// if (temp->is_ifbuiltin)...
-			if (temp->is_exec == 1)
-			{
-				if (temp->next && temp->next->is_pipe)
-					status = ft_launch_piped_process(temp->str, data, envp);
-				else
-					status = ft_launch_process(temp->str, temp->outfd, data, envp);
-			}
-			temp = temp->next;
+	ft_setup_redir(data);
+	temp = data->cmd;
+	while (temp) {
+		// TODO : Return Status should be updated
+		if (temp->is_builtin) {
+			if (ft_starts_with(temp->str, "cd"))
+				ft_run_builtin(temp->str, data, cd_builtin);
+			if (ft_starts_with(temp->str, "pwd"))
+				ft_run_builtin(temp->str, data, pwd_builtin);
+			if (ft_starts_with(temp->str, "echo"))
+				ft_run_builtin(temp->str, data, echo_builtin);
 		}
-		// printf("\033[0;93m    exec loop completed\033[0;39m\n"); // DEBUG
-		ft_free_all(data);
-		exit(status);
-	}
-	else
-	{
-		waitpid(pid, &data->last_status, 0);
-		// Justificación del cambio: Utilizar una función más genérica.
-		setenv_local(data->vars, "?", ft_itoa(data->last_status), 1);
-		// printf("\033[0;93m    child process for execution completed (exit: %d)\033[0;39m\n", data->last_status); // DEBUG
+		if (temp->is_exec) {
+			if (temp->next && temp->next->is_pipe)
+				status = ft_launch_piped_process(temp->str, data, envp);
+			else
+				status = ft_launch_process(temp->str, temp->outfd, data, envp);
+		}
+		// Set last execution status
+		setenv_local(data->vars, "?", ft_itoa(status), 1);
+		temp = temp->next;
 	}
 }

@@ -89,6 +89,9 @@ void	ft_expand(t_data *data);
 // 04_parse_cmds
 void	ft_parse(t_data *data);
 
+void	ft_run_builtin(char *full_cmd, t_data *data, int (*builtin)(t_vars *, char **));
+
+
 //06_exec_cmds / heredoc /run_cmd
 void	ft_exec_cmds(t_data *data, char **envp);
 void	ft_heredoc(char *eof, int outfd);
@@ -121,5 +124,10 @@ void	ft_free_all(t_data *data);
 void	ft_freecmd(t_data *data);
 int		ft_is_var_definition(char *str);
 void	ft_free_custom_envp(t_data *data);
+
+// Builtins
+int	echo_builtin(t_vars *env, char **cmd);
+int	cd_builtin(t_vars *env, char **cmd);
+int	pwd_builtin(t_vars *env, char **cmd);
 
 #endif
