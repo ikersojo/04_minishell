@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 19:44:59 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/20 09:56:38 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/21 21:09:30 by mvalient         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ typedef struct s_vars
 
 typedef struct s_data
 {
-	int		exitflag;
 	char	*input;
 	char	*ex_input;
 	int		last_status;

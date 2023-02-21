@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:22:47 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/16 18:41:24 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/21 20:59:42 by mvalient         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,22 +33,18 @@ int	main(int argc, char **argv, char **envp)
 		ft_show_vars(data);
 	else
 		ft_clear_screen();
-	while (!data->exitflag)
+	while (1)
 	{
 		data->input = readline(PROMPT);
 		if (!data->input)
 			return (EXIT_FAILURE);
 		if (ft_strlen(data->input) > 0)
 			add_history(data->input);
-		if (ft_strcmp("exit", data->input) == 0)
-			data->exitflag = 1; // modificar por built-in
-		else if (ft_input_ok(data))
+		if (ft_input_ok(data))
 			ft_process_input(data, envp);
 		free (data->input);
 		data->input = NULL;
 	}
-	ft_free_all(data);
-	return (EXIT_SUCCESS);
 }
 
 // COSAS PENDIENTES POR HACER:
@@ -64,5 +60,5 @@ int	main(int argc, char **argv, char **envp)
 // Errorcillos:
 // exit status
 
-// martin: señales y exit
-// iker: env, export, echo $
+// martin: señales
+// iker: env, export

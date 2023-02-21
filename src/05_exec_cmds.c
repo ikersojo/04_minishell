@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:45:39 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/20 17:44:11 by mvalient         ###   ########.fr       */
+/*   Updated: 2023/02/20 18:12:29 by mvalient         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,8 @@ void	ft_exec_cmds(t_data *data, char **envp)
 				ft_run_builtin(temp->str, data, pwd_builtin);
 			if (ft_starts_with(temp->str, "echo"))
 				ft_run_builtin(temp->str, data, echo_builtin);
+			if (ft_starts_with(temp->str, "exit"))
+				ft_free_all(data);
 		}
 		if (temp->is_exec) {
 			if (temp->next && temp->next->is_pipe)

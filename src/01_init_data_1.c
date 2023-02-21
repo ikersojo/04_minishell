@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:43:22 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/20 09:53:20 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/20 18:12:29 by mvalient         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ t_data	*ft_init_data(int argc, char **argv, char **envp)
 	data = (t_data *)malloc(sizeof(t_data));
 	if (!data)
 		ft_exit_w_error(MALLOC_ERROR);
-	data->exitflag = 0;
 	ft_import_envp(data, envp);
 	return (data);
 }

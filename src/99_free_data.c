@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 21:01:27 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/20 09:56:38 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/21 20:58:14 by mvalient         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,5 @@ void	ft_free_all(t_data *data)
 	if (data->custom_envp != NULL)
 		ft_free_custom_envp(data);
 	free (data);
+	exit(0);
 }
