@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 19:44:59 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/21 21:09:30 by mvalient         ###   ########.fr       */
+/*   Updated: 2023/02/22 09:29:41 by mvalient         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 // DEBUG OR PRODUCTION (1 or 0)
 # define DEBUG 1
 
+#define _XOPEN_SOURCE 700
+
 // INCLUDES
 # include "../lib/LIBFT/inc/libft.h"
 # include <readline/readline.h>
@@ -23,6 +25,7 @@
 # include <fcntl.h>
 # include <dirent.h>
 # include <sys/wait.h>
+# include <signal.h>
 
 // MESSAGES
 # define PROMPT			"\033[0;92m >> $ \033[0;39m"
@@ -92,10 +95,10 @@ void	ft_run_builtin(char *full_cmd, t_data *data, int (*builtin)(t_vars *, char 
 
 
 //06_exec_cmds / heredoc /run_cmd
-void	ft_exec_cmds(t_data *data, char **envp);
+void	ft_exec_cmds(t_data *data);
 void	ft_heredoc(char *eof, int outfd);
-int		ft_launch_piped_process(char *str, t_data *data, char **envp);
-int		ft_launch_process(char *str, int outfd, t_data *data, char **envp);
+int		ft_launch_piped_process(char *str, t_data *data);
+int		ft_launch_process(char *str, int outfd, t_data *data);
 char	*ft_get_path(char *cmd, t_data *data);
 char	**ft_get_args(char *arg);
 

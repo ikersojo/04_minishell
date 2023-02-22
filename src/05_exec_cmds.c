@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:45:39 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/20 18:12:29 by mvalient         ###   ########.fr       */
+/*   Updated: 2023/02/22 09:29:41 by mvalient         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ static int	ft_addvar(t_data *data, char *s)
 	return (0);
 }
 
-void	ft_exec_cmds(t_data *data, char **envp)
+void	ft_exec_cmds(t_data *data)
 {
 	t_cmd	*temp;
 	int		status;
@@ -145,9 +145,9 @@ void	ft_exec_cmds(t_data *data, char **envp)
 		}
 		if (temp->is_exec) {
 			if (temp->next && temp->next->is_pipe)
-				status = ft_launch_piped_process(temp->str, data, envp);
+				status = ft_launch_piped_process(temp->str, data);
 			else
-				status = ft_launch_process(temp->str, temp->outfd, data, envp);
+				status = ft_launch_process(temp->str, temp->outfd, data);
 		}
 		// Set last execution status
 		setenv_local(data->vars, "?", ft_itoa(status), 1);

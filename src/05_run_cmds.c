@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 22:32:55 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/20 09:58:23 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/20 09:29:41 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,13 +137,12 @@ char	**ft_gen_envp(t_data *data)
 	return (custom_envp);
 }
 
-int	ft_launch_piped_process(char *str, t_data *data, char **envp)
+int	ft_launch_piped_process(char *str, t_data *data)
 {
 	pid_t	pid;
 	int		fd[2];
 	int		status;
 
-	(void)envp;
 	if (pipe(fd) == -1)
 		ft_exit_w_error("errno");
 	pid = fork();
@@ -168,12 +167,11 @@ int	ft_launch_piped_process(char *str, t_data *data, char **envp)
 	}
 }
 
-int	ft_launch_process(char *str, int outfd, t_data *data, char **envp)
+int	ft_launch_process(char *str, int outfd, t_data *data)
 {
 	pid_t	pid;
 	int		status;
 
-	(void)envp;
 	pid = fork();
 	if (pid == -1)
 		ft_exit_w_error("errno");
