@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 20:46:36 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/16 22:33:47 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/23 17:03:45 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ void	ft_show_parsed(t_data *data)
 	while (temp)
 	{
 		printf("    parsed cmd %d: %s\n", temp->index, temp->str);
-		printf("    var def %d exec %d infd %d (fd=%d) outfd %d (fd=%d) pipe %d\n",
+		printf("    var def %d exec %d infd %d (fd=%d) outfd %d (fd=%d) pipe %d built-in %d\n",
 			temp->is_var, temp->is_exec, temp->is_infd, temp->infd, temp->is_outfd,
-			temp->outfd, temp->is_pipe);
+			temp->outfd, temp->is_pipe, temp->is_builtin);
 		temp = temp->next;
 	}
 	printf("\n    ----------------\033[0;39m\n\n");

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   03_unset.c                                         :+:      :+:    :+:   */
+/*   06_03_unset.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvalient <mvalient@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 20:37:00 by mvalient          #+#    #+#             */
-/*   Updated: 2023/02/20 18:19:49 by mvalient         ###   ########.fr       */
+/*   Updated: 2023/02/23 19:53:52 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,36 @@ int	unset_builtin(t_vars *env, char **cmd)
 	while (cmd[++i])
 		status += setenv_local(env, cmd[1], "", 1);
 	return (!status);
+}
+
+
+
+
+//COMBINAR ESTA FUNCION CON LA DE ARRIBA (la dejo como inspiración)
+void	ft_varsdel(t_data *data, char *name) // BORAR UNA VEZ RECICLADO EL CODIGO
+{
+	t_vars	*tmp;
+	t_vars	*aux;
+
+	if (ft_strcmp(data->vars->name, name) == 0)
+	{
+		aux = data->vars;
+		data->vars = data->vars->next;
+		free(aux->name);
+		free(aux->val);
+		free(aux);
+	}
+	tmp = data->vars->next;
+	while (tmp)
+	{
+		if (ft_strcmp(tmp->name, name) == 0)
+		{
+			aux = tmp;
+			tmp->next = tmp->next->next;
+			free(aux->name);
+			free(aux->val);
+			free(aux);
+		}
+		tmp = tmp->next;
+	}
 }

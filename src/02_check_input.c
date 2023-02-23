@@ -6,29 +6,31 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:42:50 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/16 17:45:22 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/23 23:32:00 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+static int	ft_valid_char(char c)
+{
+	if (ft_isalnum(c) || ft_ischarset(c, " \t\'\"|<>$-_.+~/"))
+		return (1);
+	return (0);
+}
+
 static int	ft_characters_ok(char *str)
 {
 	int		i;
 
-	if (ft_count_chars(str, '\'') % 2 != 0)
-		return (0);
-	if (ft_count_chars(str, '\"') % 2 != 0)
-		return (0);
 	i = 0;
 	while (*(str + i))
 	{
-		// if (!ft_inquotes(str, i) && !(ft_isalnum(*(str + i))
-		// 	|| ft_ischarset(*(str + i), "\'\"-_.?/$|\t\n"))) //ft_ischarset(*(str + i), "\\;,:!()&*+`^´¨ç¡¿@ºª#·"))
-		// 	{
-		// 	printf("error %c \n", *(str + i));
-		// 	return (0);
-		// 	}
+		if (!ft_inquotes(str, i) && !ft_valid_char(*(str + i)))
+			{
+			printf("error %c \n", *(str + i));
+			return (0);
+			}
 		if (!ft_inquotes(str, i) && ft_ischarset(*(str + i), "|")
 			&& (*(str + i + 1) && ft_ischarset(*(str + i + 1), "|")))
 			return (0);
@@ -45,30 +47,28 @@ static int	ft_characters_ok(char *str)
 	return (1);
 }
 
-static int	ft_parenthesis_ok(char *str)
+static int	ft_quotes_ok(char *str)
 {
-	int		i;
-	char	c;
-	int		open;
-	int		close;
+	int single_quote = 0;
+	int double_quote = 0;
 
-	if (ft_count_chars(str, '(') != ft_count_chars(str, ')'))
-		return (0);
-	open = 0;
-	close = 0;
-	i = 0;
-	while (*(str + i))
+	while (*str != '\0')
 	{
-		c = *(str + i);
-		if (c == '(')
-			open ++;
-		if (c == ')')
-			close ++;
-		if (open - close < 0)
-			return (0);
-		i++;
+		if (*str == '\'')
+		{
+			if (!double_quote)
+				single_quote = !single_quote;
+		}
+		else if (*str == '\"')
+		{
+			if (!single_quote)
+				double_quote = !double_quote;
+		}
+		str++;
 	}
-	return (1);
+	if (single_quote == 0 && double_quote == 0)
+		return (1);
+	return (0);
 }
 
 static int	ft_var_exist(char *str, t_data *data)
@@ -76,7 +76,6 @@ static int	ft_var_exist(char *str, t_data *data)
 	int		i;
 	char	*varname;
 	int		not_found;
-	char	*varvalue;
 
 	not_found = 0;
 	i = 0;
@@ -86,13 +85,14 @@ static int	ft_var_exist(char *str, t_data *data)
 		{
 			varname = (char *)malloc(sizeof(char) * (ft_strlen(str) + 1));
 			if (!varname)
-				return (0);
+			{
+				ft_free_all(data);
+				ft_exit_w_error(MALLOC_ERROR);
+			}
 			ft_strlcpy(varname, str + i + 1, ft_endwrd(str, i));
-			varvalue = ft_get_var(data, varname);
-			if (ft_strcmp(varvalue, "unknown") == 0)
+			if(!getenv_local(data->vars, varname))
 				not_found = 1;
 			free(varname);
-			free(varvalue);
 			if (not_found)
 				return (0);
 		}
@@ -108,9 +108,9 @@ int	ft_input_ok(t_data *data)
 
 	errorflag = 0;
 	str = ft_strtrim(data->input, " \t");
-	if (!ft_parenthesis_ok(str) || !ft_characters_ok(str)
-		|| ft_ischarset(*str, "|>")
-		|| ft_ischarset(*(str + ft_strlen(str)), "|>"))
+	if (!ft_quotes_ok(str) || !ft_characters_ok(str)
+		|| ft_ischarset(*str, "|")
+		|| ft_ischarset(*(str + ft_strlen(str) - 1), "|><"))
 	{
 		printf(SYNTAX_ERROR);
 		errorflag = 1;
@@ -123,5 +123,7 @@ int	ft_input_ok(t_data *data)
 	free (str);
 	if (errorflag == 1)
 		return (0);
+	if (DEBUG == 1)
+		printf("\033[0;92m\n    ----> INPUT OK!\n\033[0;39m");
 	return (1);
 }

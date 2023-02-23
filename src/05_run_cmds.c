@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 22:32:55 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/20 09:29:41 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/23 23:14:05 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*ft_get_path(char *cmd, t_data *data)
 	char	*aux;
 
 	i = 0;
-	path_tab = ft_split(ft_get_var(data, "PATH"), ':');
+	path_tab = ft_split(getenv_local(data->vars, "PATH")->val, ':');
 	i = 0;
 	while (*(path_tab + i))
 	{
@@ -137,12 +137,14 @@ char	**ft_gen_envp(t_data *data)
 	return (custom_envp);
 }
 
-int	ft_launch_piped_process(char *str, t_data *data)
+int	ft_launch_piped_process(char *str, int infd, int outfd, t_data *data)
 {
 	pid_t	pid;
 	int		fd[2];
 	int		status;
 
+	(void)infd;
+	(void)outfd;
 	if (pipe(fd) == -1)
 		ft_exit_w_error("errno");
 	pid = fork();
@@ -167,7 +169,7 @@ int	ft_launch_piped_process(char *str, t_data *data)
 	}
 }
 
-int	ft_launch_process(char *str, int outfd, t_data *data)
+int	ft_launch_process(char *str, int infd, int outfd, t_data *data)
 {
 	pid_t	pid;
 	int		status;
@@ -180,6 +182,8 @@ int	ft_launch_process(char *str, int outfd, t_data *data)
 		waitpid(pid, &status, 0);
 		if (outfd != STDOUT_FILENO)
 			close(outfd);
+		if (infd != STDIN_FILENO)
+			dup2(data->baseline_infd, STDIN_FILENO);
 		return (WEXITSTATUS(status));
 	}
 	else

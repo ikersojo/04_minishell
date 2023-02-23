@@ -6,30 +6,30 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 18:18:26 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/20 09:01:42 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/23 22:45:50 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-char	*ft_get_var(t_data *data, char *name)
-{
-	t_vars	*temp;
-	char	*str;
+// char	*ft_get_var(t_data *data, char *name)
+// {
+// 	t_vars	*temp;
+// 	char	*str;
 
-	temp = data->vars;
-	while (temp)
-	{
-		if (ft_strcmp(name, temp->name) == 0)
-		{
-			str = ft_strdup(temp->val);
-			return (str);
-		}
-		temp = temp->next;
-	}
-	str = ft_strdup("unknown");
-	return (str);
-}
+// 	temp = data->vars;
+// 	while (temp)
+// 	{
+// 		if (ft_strcmp(name, temp->name) == 0)
+// 		{
+// 			str = ft_strdup(temp->val);
+// 			return (str);
+// 		}
+// 		temp = temp->next;
+// 	}
+// 	str = ft_strdup("unknown");
+// 	return (str);
+// }
 
 int	ft_endsub(char *str, int i, char *charset)
 {
@@ -161,17 +161,4 @@ int	ft_starts_with(const char *str, const char *start)
 	return (1);
 }
 
-int	ft_vars_size(t_data *data)
-{
-	t_vars	*tmp;
-	int		i;
 
-	i = 0;
-	tmp = data->vars;
-	while (tmp)
-	{
-		i++;
-		tmp = tmp ->next;
-	}
-	return (i);
-}

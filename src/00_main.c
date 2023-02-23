@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:22:47 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/22 09:29:41 by mvalient         ###   ########.fr       */
+/*   Updated: 2023/02/23 23:32:00 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,7 @@ static void prompt(t_data *data)
 {
 	data->input = readline(PROMPT);
 	if (!data->input)
-	{
-		// TODO : Tratar caso : return (EXIT_FAILURE);
-	}
+		ft_exit_w_error(MALLOC_ERROR);
 	if (ft_strlen(data->input) > 0)
 		add_history(data->input);
 	if (ft_input_ok(data))
@@ -53,13 +51,14 @@ int	main(int argc, char **argv, char **envp)
 	struct sigaction sa;
 	t_data	*data;
 
+	(void)argv;
+	if (argc != 1)
+		ft_exit_w_error(SYNTAX_ERROR);
 	sa.sa_flags = SA_SIGINFO;
 	sa.sa_sigaction = ft_signal_handler;
-
 	if (sigaction(SIGINT, &sa, NULL) == -1)
 		write(1, "Error\n", 6);
-
-	data = ft_init_data(argc, argv, envp);
+	data = ft_init_data(envp);
 	if (DEBUG == 1)
 		ft_show_vars(data);
 	else
@@ -68,18 +67,18 @@ int	main(int argc, char **argv, char **envp)
 		prompt(data);
 }
 
-// COSAS PENDIENTES POR HACER:
-	// built-ins
-	// redirigir señales (usar variable global??)
-	// añadir redir in a despues (tiene prioridad el de la derecha)
-	// cambiar a multi-rebote
-	// cd para actualizar directorio
-		// al actualizar directorio, actualzar prompt
-		// si vamos a actualizar el prompt en cada vuelta, podemos cambiar el color en función de si el último comando está ok
-		
-	
-// Errorcillos:
-// exit status
+// Ultimo update (iker 23-02-2023):
+	// incluidas re-generaciones de stdin y stdout. Casca por otro lado con pipes, pero con redir no te saca
+	// refactorizadas 00, 01, 02, 03 y aux. Sustituidas funciones por setenv y getenv, y duplicidades eliminadas
+	// todo lo de arriba cumple norma menos ft_expand, por número de líneas (hay que partir)
 
-// martin: señales
-// iker: env, export
+// COSAS PENDIENTES POR HACER:
+	// built-ins (martin):
+		// env, export
+		// cd: función que corrija el path del directorio quitando puntos y dobles puntos
+		// status de salida (void --> int en las funciones)
+		// hay que incluir las redirecionesde salidas de los built-ins echo y pwd (alguno más) --> con está te ayudo (la dejamos para el final)
+	// usar variable global?? para que y por qué?
+	// redirecciones (iker):
+		// cambiar a multi-rebote con while todas las salidas
+		// refactor: es clave darle una vuelta para ganar robustez

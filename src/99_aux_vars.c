@@ -3,17 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   99_aux_vars.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvalient <mvalient@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 11:52:54 by mvalient          #+#    #+#             */
-/*   Updated: 2023/02/11 16:14:58 by mvalient         ###   ########.fr       */
+/*   Updated: 2023/02/23 22:47:16 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+t_vars	*ft_varsnew(char *name, char *value)
+{
+	t_vars	*new;
+
+	new = (t_vars *)malloc(sizeof(t_vars));
+	if (new == NULL)
+		return (NULL);
+	new->name = name;
+	new->val = value;
+	new->is_exp = 0;
+	new->next = NULL;
+	return (new);
+}
+
 /*
- * The getenv_local function   searches the environment  list to find the
+ * The getenv_local  function  searches  the environment list to find the
  * envi‐ronment variable name, and returns a pointer to the corresponding
  * element.
  */
@@ -41,23 +55,41 @@ int	setenv_local(t_vars *list, char *name, char *value, int overwrite)
 {
 	t_vars	*new;
 
+	if (!list)
+		return (-1);
 	new = getenv_local(list, name);
 	if (!new)
 	{
-		new = malloc(sizeof(t_vars));
-		new->name = name;
-		new->val = value;
-		new->next = NULL;
+		new = ft_varsnew(name, value);
+		if(!new)
+			return (-1);
 		while (list->next)
 			list = list->next;
 		list->next = new;
+		list->is_exp = 0;
 		return (0);
 	}
 	else if (overwrite)
 	{
 		free(new->val);
 		new->val = ft_strdup(value);
+		// tenemos que exportar al sobre-escribir o se pierde el status de exportado?
 		return (0);
 	}
 	return (1);
+}
+
+int	ft_vars_size(t_data *data) // LA USAMOS??
+{
+	t_vars	*tmp;
+	int		i;
+
+	i = 0;
+	tmp = data->vars;
+	while (tmp)
+	{
+		i++;
+		tmp = tmp->next;
+	}
+	return (i);
 }

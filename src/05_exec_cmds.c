@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:45:39 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/22 09:29:41 by mvalient         ###   ########.fr       */
+/*   Updated: 2023/02/23 23:13:41 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,34 +87,19 @@ static void	ft_setup_redir(t_data *data)
 
 static int	ft_addvar(t_data *data, char *s)
 {
-	t_vars	*tmp;
 	int		loc;
+	char	*aux;
 	char	*name;
-	char	*name_tr;
 	char	*val;
 
 	loc = ft_strfind(s, '=');
-	name = ft_substr(s, 0, loc);
-	name_tr = ft_strtrim(name, " \t");
-	free (name);
-	val = ft_substr(s, loc + 1, ft_strlen(s) - loc);
-	tmp = data->vars;
-	while (tmp)
-	{
-		if (ft_strcmp(name_tr, tmp->name) == 0)
-		{
-			tmp->val = ft_strtrim(val, " \t");
-			break ;
-		}
-		tmp = tmp->next;
-	}
-	if (tmp == NULL)
-	{
-		tmp = ft_varsnew(name_tr, ft_strtrim(val, " \t"));
-		ft_varsadd_back(&data->vars, tmp);
-	}
-	free (val);
-	return (0);
+	aux = ft_substr(s, 0, loc);
+	name = ft_strtrim(aux, " \t");
+	free (aux);
+	aux = ft_substr(s, loc + 1, ft_strlen(s) - loc);
+	val = ft_strtrim(aux, " \t");
+	free (aux);
+	return (setenv_local(data->vars, name, val, 1));
 }
 
 void	ft_exec_cmds(t_data *data)
@@ -126,12 +111,13 @@ void	ft_exec_cmds(t_data *data)
 	while (temp)
 	{
 		if (temp->is_var == 1)
-			status =ft_addvar(data, temp->str);
+			status = ft_addvar(data, temp->str);
 		temp = temp->next;
 	}
 	ft_setup_redir(data);
 	temp = data->cmd;
-	while (temp) {
+	while (temp)
+	{
 		// TODO : Return Status should be updated
 		if (temp->is_builtin) {
 			if (ft_starts_with(temp->str, "cd"))
@@ -143,11 +129,12 @@ void	ft_exec_cmds(t_data *data)
 			if (ft_starts_with(temp->str, "exit"))
 				ft_free_all(data);
 		}
-		if (temp->is_exec) {
+		if (temp->is_exec)
+		{
 			if (temp->next && temp->next->is_pipe)
-				status = ft_launch_piped_process(temp->str, data);
+				status = ft_launch_piped_process(temp->str, temp->infd, temp->outfd, data);
 			else
-				status = ft_launch_process(temp->str, temp->outfd, data);
+				status = ft_launch_process(temp->str, temp->infd, temp->outfd, data);
 		}
 		// Set last execution status
 		setenv_local(data->vars, "?", ft_itoa(status), 1);

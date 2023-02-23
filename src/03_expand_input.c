@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:44:09 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/16 12:14:29 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/23 23:29:00 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int	ft_expand_var(t_data *data, int i, int j)
 	char	*varvalue;
 
 	if (*(data->input + i) == '~')
-		varvalue = ft_get_var(data, "HOME");
+		varvalue = getenv_local(data->vars, "HOME")->val;
 	else
 	{
 		varname = (char *)malloc(sizeof(char) * (ft_strlen(data->input) + 1));
@@ -48,17 +48,16 @@ static int	ft_expand_var(t_data *data, int i, int j)
 			ft_exit_w_error(MALLOC_ERROR);
 		}
 		ft_strlcpy(varname, data->input + i + 1, ft_endwrd(data->input, i));
-		varvalue = ft_get_var(data, varname);
+		varvalue = getenv_local(data->vars, varname)->val;
 		free(varname);
 	}
 	k = 0;
 	while (*(varvalue + k))
 		*(data->ex_input + j++) = *(varvalue + k++);
-	free(varvalue);
 	return (k);
 }
 
-void	ft_expand(t_data *data)
+void	ft_expand(t_data *data) // norma: demasiadas líneas
 {
 	int 	i;
 	int		j;
@@ -96,4 +95,6 @@ void	ft_expand(t_data *data)
 	j--;
 	while (j > 0 && *(data->ex_input + j) == ' ')
 		*(data->ex_input + j--) = '\0';
+	if (DEBUG == 1)
+		printf("\033[0;92m\n    ----> INPUT EXPANSION OK!\n\033[0;39m");
 }
