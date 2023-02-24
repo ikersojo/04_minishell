@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   05_run_builtins.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvalient <mvalient@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 18:01:54 by mvalient          #+#    #+#             */
-/*   Updated: 2023/02/20 18:03:26 by mvalient         ###   ########.fr       */
+/*   Updated: 2023/02/24 13:51:55 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	ft_run_builtin(char *full_cmd, t_data *data, int (*builtin)(t_vars *, char **))
+int	ft_run_builtin(char *full_cmd, t_data *data, int (*builtin)(t_vars *, char **))
 {
 	char	**cmd;
 	int		i;
@@ -26,6 +26,5 @@ void	ft_run_builtin(char *full_cmd, t_data *data, int (*builtin)(t_vars *, char 
 	while (*(cmd + i))
 		free (*(cmd + i++));
 	free (cmd);
-	if (error_flag == 1)
-		ft_exit_w_error("Builtin not found\n");
+	return (error_flag);
 }

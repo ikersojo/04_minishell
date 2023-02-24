@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:22:47 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/23 23:32:00 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/24 13:55:56 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,12 @@ int	main(int argc, char **argv, char **envp)
 		prompt(data);
 }
 
-// Ultimo update (iker 23-02-2023):
+
+// Último update (iker 24-02-2023):
+	// Refactored 04
+	// added exit status to built-ins
+
+// update (iker 23-02-2023):
 	// incluidas re-generaciones de stdin y stdout. Casca por otro lado con pipes, pero con redir no te saca
 	// refactorizadas 00, 01, 02, 03 y aux. Sustituidas funciones por setenv y getenv, y duplicidades eliminadas
 	// todo lo de arriba cumple norma menos ft_expand, por número de líneas (hay que partir)

@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:45:39 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/23 23:13:41 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/24 13:55:56 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static void	ft_setup_redir(t_data *data)
 	}
 }
 
-static int	ft_addvar(t_data *data, char *s)
+static int	ft_addvar(t_data *data, char *s) // ver si la tenemos que quitar
 {
 	int		loc;
 	char	*aux;
@@ -118,14 +118,13 @@ void	ft_exec_cmds(t_data *data)
 	temp = data->cmd;
 	while (temp)
 	{
-		// TODO : Return Status should be updated
 		if (temp->is_builtin) {
 			if (ft_starts_with(temp->str, "cd"))
-				ft_run_builtin(temp->str, data, cd_builtin);
+				status = ft_run_builtin(temp->str, data, cd_builtin);
 			if (ft_starts_with(temp->str, "pwd"))
-				ft_run_builtin(temp->str, data, pwd_builtin);
+				status = ft_run_builtin(temp->str, data, pwd_builtin);
 			if (ft_starts_with(temp->str, "echo"))
-				ft_run_builtin(temp->str, data, echo_builtin);
+				status = ft_run_builtin(temp->str, data, echo_builtin);
 			if (ft_starts_with(temp->str, "exit"))
 				ft_free_all(data);
 		}
@@ -136,7 +135,6 @@ void	ft_exec_cmds(t_data *data)
 			else
 				status = ft_launch_process(temp->str, temp->infd, temp->outfd, data);
 		}
-		// Set last execution status
 		setenv_local(data->vars, "?", ft_itoa(status), 1);
 		temp = temp->next;
 	}
