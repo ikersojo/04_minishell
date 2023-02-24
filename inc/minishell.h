@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 19:44:59 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/24 13:51:55 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/24 15:49:47 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,9 @@ void	ft_expand(t_data *data);
 
 // 04_parse_cmds
 void	ft_parse(t_data *data);
+
+//05_setup_redir
+void	ft_setup_redir(t_data *data);
 
 //05_exec_cmds / heredoc /run_cmd
 int		ft_run_builtin(char *full_cmd, t_data *data, int (*builtin)(t_vars *, char **));
