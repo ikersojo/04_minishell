@@ -1,31 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   07_run_builtins.c                                  :+:      :+:    :+:   */
+/*   08_02_export.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/20 18:01:54 by mvalient          #+#    #+#             */
-/*   Updated: 2023/02/26 22:15:14 by mvalient         ###   ########.fr       */
+/*   Created: 2023/02/20 15:26:53 by mvalient          #+#    #+#             */
+/*   Updated: 2023/02/26 21:51:11 by mvalient         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	ft_run_builtin(char *full_cmd, t_data *data,
-	int (*builtin)(t_vars **, char **))
+int	env_builtin(t_vars **env, char **cmd)
 {
-	char	**cmd;
-	int		i;
-	int		error_flag;
-
-	error_flag = 0;
-	cmd = ft_get_args(full_cmd);
-	if (builtin(&data->vars, cmd) == -1)
-		error_flag = 1;
-	i = 0;
-	while (*(cmd + i))
-		free (*(cmd + i++));
-	free (cmd);
-	return (error_flag);
+	if (ft_strcmp(cmd[0], "env"))
+		return (!printf("RTFM: Undefined error.\n"));
+	if (cmd[1])
+		return (1);
+	while (env)
+	{
+		printf("%s=%s\n", (*env)->name, (*env)->val);
+		*env = (*env)->next;
+	}
+	return (0);
 }

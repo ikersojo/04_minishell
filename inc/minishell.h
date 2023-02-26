@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 19:44:59 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/26 17:37:07 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/26 20:24:58 by mvalient         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,15 +93,17 @@ void	ft_heredoc(char *eof);
 void	ft_exec_cmds(t_data *data);
 
 // 07_run
-int		ft_launch_piped_builtin(char *str, int infd, int outfd, t_data *data);
-int		ft_launch_builtin(char *str, int infd, int outfd, t_data *data);
+int		ft_run_builtin(char *full_cmd, t_data *data, int (*builtin)(t_vars **, char **));
 int		ft_launch_piped_process(char *str, int infd, int outfd, t_data *data);
 int		ft_launch_process(char *str, int infd, int outfd, t_data *data);
 
 // 08_builtins
-int		echo_builtin(t_vars *env, char **cmd);
-int		cd_builtin(t_vars *env, char **cmd);
-int		pwd_builtin(t_vars *env, char **cmd);
+int		echo_builtin(t_vars **env, char **cmd);
+int		cd_builtin(t_vars **env, char **cmd);
+int		pwd_builtin(t_vars **env, char **cmd);
+int		export_builtin(t_vars **env, char **cmd);
+int		unset_builtin(t_vars **env, char **cmd);
+int		env_builtin(t_vars **env, char **cmd);
 
 // -------------------------------------------------------------
 

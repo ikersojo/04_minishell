@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 22:11:56 by mvalient          #+#    #+#             */
-/*   Updated: 2023/02/24 22:56:30 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/26 22:10:38 by mvalient         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 /* Print the arguments in list to standard output.  If the
  * first word is'-n', then don't print a trailing newline. */
-int	echo_builtin(t_vars *env, char **cmd)
+int	echo_builtin(t_vars **env, char **cmd)
 {
 	int	i;
 	int	newline;
 
-	(void)env;
+	(void)*env;
 	i = 0;
 	newline = 1;
 	if (ft_strcmp(cmd[i], "echo"))
