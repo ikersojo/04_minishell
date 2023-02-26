@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 20:46:36 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/23 17:03:45 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/26 12:02:11 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,14 @@ void	ft_show_parsed(t_data *data)
 {
 	t_cmd *temp;
 
-	printf("\033[0;93m\n    ----------------\n\n");
+	printf("\033[0;93m\n    ----------------\n");
 	temp = data->cmd;
 	while (temp)
 	{
-		printf("    parsed cmd %d: %s\n", temp->index, temp->str);
-		printf("    var def %d exec %d infd %d (fd=%d) outfd %d (fd=%d) pipe %d built-in %d\n",
-			temp->is_var, temp->is_exec, temp->is_infd, temp->infd, temp->is_outfd,
-			temp->outfd, temp->is_pipe, temp->is_builtin);
+		printf("\n    parsed cmd %d: %s\n", temp->index, temp->str);
+		printf("    exec %d builtin %d | infd %d (%d) outfd %d (%d) pipe %d\n",
+			temp->is_exec, temp->is_builtin, temp->is_infd, temp->infd,
+			temp->is_outfd, temp->outfd, temp->is_pipe);
 		temp = temp->next;
 	}
 	printf("\n    ----------------\033[0;39m\n\n");
@@ -56,4 +56,11 @@ void	ft_check_cmd(char *cmd_path, char **cmd)
 		i++;
 	}
 	printf("\n    ----------------\033[0;39m\n\n");
+}
+
+void	ft_print_redir(char *str, t_cmd *exec, char *redir)
+{
+	printf("\033[0;93m\n    ----------------\n");
+	printf("    %s in %s redirected to %s\n", str, exec->str, redir);
+	printf("    ----------------\033[0;39m\n\n");
 }

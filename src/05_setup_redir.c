@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 14:05:07 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/24 15:49:47 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/26 13:46:10 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,65 +22,96 @@ static char	*ft_filename(char *str)
 	return (str + i);
 }
 
-static void	ft_redir_in_next(t_cmd *temp)
+static void	ft_redir_in(t_cmd *exec, t_cmd *inredir)
 {
-	if (*(temp->str + 1) == '<')
+	if (*(inredir->str + 1) == '<')
 	{
-		ft_heredoc(ft_filename(temp->str), temp->outfd);
-		if(temp->outfd == STDOUT_FILENO)
-			temp->next->infd = open(".tempfd", O_RDONLY);
+		ft_heredoc(ft_filename(inredir->str));
+		if(exec->outfd == STDOUT_FILENO)
+			exec->infd = open(".tempfd", O_RDONLY);
 	}
 	else
-		temp->next->infd = open(ft_filename(temp->str), O_RDONLY);
-	if (temp->next->infd == -1)
-		ft_exit_w_error("errno");
-	dup2(temp->next->infd, STDIN_FILENO);
-	close(temp->next->infd);
-}
-
-static void	ft_redir_in_current(t_cmd *temp)
-{
-	if (*(temp->next->str + 1) == '<')
 	{
-		ft_heredoc(ft_filename(temp->next->str), temp->outfd);
-		if(temp->outfd == STDOUT_FILENO)
-			temp->infd = open(".tempfd", O_RDONLY);
+		if (DEBUG == 1)
+			ft_print_redir("Input", exec, ft_filename(inredir->str));
+		exec->infd = open(ft_filename(inredir->str), O_RDONLY);
 	}
-	else
-		temp->infd = open(ft_filename(temp->next->str), O_RDONLY);
-	if (temp->infd == -1)
+	if (exec->infd == -1)
 		ft_exit_w_error("errno");
-	dup2(temp->infd, STDIN_FILENO);
-	close(temp->infd);
+
+	// // mejor moverlo a launch_process...
+	// dup2(tmp->next->infd, STDIN_FILENO);
+	// close(tmp->next->infd);
 }
 
-static void	ft_redir_out(t_cmd *temp)
+static void	ft_redir_out(t_cmd *exec, t_cmd *outredir)
 {
-	if (*(temp->next->str + 1) == '>')
-		temp->outfd = open(ft_filename(temp->next->str),
+	if (DEBUG == 1)
+		ft_print_redir("Output", exec, ft_filename(outredir->str));
+	if (*(outredir->str + 1) == '>')
+		exec->outfd = open(ft_filename(outredir->str),
 			O_WRONLY | O_CREAT | O_APPEND, 0666);
 	else
-		temp->outfd = open(ft_filename(temp->next->str),
+		exec->outfd = open(ft_filename(outredir->str),
 			O_WRONLY | O_CREAT | O_TRUNC, 0666);
-	if (temp->outfd == -1)
+	if (exec->outfd == -1)
 		ft_exit_w_error("errno");
+}
+
+
+static void	ft_cmd_clean(t_data *data)
+{
+	t_cmd	*tmp;
+	t_cmd	*current;
+
+	while (data->cmd && (data->cmd->is_infd || data->cmd->is_outfd))
+	{
+		current = data->cmd;
+		data->cmd = data->cmd->next;
+		free(current);
+	}
+	tmp = data->cmd;
+	while(tmp)
+	{
+		while(tmp->next && (tmp->next->is_infd || tmp->next->is_outfd))
+		{
+			current = tmp->next;
+			tmp->next = tmp->next->next;
+			free(current);
+		}
+		tmp = tmp->next;
+	}
 }
 
 void	ft_setup_redir(t_data *data)
 {
-	t_cmd	*temp;
+	t_cmd	*tmp;
+	t_cmd	*exec;
+	t_cmd	*inredir;
+	t_cmd	*outredir;
 
-	temp = data->cmd;
-	while (temp)
+	tmp = data->cmd;
+	while (tmp)
 	{
-		if (temp->next && temp->next->is_outfd == 1)
-			ft_redir_out(temp);
-		// else if (temp->next && temp->next->next && temp->next->is_infd == 1 && temp->next->next->is_outfd == 1)
-		// 	ft_redir_out(temp);
-		if (temp->next && temp->next->is_infd)
-			ft_redir_in_current(temp);
-		else if (temp->is_infd && temp->next)
-			ft_redir_in_next(temp);
-		temp = temp->next;
+		exec = NULL;
+		inredir = NULL;
+		outredir = NULL;
+		while(tmp && !tmp->is_pipe)
+		{
+			if (tmp->is_outfd)
+				outredir = tmp;
+			else if (tmp->is_infd)
+				inredir = tmp;
+			else if (tmp->is_exec || tmp->is_builtin)
+				exec = tmp;
+			tmp = tmp->next;
+		}
+		if (exec && outredir)
+			ft_redir_out(exec, outredir);
+		if (exec && inredir)
+			ft_redir_in(exec, inredir);
+		if (tmp)
+			tmp = tmp->next;
 	}
+	ft_cmd_clean(data);
 }

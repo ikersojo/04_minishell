@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 13:05:05 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/24 13:43:19 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/26 12:18:32 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	ft_init_cmd(t_cmd *new, char *str, int index)
 	new->is_outfd = 0;
 	new->is_infd = 0;
 	new->is_pipe = 0;
-	new->is_var = 0;
+	new->is_var = 0; //ver si quitamos
 	new->is_builtin = 0;
 }
 
@@ -60,7 +60,7 @@ t_cmd	*ft_cmdnew(char *str, int index)
 		new->is_infd = 1;
 	else if (*str == '|')
 		new->is_pipe = 1;
-	else if (ft_is_var_definition(str))
+	else if (ft_is_var_definition(str)) // ver si quitamos...
 		new->is_var = 1;
 	else if (ft_is_builtin(str))
 		new->is_builtin = 1;

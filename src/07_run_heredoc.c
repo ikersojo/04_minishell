@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   05_heredoc.c                                       :+:      :+:    :+:   */
+/*   07_run_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 16:04:10 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/13 22:42:08 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/26 13:47:19 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	ft_checkline(char *limiter, int fd)
 
 	while (1)
 	{
-		ft_putstr_fd("heredoc> ", 1);
+		ft_putstr_fd("> ", 1);
 		line = ft_get_input();
 		if (ft_strncmp(line, limiter, ft_strlen(line) - 1) == 0)
 		{
@@ -51,16 +51,11 @@ static void	ft_checkline(char *limiter, int fd)
 	}
 }
 
-void	ft_heredoc(char *eof, int outfd)
+void	ft_heredoc(char *eof)
 {
 	int		tempfd;
 
-	if (outfd == 1)
-	{
-		tempfd = open(".tempfd", O_WRONLY | O_CREAT | O_TRUNC, 0666);
-		ft_checkline(eof, tempfd);
-		close (tempfd);
-	}
-	else
-		ft_checkline(eof, outfd);
+	tempfd = open(".tempfd", O_WRONLY | O_CREAT | O_TRUNC, 0666);
+	ft_checkline(eof, tempfd);
+	close (tempfd);
 }

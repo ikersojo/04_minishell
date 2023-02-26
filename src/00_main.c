@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:22:47 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/24 13:55:56 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/26 16:18:03 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@ static void	ft_process_input(t_data *data)
 {
 	ft_expand(data);
 	ft_parse(data);
+	if (DEBUG == 1)
+		ft_show_parsed(data);
+	ft_setup_redir(data);
 	if (DEBUG == 1)
 		ft_show_parsed(data);
 	ft_exec_cmds(data);
@@ -67,8 +70,13 @@ int	main(int argc, char **argv, char **envp)
 		prompt(data);
 }
 
+// Último update (iker 26-02-2023):
+	// Refactored 05, 06, 07
+	// redirs and pipes working 100% with execs
+	// redirs working on built-ins
+	// (!!!) pipes not working on built ins
 
-// Último update (iker 24-02-2023):
+// update (iker 24-02-2023):
 	// Refactored 04
 	// added exit status to built-ins
 
