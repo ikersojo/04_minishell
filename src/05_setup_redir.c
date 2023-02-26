@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 14:05:07 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/26 13:46:10 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/26 17:37:07 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,6 @@ static void	ft_redir_in(t_cmd *exec, t_cmd *inredir)
 	}
 	if (exec->infd == -1)
 		ft_exit_w_error("errno");
-
-	// // mejor moverlo a launch_process...
-	// dup2(tmp->next->infd, STDIN_FILENO);
-	// close(tmp->next->infd);
 }
 
 static void	ft_redir_out(t_cmd *exec, t_cmd *outredir)

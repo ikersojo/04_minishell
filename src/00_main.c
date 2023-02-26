@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:22:47 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/26 16:18:03 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/26 19:20:10 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static void	ft_process_input(t_data *data)
 	if (DEBUG == 1)
 		ft_show_parsed(data);
 	ft_exec_cmds(data);
+	ft_show_parsed(data); // DEBUG
 	free (data->ex_input);
 	data->ex_input = NULL;
 	ft_freecmd(data);
@@ -38,13 +39,16 @@ static void	ft_signal_handler(int signum, siginfo_t *info, void *context)
 
 static void prompt(t_data *data)
 {
+	rl_set_prompt(PROMPT);
 	data->input = readline(PROMPT);
 	if (!data->input)
 		ft_exit_w_error(MALLOC_ERROR);
-	if (ft_strlen(data->input) > 0)
+	// if (ft_strlen(data->input) > 0)
+	if (data->input && *data->input)
 		add_history(data->input);
 	if (ft_input_ok(data))
 		ft_process_input(data);
+	replace_history_entry(history_length, data->input, NULL);
 	free (data->input);
 	data->input = NULL;
 }
@@ -66,6 +70,8 @@ int	main(int argc, char **argv, char **envp)
 		ft_show_vars(data);
 	else
 		ft_clear_screen();
+	rl_initialize();
+	using_history();
 	while (1)
 		prompt(data);
 }
