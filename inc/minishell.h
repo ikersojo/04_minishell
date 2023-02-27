@@ -99,9 +99,12 @@ int		ft_launch_piped_process(char *str, int infd, int outfd, t_data *data);
 int		ft_launch_process(char *str, int infd, int outfd, t_data *data);
 
 // 08_builtins
-int		echo_builtin(t_vars *env, char **cmd);
-int		cd_builtin(t_vars *env, char **cmd);
-int		pwd_builtin(t_vars *env, char **cmd);
+int		echo_builtin(t_vars **env, char **cmd);
+int		cd_builtin(t_vars **env, char **cmd);
+int		pwd_builtin(t_vars **env, char **cmd);
+int		export_builtin(t_vars **env, char **cmd);
+int		unset_builtin(t_vars **env, char **cmd);
+int		env_builtin(t_vars **env, char **cmd);
 
 // -------------------------------------------------------------
 

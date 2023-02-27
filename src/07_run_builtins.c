@@ -12,7 +12,8 @@
 
 #include "../inc/minishell.h"
 
-static int	ft_run_builtin(char *full_cmd, t_data *data, int (*builtin)(t_vars *, char **))
+static int	ft_run_builtin(char *full_cmd, t_data *data,
+	int (*builtin)(t_vars **, char **))
 {
 	char	**cmd;
 	int		i;
@@ -20,7 +21,7 @@ static int	ft_run_builtin(char *full_cmd, t_data *data, int (*builtin)(t_vars *,
 
 	error_flag = 0;
 	cmd = ft_get_args(full_cmd);
-	if (builtin(data->vars, cmd) == -1)
+	if (builtin(&data->vars, cmd) == -1)
 		error_flag = 1;
 	i = 0;
 	while (*(cmd + i))
@@ -41,11 +42,11 @@ static int ft_options(char *str, t_data *data)
 	if (ft_starts_with(str, "pwd"))
 		status = ft_run_builtin(str, data, pwd_builtin);
 	if (ft_starts_with(str, "export")) // ojo con el caracter '='
-		status = 0; //TODO
+		status = ft_run_builtin(str, data, export_builtin);
 	if (ft_starts_with(str, "unset"))
-		status = 0; //TODO
+		status = ft_run_builtin(str, data, unset_builtin);
 	if (ft_starts_with(str, "env"))
-		status = 0; //TODO
+		status = ft_run_builtin(str, data, env_builtin);
 	return (status);
 }
 

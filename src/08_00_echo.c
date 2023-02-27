@@ -14,12 +14,12 @@
 
 /* Print the arguments in list to standard output.  If the
  * first word is'-n', then don't print a trailing newline. */
-int	echo_builtin(t_vars *env, char **cmd)
+int	echo_builtin(t_vars **env, char **cmd)
 {
 	int	i;
 	int	newline;
 
-	(void)env;
+	(void)*env;
 	i = 0;
 	newline = 1;
 	if (ft_strcmp(cmd[i], "echo"))

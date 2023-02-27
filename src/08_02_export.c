@@ -6,12 +6,11 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:26:53 by mvalient          #+#    #+#             */
-/*   Updated: 2023/02/24 22:56:30 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/26 22:12:48 by mvalient         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
 
 static int	ft_export_list(t_vars *env)
 {
@@ -32,7 +31,7 @@ static int	ft_export_list(t_vars *env)
  *
  * // TODO : Remove "=" handling from shell
  */
-int	export_builtin(t_vars *env, char **cmd)
+int	export_builtin(t_vars **env, char **cmd)
 {
 	int	i;
 
@@ -41,12 +40,12 @@ int	export_builtin(t_vars *env, char **cmd)
 		return (!printf("RTFM: Undefined error.\n"));
 	if (!cmd[i])
 	{
-		ft_export_list(env);
+		ft_export_list(*env);
 	}
 	while (cmd[i])
 	{
-		if(!ft_count_chars(cmd[i], '='))
-			getenv_local(env, cmd[i])->is_exp = 1;
+		if (!ft_count_chars(cmd[i], '='))
+			getenv_local(*env, cmd[i])->is_exp = 1;
 		else
 		{
 			// TODO : Trim str by first = and sentenv with part1 and part2

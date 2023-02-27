@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 21:50:01 by mvalient          #+#    #+#             */
-/*   Updated: 2023/02/24 22:56:30 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/26 22:10:38 by mvalient         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	check_dir_permission(char *path)
  * change the current working directory.
  * TODO : Might be interesting to create a route parser
  */
-int	cd_builtin(t_vars *env, char **cmd)
+int	cd_builtin(t_vars **env, char **cmd)
 {
 	char	*rel_path;
 
@@ -42,33 +42,33 @@ int	cd_builtin(t_vars *env, char **cmd)
 		return (!printf("pwd: Too many arguments\n"));
 	if (!cmd[1])
 	{
-		if (!check_dir_permission(getenv_local(env, "HOME")->val))
+		if (!check_dir_permission(getenv_local(*env, "HOME")->val))
 			return (0);
-		setenv_local(env, "OLDPWD", getenv_local(env, "PWD")->val, 1);
-		setenv_local(env, "PWD", getenv_local(env, "HOME")->val, 1);
+		setenv_local(*env, "OLDPWD", getenv_local(*env, "PWD")->val, 1);
+		setenv_local(*env, "PWD", getenv_local(*env, "HOME")->val, 1);
 	}
 	else
 	{
 		if (cmd[1][0] == '/' && check_dir_permission(cmd[1]))
 		{
-			setenv_local(env, "OLDPWD", getenv_local(env, "PWD")->val, 1);
-			setenv_local(env, "PWD", cmd[1], 1);
+			setenv_local(*env, "OLDPWD", getenv_local(*env, "PWD")->val, 1);
+			setenv_local(*env, "PWD", cmd[1], 1);
 		}
 		else if (cmd[1][0] != '/')
 		{
-			rel_path = ft_strjoin(ft_strjoin(getenv_local(env, "PWD")->val,
-						"/"), cmd[1]);
+			rel_path = ft_strjoin(ft_strjoin(getenv_local(*env, "PWD")->val,
+											 "/"), cmd[1]);
 			if (check_dir_permission(rel_path))
 			{
-				setenv_local(env, "OLDPWD", getenv_local(env, "PWD")->val, 1);
-				setenv_local(env, "PWD", rel_path, 1);
+				setenv_local(*env, "OLDPWD", getenv_local(*env, "PWD")->val, 1);
+				setenv_local(*env, "PWD", rel_path, 1);
 			}
 			free(rel_path);
 		}
 		else
 			return (0);
 	}
-	return (!chdir(getenv_local(env, "PWD")->val));
+	return (!chdir(getenv_local(*env, "PWD")->val));
 }
 
 /*
@@ -80,11 +80,11 @@ int	cd_builtin(t_vars *env, char **cmd)
  * 			 0: On Success
  * 			>0: On Failure
  */
-int	pwd_builtin(t_vars *env, char **cmd)
+int	pwd_builtin(t_vars **env, char **cmd)
 {
 	if (ft_strcmp(cmd[0], "pwd"))
 		return (printf("RTFM: Undefined error.\n"));
 	if (cmd[1])
 		return (printf("pwd: Too many arguments\n"));
-	return (!printf("%s\n", getenv_local(env, "PWD")->val));
+	return (!printf("%s\n", getenv_local(*env, "PWD")->val));
 }
