@@ -57,7 +57,7 @@ int	cd_builtin(t_vars **env, char **cmd)
 		else if (cmd[1][0] != '/')
 		{
 			rel_path = ft_strjoin(ft_strjoin(getenv_local(*env, "PWD")->val,
-						"/"), cmd[1]);
+											 "/"), cmd[1]);
 			if (check_dir_permission(rel_path))
 			{
 				setenv_local(*env, "OLDPWD", getenv_local(*env, "PWD")->val, 1);
