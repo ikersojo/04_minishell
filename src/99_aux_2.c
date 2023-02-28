@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 13:51:48 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/26 13:52:03 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/28 22:04:45 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ int	ft_endredir(char *str, int i)
 		j++;
 	while (*(str + i + j))
 	{
-		if (ft_isspace(*(str + i + j)) || ft_ischarset(*(str + i + j), "<>)\"\'}]"))
+		if (ft_isspace(*(str + i + j))
+			|| ft_ischarset(*(str + i + j), "<>)\"\'}]"))
 			break ;
 		j++;
 	}	

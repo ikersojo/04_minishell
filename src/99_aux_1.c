@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 18:18:26 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/26 16:00:08 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/28 22:37:44 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_clear_screen(void)
 {
-	ft_putstr_fd("\n\n\n\n\n\n\n\n", 1);
+	ft_putstr_fd("\n\n\n\n", 1);
 	ft_putstr_fd(GREEN, 1);
 	ft_putstr_fd("                                                     \n", 1);
 	ft_putstr_fd("           :::      ::::::::                         \n", 1);

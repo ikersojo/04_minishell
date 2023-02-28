@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:22:47 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/26 19:20:10 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/28 23:29:21 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ static void	ft_process_input(t_data *data)
 	if (DEBUG == 1)
 		ft_show_parsed(data);
 	ft_exec_cmds(data);
-	ft_show_parsed(data); // DEBUG
 	free (data->ex_input);
 	data->ex_input = NULL;
 	ft_freecmd(data);
@@ -43,8 +42,7 @@ static void prompt(t_data *data)
 	data->input = readline(PROMPT);
 	if (!data->input)
 		ft_exit_w_error(MALLOC_ERROR);
-	// if (ft_strlen(data->input) > 0)
-	if (data->input && *data->input)
+	if (data->input && ft_strlen(data->input) > 0)
 		add_history(data->input);
 	if (ft_input_ok(data))
 		ft_process_input(data);
@@ -76,7 +74,15 @@ int	main(int argc, char **argv, char **envp)
 		prompt(data);
 }
 
-// Último update (iker 26-02-2023):
+// Último update (iker 28-02-2023):
+	// fixed merge
+	// fixed env builtin --> hay que poner los exportables??? tenemos que evitar el ? al printar?
+	// fixed echo builtin --> additional last space removed
+	// new function: sequencia limpia revisada que es ejecutable/pipe/ejecutable... --> sino, syntax error
+	// new function: puede estar la entrada redirigida en un built in? de momento he puesto como un syntax error
+	// pipes with builtins working !!! (por fin...)
+
+// update (iker 26-02-2023):
 	// Refactored 05, 06, 07
 	// redirs and pipes working 100% with execs
 	// redirs working on built-ins

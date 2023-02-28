@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:42:50 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/24 13:53:02 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/28 22:57:17 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	ft_valid_char(char c)
 {
-	if (ft_isalnum(c) || ft_ischarset(c, " \t\'\"|<>$-_.+~/=?")) // si quitamos addvar, quitamos el =?
+	if (ft_isalnum(c) || ft_ischarset(c, " \t\'\"|<>$-_.+~/=?")) // si quitamos addvar, quitamos el = --> añadir función para comprobar que el = solo está con export
 		return (1);
 	return (0);
 }
@@ -27,10 +27,7 @@ static int	ft_characters_ok(char *str)
 	while (*(str + i))
 	{
 		if (!ft_inquotes(str, i) && !ft_valid_char(*(str + i)))
-			{
-			printf("error %c \n", *(str + i)); // DEBUG
 			return (0);
-			}
 		if (!ft_inquotes(str, i) && ft_ischarset(*(str + i), "|")
 			&& (*(str + i + 1) && ft_ischarset(*(str + i + 1), "|")))
 			return (0);

@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 19:44:59 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/26 20:24:58 by mvalient         ###   ########.fr       */
+/*   Updated: 2023/02/28 23:14:12 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 // DEBUG OR PRODUCTION (1 or 0)
 # define DEBUG 1
 
-// Required for ...
+// Required for readline compatibility
 # define _XOPEN_SOURCE 700 // ??
 
 // INCLUDES
@@ -44,7 +44,6 @@ typedef struct s_cmd
 	int				is_infd;
 	int				is_outfd;
 	int				is_pipe;
-	int				is_var; //ver si la quitamos definitivamente
 	int				pipe;
 	int				infd;
 	int				outfd;
@@ -87,15 +86,16 @@ void	ft_parse(t_data *data);
 
 // 05_setup_redir
 void	ft_setup_redir(t_data *data);
-void	ft_heredoc(char *eof);
 
 // 06_exec_cmds
 void	ft_exec_cmds(t_data *data);
 
 // 07_run
-int		ft_run_builtin(char *full_cmd, t_data *data, int (*builtin)(t_vars **, char **));
 int		ft_launch_piped_process(char *str, int infd, int outfd, t_data *data);
 int		ft_launch_process(char *str, int infd, int outfd, t_data *data);
+// int		ft_launch_piped_builtin(char *str, int infd, int outfd, t_data *data);
+int		ft_launch_builtin(char *str, int infd, int outfd, t_data *data);
+void	ft_heredoc(char *eof);
 
 // 08_builtins
 int		echo_builtin(t_vars **env, char **cmd);

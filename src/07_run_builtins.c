@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 18:01:54 by mvalient          #+#    #+#             */
-/*   Updated: 2023/02/26 19:32:01 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/02/28 23:14:12 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ static int	ft_run_builtin(char *full_cmd, t_data *data,
 	return (error_flag);
 }
 
-
 static int ft_options(char *str, t_data *data)
 {
 	int	status;
@@ -50,28 +49,32 @@ static int ft_options(char *str, t_data *data)
 	return (status);
 }
 
-int	ft_launch_piped_builtin(char *str, int infd, int outfd, t_data *data) // algo falla...
-{
-	int		status;
+// int	ft_launch_piped_builtin(char *str, int infd, int outfd, t_data *data) // algo falla...
+// {
+// 	int	status;
 
-	dup2(infd, STDIN_FILENO);
-	dup2(outfd, STDOUT_FILENO);
-	status = ft_options(str, data);
-	if (infd != STDIN_FILENO)
-		close (infd);
-	dup2(data->baseline_infd, STDIN_FILENO);
-	dup2(data->baseline_outfd, STDOUT_FILENO);
-	if (ft_starts_with(str, "exit"))
-		ft_free_all(data);
-	return (status);
-}
+// 	if (infd != STDIN_FILENO)
+// 		dup2(infd, STDIN_FILENO);
+// 	if (outfd != STDOUT_FILENO)
+// 		dup2(outfd, STDOUT_FILENO);
+// 	status = ft_options(str, data);
+// 	if (infd != STDIN_FILENO)
+// 		close (infd);
+// 	dup2(data->baseline_infd, STDIN_FILENO);
+// 	dup2(data->baseline_outfd, STDOUT_FILENO);
+// 	if (ft_starts_with(str, "exit"))
+// 		ft_free_all(data);
+// 	return (status);
+// }
 
 int	ft_launch_builtin(char *str, int infd, int outfd, t_data *data)
 {
-	int		status;
+	int	status;
 
-	dup2(outfd, STDOUT_FILENO);
-	dup2(infd, STDIN_FILENO);
+	if (infd != STDIN_FILENO)
+		dup2(infd, STDIN_FILENO);
+	if (outfd != STDOUT_FILENO)
+		dup2(outfd, STDOUT_FILENO);
 	status = ft_options(str, data);
 	if (outfd != STDOUT_FILENO)
 		close(outfd);

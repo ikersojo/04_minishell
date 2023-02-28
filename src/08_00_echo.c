@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 22:11:56 by mvalient          #+#    #+#             */
-/*   Updated: 2023/02/26 22:10:38 by mvalient         ###   ########.fr       */
+/*   Updated: 2023/02/28 23:26:00 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,11 @@ int	echo_builtin(t_vars **env, char **cmd)
 		i++;
 	}
 	while (cmd[i])
-		printf("%s ", cmd[i++]);
+	{
+		printf("%s", cmd[i++]);
+		if (cmd[i])
+			printf(" ");
+	}
 	if (newline)
 		printf("\n");
 	return (EXIT_SUCCESS);
