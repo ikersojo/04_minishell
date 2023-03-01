@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 21:50:01 by mvalient          #+#    #+#             */
-/*   Updated: 2023/02/26 22:10:38 by mvalient         ###   ########.fr       */
+/*   Updated: 2023/03/02 00:39:55 by mvalient         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,14 @@ char	*ft_strjoin_arr(char **arr, char *del)
 
 	i = 0;
 	len = 0;
+	if (!arr[i])
+		return (malloc(1));
 	while (arr[i])
 	{
 		len += ft_strlen(arr[i]);
 		i++;
 	}
-	str = malloc(sizeof(char) * (len + i));
+	str = ft_calloc(1, sizeof(char) * (len + i));
 	i = 0;
 	while (arr[i])
 	{
