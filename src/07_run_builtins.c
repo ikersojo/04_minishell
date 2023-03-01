@@ -37,9 +37,9 @@ static int ft_options(char *str, t_data *data)
 	if (ft_starts_with(str, "echo"))
 		status = ft_run_builtin(str, data, echo_builtin);
 	if (ft_starts_with(str, "cd"))
-		status = ft_run_builtin(str, data, cd_builtin);
+		status = ft_run_builtin(str, data, ft_cd_builtin);
 	if (ft_starts_with(str, "pwd"))
-		status = ft_run_builtin(str, data, pwd_builtin);
+		status = ft_run_builtin(str, data, ft_pwd_builtin);
 	if (ft_starts_with(str, "export")) // ojo con el caracter '='
 		status = ft_run_builtin(str, data, export_builtin);
 	if (ft_starts_with(str, "unset"))

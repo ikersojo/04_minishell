@@ -99,8 +99,8 @@ void	ft_heredoc(char *eof);
 
 // 08_builtins
 int		echo_builtin(t_vars **env, char **cmd);
-int		cd_builtin(t_vars **env, char **cmd);
-int		pwd_builtin(t_vars **env, char **cmd);
+int		ft_cd_builtin(t_vars **env, char **cmd);
+int		ft_pwd_builtin(t_vars **env, char **cmd);
 int		export_builtin(t_vars **env, char **cmd);
 int		unset_builtin(t_vars **env, char **cmd);
 int		env_builtin(t_vars **env, char **cmd);
