@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 11:52:54 by mvalient          #+#    #+#             */
-/*   Updated: 2023/02/23 22:47:16 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/03/02 00:58:48 by mvalient         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	setenv_local(t_vars *list, char *name, char *value, int overwrite)
 	new = getenv_local(list, name);
 	if (!new)
 	{
-		new = ft_varsnew(name, value);
+		new = ft_varsnew(ft_strdup(name), ft_strdup(value));
 		if(!new)
 			return (-1);
 		while (list->next)
