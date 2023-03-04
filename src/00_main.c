@@ -62,7 +62,6 @@ int	main(int argc, char **argv, char **envp)
 		prompt();
 }
 
-// TODO : Revisar salto de línea extra
 // TODO : Revisar leaks
 // TODO : Revisar prompt extra al hacer ctrl + C sobre un proceso en segundo plano
 // TODO : Revisar export con sólo un =

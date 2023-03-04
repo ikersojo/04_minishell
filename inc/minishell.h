@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 19:44:59 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/03/04 19:19:36 by mvalient         ###   ########.fr       */
+/*   Updated: 2023/03/04 19:30:03 by mvalient         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # include <signal.h>
 
 // MESSAGES
-# define PROMPT			"\033[0;92m\n >> $ \033[0;39m"
+# define PROMPT			"\033[0;92m >> $ \033[0;39m"
 # define MALLOC_ERROR	"Memory could not be allocated.\n"
 # define SYNTAX_ERROR	"\033[0;31mSyntax error.\033[0;39m\n"
 # define VAR_ERROR		"User variable not defined.\n"
