@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:22:47 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/03/04 19:31:06 by mvalient         ###   ########.fr       */
+/*   Updated: 2023/03/04 19:51:05 by mvalient         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,12 @@ int	main(int argc, char **argv, char **envp)
 		prompt();
 }
 
+// TODO : Si se borra el path del env hay segfault
 // TODO : Revisar leaks
 // TODO : Revisar prompt extra al hacer ctrl + C sobre un proceso en segundo plano
 // TODO : Revisar export con ""=""
 // TODO : Revisar export en general
+// TODO : export y env de bash me printan 2 líneas de más con wc -l
 
 // Último update (iker 28-02-2023):
 	// fixed merge
