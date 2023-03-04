@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 19:44:59 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/28 23:14:12 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/03/04 19:19:36 by mvalient         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,11 @@ int		ft_pwd_builtin(t_vars **env, char **cmd);
 int		export_builtin(t_vars **env, char **cmd);
 int		unset_builtin(t_vars **env, char **cmd);
 int		env_builtin(t_vars **env, char **cmd);
+
+// 09_signals
+void	ft_signal_handler(void (*handler)(int signum, siginfo_t *info, void *context));
+void	ft_parent_signals(int signum, siginfo_t *info, void *context);
+void	ft_child_signals(int signum, siginfo_t *info, void *context);
 
 // -------------------------------------------------------------
 
