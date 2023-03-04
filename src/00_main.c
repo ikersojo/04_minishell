@@ -6,73 +6,68 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:22:47 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/28 23:29:21 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/03/04 19:16:39 by mvalient         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-static void	ft_process_input(t_data *data)
+t_data *g_data;
+
+static void	ft_process_input()
 {
-	ft_expand(data);
-	ft_parse(data);
+	ft_expand(g_data);
+	ft_parse(g_data);
 	if (DEBUG == 1)
-		ft_show_parsed(data);
-	ft_setup_redir(data);
+		ft_show_parsed(g_data);
+	ft_setup_redir(g_data);
 	if (DEBUG == 1)
-		ft_show_parsed(data);
-	ft_exec_cmds(data);
-	free (data->ex_input);
-	data->ex_input = NULL;
-	ft_freecmd(data);
+		ft_show_parsed(g_data);
+	ft_exec_cmds(g_data);
+	free (g_data->ex_input);
+	g_data->ex_input = NULL;
+	ft_freecmd(g_data);
 }
 
-static void	ft_signal_handler(int signum, siginfo_t *info, void *context)
-{
-	(void) signum;
-	(void) context;
-	(void) info;
-	printf("SIGINT");
-	exit(0);
-}
-
-static void prompt(t_data *data)
+static void prompt()
 {
 	rl_set_prompt(PROMPT);
-	data->input = readline(PROMPT);
-	if (!data->input)
+	g_data->input = readline(PROMPT);
+	if (!g_data->input)
 		ft_exit_w_error(MALLOC_ERROR);
-	if (data->input && ft_strlen(data->input) > 0)
-		add_history(data->input);
-	if (ft_input_ok(data))
-		ft_process_input(data);
-	replace_history_entry(history_length, data->input, NULL);
-	free (data->input);
-	data->input = NULL;
+	if (g_data->input && ft_strlen(g_data->input) > 0)
+		add_history(g_data->input);
+	if (ft_input_ok(g_data))
+		ft_process_input();
+	replace_history_entry(history_length, g_data->input, NULL);
+	free (g_data->input);
+	g_data->input = NULL;
 }
 
 int	main(int argc, char **argv, char **envp)
 {
-	struct sigaction sa;
-	t_data	*data;
 
 	(void)argv;
 	if (argc != 1)
 		ft_exit_w_error(SYNTAX_ERROR);
-	sa.sa_flags = SA_SIGINFO;
-	sa.sa_sigaction = ft_signal_handler;
-	if (sigaction(SIGINT, &sa, NULL) == -1)
-		write(1, "Error\n", 6);
-	data = ft_init_data(envp);
+	g_data = ft_init_data(envp);
 	if (DEBUG == 1)
-		ft_show_vars(data);
+		ft_show_vars(g_data);
 	else
 		ft_clear_screen();
 	rl_initialize();
 	using_history();
+	ft_signal_handler(ft_parent_signals);
 	while (1)
-		prompt(data);
+		prompt();
 }
+
+// TODO : Revisar salto de línea extra
+// TODO : Revisar leaks
+// TODO : Revisar prompt extra al hacer ctrl + C sobre un proceso en segundo plano
+// TODO : Revisar export con sólo un =
+// TODO : Revisar export con ""=""
+// TODO : Revisar export en general
 
 // Último update (iker 28-02-2023):
 	// fixed merge
@@ -100,7 +95,6 @@ int	main(int argc, char **argv, char **envp)
 // COSAS PENDIENTES POR HACER:
 	// built-ins (martin):
 		// env, export
-		// cd: función que corrija el path del directorio quitando puntos y dobles puntos
 		// status de salida (void --> int en las funciones)
 		// hay que incluir las redirecionesde salidas de los built-ins echo y pwd (alguno más) --> con está te ayudo (la dejamos para el final)
 	// usar variable global?? para que y por qué?
