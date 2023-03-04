@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:26:53 by mvalient          #+#    #+#             */
-/*   Updated: 2023/03/02 01:11:10 by mvalient         ###   ########.fr       */
+/*   Updated: 2023/03/04 19:41:17 by mvalient         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,12 @@ int	export_builtin(t_vars **env, char **cmd)
 	if (ft_strcmp(cmd[i++], "export"))
 		return (!printf("RTFM: Undefined error.\n"));
 	if (!cmd[i])
-	{
 		ft_export_list(*env);
-	}
 	while (cmd[i])
 	{
 		if (!ft_count_chars(cmd[i], '='))
 			setenv_local(*env, cmd[i], "", 1);
-		else
+		else if (ft_strlen(cmd[i]) > 1)
 		{
 			variable = trim_str(cmd[i]);
 			setenv_local(*env, variable[0], variable[1], 1);
@@ -82,6 +80,8 @@ int	export_builtin(t_vars **env, char **cmd)
 			free(variable[1]);
 			free(variable);
 		}
+		else
+			printf("export: `%s': not a valid identifier\n", cmd[i]);
 		i++;
 	}
 	return (0);
