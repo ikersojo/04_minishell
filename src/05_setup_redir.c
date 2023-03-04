@@ -27,7 +27,7 @@ static void	ft_redir_in(t_cmd *exec, t_cmd *inredir)
 	if (*(inredir->str + 1) == '<')
 	{
 		ft_heredoc(ft_filename(inredir->str));
-		if(exec->outfd == STDOUT_FILENO)
+		if (exec->outfd == STDOUT_FILENO)
 			exec->infd = open(".tempfd", O_RDONLY);
 	}
 	else

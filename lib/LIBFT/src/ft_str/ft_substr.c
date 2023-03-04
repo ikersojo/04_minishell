@@ -21,7 +21,7 @@ If the allocation fails, the function returns NULL.
 char	*ft_substr(const char *s, int start, int len)
 {
 	char	*sub;
-	int	i;
+	int		i;
 
 	if (s == NULL || len == 0 || ft_strlen(s) < start)
 		return (NULL);

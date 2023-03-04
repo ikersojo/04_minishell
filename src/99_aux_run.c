@@ -21,7 +21,7 @@ char	**ft_get_args(char *arg)
 
 	mod = (char *)malloc(ft_strlen(arg) + 1);
 	if (mod == NULL)
-		return NULL;
+		return (NULL);
 	i = 0;
 	j = 0;
 	while (*(arg + i))

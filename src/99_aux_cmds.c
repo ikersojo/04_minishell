@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 13:05:05 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/28 22:04:47 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/03/04 20:31:59 by mvalient         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 static int	ft_is_builtin(char *str)
 {
-
 	if (ft_starts_with(str, "echo"))
 		return (1);
 	if (ft_starts_with(str, "cd"))

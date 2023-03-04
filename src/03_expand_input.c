@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:44:09 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/23 23:29:00 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/03/04 20:30:38 by mvalient         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static int	ft_get_expanded_len(t_data *data)
 {
-	int	len;
-	int	n;
+	int		len;
+	int		n;
 	t_vars	*temp;
 
 	len = 0;
@@ -57,10 +57,13 @@ static int	ft_expand_var(t_data *data, int i, int j)
 	return (k);
 }
 
-void	ft_expand(t_data *data) // norma: demasiadas líneas
+/*
+ * Norma: demasiadas líneas
+ */
+void	ft_expand(t_data *data)
 {
-	int 	i;
-	int		j;
+	int	i;
+	int	j;
 
 	data->ex_input = (char *)malloc(sizeof(char) * ft_get_expanded_len(data));
 	if (!data->ex_input)
@@ -70,7 +73,7 @@ void	ft_expand(t_data *data) // norma: demasiadas líneas
 	}
 	i = 0;
 	j = 0;
-	while(*(data->input + i))
+	while (*(data->input + i))
 	{
 		if (*(data->input + i) == '$' && !ft_inside(data->input, i, '\''))
 		{

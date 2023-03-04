@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 18:01:54 by mvalient          #+#    #+#             */
-/*   Updated: 2023/02/28 23:14:12 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/03/04 20:07:25 by mvalient         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	ft_run_builtin(char *full_cmd, t_data *data,
 	return (error_flag);
 }
 
-static int ft_options(char *str, t_data *data)
+static int	ft_options(char *str, t_data *data)
 {
 	int	status;
 
@@ -40,7 +40,7 @@ static int ft_options(char *str, t_data *data)
 		status = ft_run_builtin(str, data, ft_cd_builtin);
 	if (ft_starts_with(str, "pwd"))
 		status = ft_run_builtin(str, data, ft_pwd_builtin);
-	if (ft_starts_with(str, "export")) // ojo con el caracter '='
+	if (ft_starts_with(str, "export"))
 		status = ft_run_builtin(str, data, export_builtin);
 	if (ft_starts_with(str, "unset"))
 		status = ft_run_builtin(str, data, unset_builtin);
@@ -48,24 +48,6 @@ static int ft_options(char *str, t_data *data)
 		status = ft_run_builtin(str, data, env_builtin);
 	return (status);
 }
-
-// int	ft_launch_piped_builtin(char *str, int infd, int outfd, t_data *data) // algo falla...
-// {
-// 	int	status;
-
-// 	if (infd != STDIN_FILENO)
-// 		dup2(infd, STDIN_FILENO);
-// 	if (outfd != STDOUT_FILENO)
-// 		dup2(outfd, STDOUT_FILENO);
-// 	status = ft_options(str, data);
-// 	if (infd != STDIN_FILENO)
-// 		close (infd);
-// 	dup2(data->baseline_infd, STDIN_FILENO);
-// 	dup2(data->baseline_outfd, STDOUT_FILENO);
-// 	if (ft_starts_with(str, "exit"))
-// 		ft_free_all(data);
-// 	return (status);
-// }
 
 int	ft_launch_builtin(char *str, int infd, int outfd, t_data *data)
 {

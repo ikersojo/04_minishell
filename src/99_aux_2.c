@@ -23,12 +23,12 @@ int	ft_endsub(char *str, int i, char *charset)
 		{
 			if (j == 0)
 			{
-				if(*(str + j + i + 1) == *(str + j + i))
+				if (*(str + j + i + 1) == *(str + j + i))
 					return (2);
 				return (1);
 			}
 			else
-				break;
+				break ;
 		}
 		j++;
 	}
@@ -53,7 +53,6 @@ int	ft_endredir(char *str, int i)
 	}	
 	return (j);
 }
-
 
 int	ft_inside(char *str, int i, char c)
 {

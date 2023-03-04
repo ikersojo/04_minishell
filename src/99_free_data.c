@@ -18,7 +18,7 @@ void	ft_freecmd(t_data *data)
 	t_cmd	*current;
 
 	tmp = data->cmd;
-	while(tmp)
+	while (tmp)
 	{
 		current = tmp;
 		tmp = tmp->next;
@@ -34,7 +34,7 @@ static void	ft_freevars(t_data *data)
 	t_vars	*current;
 
 	tmp = data->vars;
-	while(tmp)
+	while (tmp)
 	{
 		current = tmp;
 		tmp = tmp->next;

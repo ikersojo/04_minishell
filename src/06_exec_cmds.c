@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:45:39 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/28 23:28:09 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/03/04 20:22:34 by mvalient         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	ft_check_final_seq(t_data *data)
 			expected *= -1;
 		else
 			error_flag = 1;
-		if (tmp->is_builtin && tmp->infd != STDIN_FILENO) // CONFIRMAR QUE ESTO ES ASÍ !!!!
+		if (tmp->is_builtin && tmp->infd != STDIN_FILENO)
 			error_flag = 1;
 		tmp = tmp->next;
 	}
@@ -37,10 +37,10 @@ static int	ft_check_final_seq(t_data *data)
 		printf(SYNTAX_ERROR);
 		return (1);
 	}
-	return (0);	
+	return (0);
 }
 
-void	ft_exec_cmds(t_data *data) // norma demasiadas líneas
+void	ft_exec_cmds(t_data *data)
 {
 	t_cmd	*tmp;
 	int		status;

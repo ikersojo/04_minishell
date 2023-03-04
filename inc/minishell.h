@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 19:44:59 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/03/04 19:30:03 by mvalient         ###   ########.fr       */
+/*   Updated: 2023/03/04 20:32:31 by mvalient         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ void	ft_exec_cmds(t_data *data);
 // 07_run
 int		ft_launch_piped_process(char *str, int infd, int outfd, t_data *data);
 int		ft_launch_process(char *str, int infd, int outfd, t_data *data);
-// int		ft_launch_piped_builtin(char *str, int infd, int outfd, t_data *data);
 int		ft_launch_builtin(char *str, int infd, int outfd, t_data *data);
 void	ft_heredoc(char *eof);
 
@@ -105,8 +104,14 @@ int		export_builtin(t_vars **env, char **cmd);
 int		unset_builtin(t_vars **env, char **cmd);
 int		env_builtin(t_vars **env, char **cmd);
 
+// 08_builtin_utils
+char	*ft_route_parser(char *route);
+char	*ft_strjoin_arr(char **arr, char *del);
+void	*ft_free_null(void *ptr);
+
 // 09_signals
-void	ft_signal_handler(void (*handler)(int signum, siginfo_t *info, void *context));
+void	ft_signal_handler(void (*handler)
+			(int signum, siginfo_t *info, void *context));
 void	ft_parent_signals(int signum, siginfo_t *info, void *context);
 void	ft_child_signals(int signum, siginfo_t *info, void *context);
 
@@ -132,8 +137,8 @@ char	**ft_gen_envp(t_data *data);
 void	ft_run_command(char *arg, t_data *data, char **envp);
 
 //99_aux_vars
-t_vars  *getenv_local(t_vars *list, char *name);
-int 	setenv_local(t_vars *list, char *name, char *value, int overwrite);
+t_vars	*getenv_local(t_vars *list, char *name);
+int		setenv_local(t_vars *list, char *name, char *value, int overwrite);
 t_vars	*ft_varsnew(char *name, char *value);
 int		ft_vars_size(t_data *data); // ver si la usamos
 

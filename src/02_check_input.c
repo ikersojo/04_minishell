@@ -6,15 +6,19 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:42:50 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/28 22:57:17 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/03/04 20:28:33 by mvalient         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+/*
+ * Si quitamos addvar, quitamos el = --> añadir función para comprobar que
+ * el = solo está con export
+ */
 static int	ft_valid_char(char c)
 {
-	if (ft_isalnum(c) || ft_ischarset(c, " \t\'\"|<>$-_.+~/=?")) // si quitamos addvar, quitamos el = --> añadir función para comprobar que el = solo está con export
+	if (ft_isalnum(c) || ft_ischarset(c, " \t\'\"|<>$-_.+~/=?"))
 		return (1);
 	return (0);
 }
@@ -33,7 +37,7 @@ static int	ft_characters_ok(char *str)
 			return (0);
 		if (!ft_inquotes(str, i) && ft_ischarset(*(str + i), "<>")
 			&& (*(str + i + 1) && ft_ischarset(*(str + i + 1), "<>")
-			&& *(str + i) != *(str + i + 1)))
+				&& *(str + i) != *(str + i + 1)))
 			return (0);
 		if (!ft_inquotes(str, i) && ft_ischarset(*(str + i), "<>")
 			&& (*(str + i + 1) && ft_ischarset(*(str + i + 1), "<>"))
@@ -46,9 +50,11 @@ static int	ft_characters_ok(char *str)
 
 static int	ft_quotes_ok(char *str)
 {
-	int single_quote = 0;
-	int double_quote = 0;
+	int	single_quote;
+	int	double_quote;
 
+	single_quote = 0;
+	double_quote = 0;
 	while (*str != '\0')
 	{
 		if (*str == '\'')
@@ -75,8 +81,8 @@ static int	ft_var_exist(char *str, t_data *data)
 	int		not_found;
 
 	not_found = 0;
-	i = 0;
-	while (*(str + i))
+	i = -1;
+	while (*(str + ++i))
 	{
 		if (*(str + i) == '$')
 		{
@@ -87,13 +93,12 @@ static int	ft_var_exist(char *str, t_data *data)
 				ft_exit_w_error(MALLOC_ERROR);
 			}
 			ft_strlcpy(varname, str + i + 1, ft_endwrd(str, i));
-			if(!getenv_local(data->vars, varname))
+			if (!getenv_local(data->vars, varname))
 				not_found = 1;
 			free(varname);
 			if (not_found)
 				return (0);
 		}
-		i++;
 	}
 	return (1);
 }

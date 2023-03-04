@@ -28,7 +28,7 @@ void	ft_show_vars(t_data *data)
 
 void	ft_show_parsed(t_data *data)
 {
-	t_cmd *temp;
+	t_cmd	*temp;
 
 	printf("\033[0;93m\n    ----------------\n");
 	temp = data->cmd;

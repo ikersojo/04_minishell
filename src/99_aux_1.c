@@ -57,5 +57,3 @@ int	ft_starts_with(const char *str, const char *start)
 	}
 	return (1);
 }
-
-
