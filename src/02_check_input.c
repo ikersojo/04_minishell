@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:42:50 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/03/04 20:28:33 by mvalient         ###   ########.fr       */
+/*   Updated: 2023/03/05 18:37:00 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,12 +114,12 @@ int	ft_input_ok(t_data *data)
 		|| ft_ischarset(*str, "|")
 		|| ft_ischarset(*(str + ft_strlen(str) - 1), "|><"))
 	{
-		printf(SYNTAX_ERROR);
+		ft_putstr_fd(SYNTAX_ERROR, 2);
 		errorflag = 1;
 	}
 	if (!ft_var_exist(str, data))
 	{
-		printf(VAR_ERROR);
+		ft_putstr_fd(VAR_ERROR, 2);
 		errorflag = 1;
 	}
 	free (str);
