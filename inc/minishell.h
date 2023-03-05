@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 19:44:59 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/03/04 20:32:31 by mvalient         ###   ########.fr       */
+/*   Updated: 2023/03/05 18:06:13 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # define PROMPT			"\033[0;92m >> $ \033[0;39m"
 # define MALLOC_ERROR	"Memory could not be allocated.\n"
 # define SYNTAX_ERROR	"\033[0;31mSyntax error.\033[0;39m\n"
-# define VAR_ERROR		"User variable not defined.\n"
+# define VAR_ERROR		"\033[0;31mUser variable not defined.\033[0;39m\n"
 
 // DATA STRUCTS
 typedef struct s_cmd

@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:22:47 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/03/05 10:14:23 by mvalient         ###   ########.fr       */
+/*   Updated: 2023/03/05 18:28:33 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,13 @@ int	main(int argc, char **argv, char **envp)
 		prompt();
 }
 
-// TODO : Si se borra el path del env hay segfault -> Comprobar si existe path antes de hacer execve (Iker)
-// TODO : Revisar caso de comillas sin contenido (Iker)
+// TODO : (DONE) Si se borra el path del env hay segfault -> Comprobar si existe path antes de hacer execve (Iker)
+			// He comprobado el resto de variables, y no pasa el input check si no existe. El único problema era con PATH porque lo llamas directamente sin necesidad de ponerlo en el prompt
+// TODO : (DONE) Revisar caso de comillas sin contenido (Iker)
+			// limpiado al expandir
 // TODO : export y env de bash me printan 2 líneas de más con wc -l (Martin)
-// TODO : No sé por qué se printa el input de readline -> revisar al final
 // TODO : Revisar leaks (Martin)
+// TODO : No sé por qué se printa el input de readline -> revisar al final
 
 // Último update (iker 28-02-2023):
 	// fixed merge

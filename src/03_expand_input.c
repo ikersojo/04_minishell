@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:44:09 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/03/04 20:30:38 by mvalient         ###   ########.fr       */
+/*   Updated: 2023/03/05 18:26:09 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,16 @@ static int	ft_expand_var(t_data *data, int i, int j)
 	return (k);
 }
 
+static int	ft_is_empty_quotes(char *str, int i)
+{
+	if (*(str + i + 1))
+	{
+		if ((*(str + i) == '\"' && *(str + i + 1) == '\"')
+			|| (*(str + i) == '\'' && *(str + i + 1) == '\''))
+			return (1);
+	}
+	return (0);
+}
 /*
  * Norma: demasiadas líneas
  */
@@ -91,6 +101,8 @@ void	ft_expand(t_data *data)
 				*(data->ex_input + j++) = ' ';
 			i++;
 		}
+		else if (ft_is_empty_quotes(data->input, i))
+			i += 2;
 		else
 			*(data->ex_input + j++) = *(data->input + i++);
 	}
