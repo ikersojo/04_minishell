@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 13:18:31 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/26 13:23:41 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/03/05 12:14:07 by mvalient         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,8 @@ char	**ft_gen_envp(t_data *data)
 	{
 		if (tmp->is_exp == 1)
 			*(custom_envp + i) = ft_lst_to_str(tmp);
+		else
+			*(custom_envp + i) = NULL;
 		i++;
 		tmp = tmp ->next;
 	}
