@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:45:07 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/03/05 12:47:27 by mvalient         ###   ########.fr       */
+/*   Updated: 2023/03/05 17:53:58 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ void	ft_last_exec(t_data *data)
 				cmd_path = *(cmd + 0);
 			else
 				cmd_path = ft_get_path(*(cmd + 0), data);
-			setenv_local(data->vars, "_", cmd_path, 1);
+			if (cmd_path != NULL)
+				setenv_local(data->vars, "_", cmd_path, 1);
 			free(cmd_path);
 			i = 0;
 			while (*(cmd + i))
@@ -63,12 +64,11 @@ void	ft_parse(t_data *data) // norma: demasiadas líneas
 		}
 		if (ft_strcmp(str, " ") != 0)
 		{
-			// printf("%s (%d)\n", str, i); // DEBUG
 			temp = ft_cmdnew(ft_strtrim(str, " \t"), index++);
 			ft_cmdadd_back(&data->cmd, temp);
 		}
 		free (str);
-		ft_last_exec(data);
+		// ft_last_exec(data);
 	}
 	if (DEBUG == 1)
 		printf("\033[0;92m\n    ----> INPUT PARSING OK!\n\033[0;39m");

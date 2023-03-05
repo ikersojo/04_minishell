@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 13:18:31 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/03/05 12:14:07 by mvalient         ###   ########.fr       */
+/*   Updated: 2023/03/05 17:58:48 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,13 @@ char	*ft_get_path(char *cmd, t_data *data)
 	char	**path_tab;
 	char	*path;
 	char	*aux;
+	t_vars	*path_env;
 
 	i = 0;
-	path_tab = ft_split(getenv_local(data->vars, "PATH")->val, ':');
+	path_env = getenv_local(data->vars, "PATH");
+	if (path_env == NULL)
+		return (NULL);
+	path_tab = ft_split(path_env->val, ':');
 	i = 0;
 	while (*(path_tab + i))
 	{
@@ -128,7 +132,9 @@ void	ft_run_command(char *arg, t_data *data, char **envp)
 		cmd_path = ft_get_path(*(cmd + 0), data);
 	if (DEBUG == 1)
 		ft_check_cmd(cmd_path, cmd);
-	if (execve(cmd_path, cmd, envp) == -1)
+	if (cmd_path == NULL)
+		error_flag = 1;
+	else if (execve(cmd_path, cmd, envp) == -1)
 		error_flag = 1;
 	i = 0;
 	while (*(cmd + i))
