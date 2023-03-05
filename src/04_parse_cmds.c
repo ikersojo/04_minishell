@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:45:07 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/28 22:22:02 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/03/05 11:53:22 by mvalient         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,7 @@ void	ft_last_exec(t_data *data)
 	char	**cmd;
 	char	*cmd_path;
 	int		i;
-	t_vars	*target_var;
 
-	target_var = getenv_local(data->vars, "_");
 	tmp = data->cmd;
 	while (tmp)
 	{
@@ -31,8 +29,8 @@ void	ft_last_exec(t_data *data)
 				cmd_path = *(cmd + 0);
 			else
 				cmd_path = ft_get_path(*(cmd + 0), data);
-			free(target_var->val);
-			target_var->val = cmd_path;
+			setenv_local(data->vars, "_", cmd_path, 1);
+			free(cmd_path);
 			i = 0;
 			while (*(cmd + i))
 				free (*(cmd + i++));
