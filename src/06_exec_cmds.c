@@ -44,6 +44,7 @@ void	ft_exec_cmds(t_data *data)
 {
 	t_cmd	*tmp;
 	int		status;
+	char 	*status_str;
 
 	status = 1;
 	if (ft_check_final_seq(data) == 1)
@@ -70,7 +71,9 @@ void	ft_exec_cmds(t_data *data)
 			else if (tmp->is_exec)
 				status = ft_launch_process(tmp->str, tmp->infd, tmp->outfd, data);
 		}
-		setenv_local(data->vars, "?", ft_itoa(status), 1);
+		status_str = ft_itoa(status);
+		setenv_local(data->vars, "?", status_str, 1);
+		free(status_str);
 		tmp = tmp->next;
 	}
 }
