@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:45:07 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/03/05 12:46:48 by mvalient         ###   ########.fr       */
+/*   Updated: 2023/03/05 12:47:27 by mvalient         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ void	ft_parse(t_data *data) // norma: demasiadas líneas
 		{
 			// printf("%s (%d)\n", str, i); // DEBUG
 			temp = ft_cmdnew(ft_strtrim(str, " \t"), index++);
-			data->cmd = NULL;
 			ft_cmdadd_back(&data->cmd, temp);
 		}
 		free (str);
