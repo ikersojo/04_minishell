@@ -65,7 +65,7 @@ t_data	*ft_init_data(char **envp)
 	if (!data)
 		ft_exit_w_error(MALLOC_ERROR);
 	data->custom_envp = NULL;
-	data->cmd= NULL;
+	data->cmd = NULL;
 	ft_import_envp(data, envp);
 	data->baseline_infd = dup(STDIN_FILENO);
 	data->baseline_outfd = dup(STDOUT_FILENO);

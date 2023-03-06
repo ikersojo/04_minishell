@@ -22,7 +22,7 @@ void	ft_parent_signals(int signum, siginfo_t *info, void *context)
 	{
 		printf("\n");
 		rl_on_new_line();
-		rl_replace_line("", 0); // esta librería no está en MacOS ARMx64. igual por esto me falla el prompt
+		rl_replace_line("", 0);
 		rl_redisplay();
 	}
 }

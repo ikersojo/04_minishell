@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 14:05:07 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/26 17:37:07 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/03/06 22:43:02 by mvalient         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static char	*ft_filename(char *str)
 	int	i;
 
 	i = 0;
-	while (ft_ischarset(*(str + i),"<>") || ft_isspace(*(str + i)))
+	while (ft_ischarset(*(str + i), "<>") || ft_isspace(*(str + i)))
 		i++;
 	return (str + i);
 }
@@ -46,14 +46,13 @@ static void	ft_redir_out(t_cmd *exec, t_cmd *outredir)
 		ft_print_redir("Output", exec, ft_filename(outredir->str));
 	if (*(outredir->str + 1) == '>')
 		exec->outfd = open(ft_filename(outredir->str),
-			O_WRONLY | O_CREAT | O_APPEND, 0666);
+				O_WRONLY | O_CREAT | O_APPEND, 0666);
 	else
 		exec->outfd = open(ft_filename(outredir->str),
-			O_WRONLY | O_CREAT | O_TRUNC, 0666);
+				O_WRONLY | O_CREAT | O_TRUNC, 0666);
 	if (exec->outfd == -1)
 		ft_exit_w_error("errno");
 }
-
 
 static void	ft_cmd_clean(t_data *data)
 {
@@ -67,9 +66,9 @@ static void	ft_cmd_clean(t_data *data)
 		free(current);
 	}
 	tmp = data->cmd;
-	while(tmp)
+	while (tmp)
 	{
-		while(tmp->next && (tmp->next->is_infd || tmp->next->is_outfd))
+		while (tmp->next && (tmp->next->is_infd || tmp->next->is_outfd))
 		{
 			current = tmp->next;
 			tmp->next = tmp->next->next;
@@ -92,7 +91,7 @@ void	ft_setup_redir(t_data *data)
 		exec = NULL;
 		inredir = NULL;
 		outredir = NULL;
-		while(tmp && !tmp->is_pipe)
+		while (tmp && !tmp->is_pipe)
 		{
 			if (tmp->is_outfd)
 				outredir = tmp;

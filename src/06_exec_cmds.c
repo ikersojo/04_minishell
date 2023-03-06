@@ -44,7 +44,7 @@ void	ft_exec_cmds(t_data *data)
 {
 	t_cmd	*tmp;
 	int		status;
-	char 	*status_str;
+	char	*status_str;
 
 	status = 1;
 	if (ft_check_final_seq(data) == 1)

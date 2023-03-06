@@ -6,15 +6,15 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:22:47 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/03/06 17:52:43 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/03/06 22:37:55 by mvalient         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-t_data *g_data;
+t_data	*g_data;
 
-static void	ft_process_input()
+static void	ft_process_input(void)
 {
 	ft_expand(g_data);
 	ft_parse(g_data);
@@ -29,7 +29,7 @@ static void	ft_process_input()
 	ft_freecmd(g_data);
 }
 
-static void prompt()
+static void	prompt(void)
 {
 	rl_set_prompt(PROMPT);
 	g_data->input = readline(PROMPT);
@@ -38,20 +38,15 @@ static void prompt()
 	if (g_data->input && ft_strlen(g_data->input) > 0)
 		add_history(g_data->input);
 	if (ft_input_ok(g_data))
-	{
 		ft_process_input();
-		rl_replace_line("", 0); // esta librería no está en MacOS ARMx64. igual por esto me falla el prompt
-		rl_redisplay();
-	}
 	replace_history_entry(history_length, g_data->input, NULL);
-	if(g_data->input != NULL)
+	if (g_data->input != NULL)
 		free (g_data->input);
 	g_data->input = NULL;
 }
 
 int	main(int argc, char **argv, char **envp)
 {
-
 	(void)argv;
 	if (argc != 1)
 		ft_exit_w_error(SYNTAX_ERROR);
@@ -66,50 +61,3 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 		prompt();
 }
-
-// PENDING FIXES:
-// TODO : multiple -n in echo to remove repeated -n (also if other args are provided, print error) (e.g.: echo -n -n -n test tout)
-
-
-
-
-// TODO : Revisar leaks (Martin)
-// TODO : (DONE) Si se borra el path del env hay segfault -> Comprobar si existe path antes de hacer execve (Iker)
-			// He comprobado el resto de variables, y no pasa el input check si no existe. El único problema era con PATH porque lo llamas directamente sin necesidad de ponerlo en el prompt
-// TODO : (DONE) Revisar caso de comillas sin contenido (Iker)
-			// limpiado al expandir
-// TODO : (DONE) export y env de bash me printan 2 líneas de más con wc -l (Martin)
-// TODO : (DONE) No sé por qué se printa el input de readline -> revisar al final
-
-// Último update (iker 28-02-2023):
-	// fixed merge
-	// fixed env builtin --> hay que poner los exportables??? tenemos que evitar el ? al printar?
-	// fixed echo builtin --> additional last space removed
-	// new function: sequencia limpia revisada que es ejecutable/pipe/ejecutable... --> sino, syntax error
-	// new function: puede estar la entrada redirigida en un built in? de momento he puesto como un syntax error
-	// pipes with builtins working !!! (por fin...)
-
-// update (iker 26-02-2023):
-	// Refactored 05, 06, 07
-	// redirs and pipes working 100% with execs
-	// redirs working on built-ins
-	// (!!!) pipes not working on built ins
-
-// update (iker 24-02-2023):
-	// Refactored 04
-	// added exit status to built-ins
-
-// update (iker 23-02-2023):
-	// incluidas re-generaciones de stdin y stdout. Casca por otro lado con pipes, pero con redir no te saca
-	// refactorizadas 00, 01, 02, 03 y aux. Sustituidas funciones por setenv y getenv, y duplicidades eliminadas
-	// todo lo de arriba cumple norma menos ft_expand, por número de líneas (hay que partir)
-
-// COSAS PENDIENTES POR HACER:
-	// built-ins (martin):
-		// env, export
-		// status de salida (void --> int en las funciones)
-		// hay que incluir las redirecionesde salidas de los built-ins echo y pwd (alguno más) --> con está te ayudo (la dejamos para el final)
-	// usar variable global?? para que y por qué?
-	// redirecciones (iker):
-		// cambiar a multi-rebote con while todas las salidas
-		// refactor: es clave darle una vuelta para ganar robustez

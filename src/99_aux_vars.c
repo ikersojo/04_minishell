@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 11:52:54 by mvalient          #+#    #+#             */
-/*   Updated: 2023/03/02 00:58:48 by mvalient         ###   ########.fr       */
+/*   Updated: 2023/03/06 22:41:55 by mvalient         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	setenv_local(t_vars *list, char *name, char *value, int overwrite)
 	if (!new)
 	{
 		new = ft_varsnew(ft_strdup(name), ft_strdup(value));
-		if(!new)
+		if (!new)
 			return (-1);
 		while (list->next)
 			list = list->next;
@@ -73,13 +73,12 @@ int	setenv_local(t_vars *list, char *name, char *value, int overwrite)
 	{
 		free(new->val);
 		new->val = ft_strdup(value);
-		// tenemos que exportar al sobre-escribir o se pierde el status de exportado?
 		return (0);
 	}
 	return (1);
 }
 
-int	ft_vars_size(t_data *data) // LA USAMOS??
+int	ft_vars_size(t_data *data)
 {
 	t_vars	*tmp;
 	int		i;

@@ -67,6 +67,7 @@ static int	ft_is_empty_quotes(char *str, int i)
 	}
 	return (0);
 }
+
 /*
  * Norma: demasiadas líneas
  */

@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:45:07 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/03/05 18:10:59 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/03/06 22:39:38 by mvalient         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	ft_last_exec(t_data *data)
 	}
 }
 
-void	ft_parse(t_data *data) // norma: demasiadas líneas
+void	ft_parse(t_data *data)
 {
 	int		i;
 	int		index;
@@ -61,7 +61,8 @@ void	ft_parse(t_data *data) // norma: demasiadas líneas
 		}
 		else
 		{
-			str = ft_substr(data->ex_input, i, ft_endsub(data->ex_input, i, "()<>|&"));
+			str = ft_substr(data->ex_input, i,
+					ft_endsub(data->ex_input, i, "()<>|&"));
 			i += ft_endsub(data->ex_input, i, "()<>|&");
 		}
 		if (ft_strcmp(str, " ") != 0)
