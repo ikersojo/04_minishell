@@ -38,7 +38,11 @@ static void prompt()
 	if (g_data->input && ft_strlen(g_data->input) > 0)
 		add_history(g_data->input);
 	if (ft_input_ok(g_data))
+	{
 		ft_process_input();
+		rl_replace_line("", 0); // esta librería no está en MacOS ARMx64. igual por esto me falla el prompt
+		rl_redisplay();
+	}
 	replace_history_entry(history_length, g_data->input, NULL);
 	if(g_data->input != NULL)
 		free (g_data->input);
@@ -63,17 +67,19 @@ int	main(int argc, char **argv, char **envp)
 		prompt();
 }
 
-// FIXES:
-	// multiple -n in echo to do nothing (e.g.: echo -n -n -n test tout)
-	//
+// PENDING FIXES:
+// TODO : multiple -n in echo to remove repeated -n (also if other args are provided, print error) (e.g.: echo -n -n -n test tout)
 
+
+
+
+// TODO : Revisar leaks (Martin)
 // TODO : (DONE) Si se borra el path del env hay segfault -> Comprobar si existe path antes de hacer execve (Iker)
 			// He comprobado el resto de variables, y no pasa el input check si no existe. El único problema era con PATH porque lo llamas directamente sin necesidad de ponerlo en el prompt
 // TODO : (DONE) Revisar caso de comillas sin contenido (Iker)
 			// limpiado al expandir
-// TODO : export y env de bash me printan 2 líneas de más con wc -l (Martin)
-// TODO : Revisar leaks (Martin)
-// TODO : No sé por qué se printa el input de readline -> revisar al final
+// TODO : (DONE) export y env de bash me printan 2 líneas de más con wc -l (Martin)
+// TODO : (DONE) No sé por qué se printa el input de readline -> revisar al final
 
 // Último update (iker 28-02-2023):
 	// fixed merge
