@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:43:22 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/03/05 12:56:12 by mvalient         ###   ########.fr       */
+/*   Updated: 2023/03/06 22:40:46 by mvalient         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,7 @@ static void	ft_import_envp(t_data *data, char **envp)
 
 	data->vars = ft_varsnew(ft_strdup("?"), ft_strdup("0"));
 	if (!data->vars)
-	{
 		ft_free_all(data);
-		ft_exit_w_error(MALLOC_ERROR);
-	}
 	i = -1;
 	while (*(envp + (++i)))
 	{
