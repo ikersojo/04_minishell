@@ -100,7 +100,7 @@ static int	ft_var_exist(char *str, t_data *data)
 				ft_exit_w_error(MALLOC_ERROR);
 			}
 			ft_strlcpy(varname, str + i + 1, ft_endwrd(str, i));
-			if (!getenv_local(data->vars, varname))
+			if (!ft_getenv_local(data->vars, varname))
 				not_found = 1;
 			free(varname);
 			if (not_found)

@@ -72,7 +72,7 @@ void	ft_exec_cmds(t_data *data)
 				status = ft_launch_process(tmp->str, tmp->infd, tmp->outfd, data);
 		}
 		status_str = ft_itoa(status);
-		setenv_local(data->vars, "?", status_str, 1);
+		ft_setenv_local(data->vars, "?", status_str, 1);
 		free(status_str);
 		tmp = tmp->next;
 	}

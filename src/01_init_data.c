@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:43:22 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/03/06 22:40:46 by mvalient         ###   ########.fr       */
+/*   Updated: 2023/03/06 22:47:02 by mvalient         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	ft_import_envp(t_data *data, char **envp)
 		{
 			name = ft_substr(*(envp + i), 0, l);
 			value = ft_substr(*(envp + i), l + 1, ft_strlen(*(envp + i)) - l);
-			flag = setenv_local(data->vars, name, value, 0);
+			flag = ft_setenv_local(data->vars, name, value, 0);
 			free(name);
 			free(value);
 			if (flag == -1)

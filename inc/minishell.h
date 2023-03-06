@@ -44,7 +44,6 @@ typedef struct s_cmd
 	int				is_infd;
 	int				is_outfd;
 	int				is_pipe;
-	int				pipe;
 	int				infd;
 	int				outfd;
 	struct s_cmd	*next;
@@ -62,7 +61,6 @@ typedef struct s_data
 {
 	char	*input;
 	char	*ex_input;
-	int		last_status;
 	int		baseline_infd;
 	int		baseline_outfd;
 	char	**custom_envp;
@@ -97,12 +95,12 @@ int		ft_launch_builtin(char *str, int infd, int outfd, t_data *data);
 void	ft_heredoc(char *eof);
 
 // 08_builtins
-int		echo_builtin(t_vars **env, char **cmd);
+int		ft_echo_builtin(t_vars **env, char **cmd);
 int		ft_cd_builtin(t_vars **env, char **cmd);
 int		ft_pwd_builtin(t_vars **env, char **cmd);
-int		export_builtin(t_vars **env, char **cmd);
-int		unset_builtin(t_vars **env, char **cmd);
-int		env_builtin(t_vars **env, char **cmd);
+int		ft_export_builtin(t_vars **env, char **cmd);
+int		ft_unset_builtin(t_vars **env, char **cmd);
+int		ft_env_builtin(t_vars **env, char **cmd);
 
 // 08_builtin_utils
 char	*ft_route_parser(char *route);
@@ -137,8 +135,8 @@ char	**ft_gen_envp(t_data *data);
 void	ft_run_command(char *arg, t_data *data, char **envp);
 
 //99_aux_vars
-t_vars	*getenv_local(t_vars *list, char *name);
-int		setenv_local(t_vars *list, char *name, char *value, int overwrite);
+t_vars	*ft_getenv_local(t_vars *list, char *name);
+int		ft_setenv_local(t_vars *list, char *name, char *value, int overwrite);
 t_vars	*ft_varsnew(char *name, char *value);
 int		ft_vars_size(t_data *data); // ver si la usamos
 

@@ -14,7 +14,7 @@
 
 /* Print the arguments in list to standard output.  If the
  * first word is'-n', then don't print a trailing newline. */
-int	echo_builtin(t_vars **env, char **cmd)
+int	ft_echo_builtin(t_vars **env, char **cmd)
 {
 	int	i;
 	int	newline;

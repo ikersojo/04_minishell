@@ -32,9 +32,9 @@ static int	ft_check_dir_permission(char *path)
  */
 static void	ft_set_pwd(t_vars **env, char *path)
 {
-	setenv_local(*env, "OLDPWD", getenv_local(*env, "PWD")->val,
-		1);
-	setenv_local(*env, "PWD", path, 1);
+	ft_setenv_local(*env, "OLDPWD", ft_getenv_local(*env, "PWD")->val,
+					1);
+	ft_setenv_local(*env, "PWD", path, 1);
 }
 
 /*
@@ -65,23 +65,23 @@ int	ft_cd_builtin(t_vars **env, char **cmd)
 		return (!printf("pwd: Too many arguments\n"));
 	if (!cmd[1])
 	{
-		if (!ft_check_dir_permission(getenv_local(*env, "HOME")->val))
+		if (!ft_check_dir_permission(ft_getenv_local(*env, "HOME")->val))
 			return (0);
-		ft_set_pwd(env, getenv_local(*env, "HOME")->val);
+		ft_set_pwd(env, ft_getenv_local(*env, "HOME")->val);
 	}
 	else if (cmd[1][0] == '/' && ft_check_dir_permission(cmd[1]))
 		ft_set_pwd(env, cmd[1]);
 	else if (cmd[1][0] != '/')
 	{
-		rel_path = ft_build_rel_path(getenv_local(*env, "PWD")->val,
-				cmd[1]);
+		rel_path = ft_build_rel_path(ft_getenv_local(*env, "PWD")->val,
+									 cmd[1]);
 		if (ft_check_dir_permission(rel_path))
 			ft_set_pwd(env, rel_path);
 		free(rel_path);
 	}
 	else
 		return (0);
-	return (!chdir(getenv_local(*env, "PWD")->val));
+	return (!chdir(ft_getenv_local(*env, "PWD")->val));
 }
 
 /*
@@ -99,5 +99,5 @@ int	ft_pwd_builtin(t_vars **env, char **cmd)
 		return (printf("RTFM: Undefined error.\n"));
 	if (cmd[1])
 		return (printf("pwd: Too many arguments\n"));
-	return (!printf("%s\n", getenv_local(*env, "PWD")->val));
+	return (!printf("%s\n", ft_getenv_local(*env, "PWD")->val));
 }

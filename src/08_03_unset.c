@@ -55,7 +55,7 @@ int	ft_delete_node(t_vars **env, char *name)
  * 		0: On Failure
  * 		1: On Success
  */
-int	unset_builtin(t_vars **env, char **cmd)
+int	ft_unset_builtin(t_vars **env, char **cmd)
 {
 	int	i;
 	int	status;

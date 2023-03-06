@@ -12,7 +12,7 @@
 
 #include "../inc/minishell.h"
 
-int	env_builtin(t_vars **env, char **cmd)
+int	ft_env_builtin(t_vars **env, char **cmd)
 {
 	t_vars	*tmp;
 

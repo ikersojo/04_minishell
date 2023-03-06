@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:22:47 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/03/06 22:37:55 by mvalient         ###   ########.fr       */
+/*   Updated: 2023/03/06 22:38:57 by mvalient         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	ft_process_input(void)
 	ft_freecmd(g_data);
 }
 
-static void	prompt(void)
+static void	ft_prompt(void)
 {
 	rl_set_prompt(PROMPT);
 	g_data->input = readline(PROMPT);
@@ -59,5 +59,5 @@ int	main(int argc, char **argv, char **envp)
 	using_history();
 	ft_signal_handler(ft_parent_signals);
 	while (1)
-		prompt();
+		ft_prompt();
 }

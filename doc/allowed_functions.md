@@ -4,13 +4,13 @@
 MAIN FUNCTION:
 ```c
 #include <stdio.h>
-char	*readline (const char *prompt);
+char	*readline (const char *ft_prompt);
 
 DESCRIPTION:
 readline will read a line from the terminal and return it. The line returned
 is allocated with malloc(3); the caller must free it when finished. The line
 returned has the final newline removed.
-If prompt is NULL or the empty string, no prompt is issued.
+If prompt is NULL or the empty string, no ft_prompt is issued.
 NOTE: readline offers editing capabilities while the user is entering the line.
 
 RETURN VALUE:

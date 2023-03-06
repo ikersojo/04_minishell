@@ -27,11 +27,11 @@ t_vars	*ft_varsnew(char *name, char *value)
 }
 
 /*
- * The getenv_local  function  searches  the environment list to find the
+ * The ft_getenv_local  function  searches  the environment list to find the
  * envi‐ronment variable name, and returns a pointer to the corresponding
  * element.
  */
-t_vars	*getenv_local(t_vars *list, char *name)
+t_vars	*ft_getenv_local(t_vars *list, char *name)
 {
 	while (list)
 	{
@@ -45,19 +45,19 @@ t_vars	*getenv_local(t_vars *list, char *name)
 }
 
 /*
- * The setenv_local function adds the variable name to the environment with
+ * The ft_setenv_local function adds the variable name to the environment with
  * the value value, if name does  not already exist.  If name does exist in
  * the  environment,  then  its  value is changed  to value if overwrite is
  * nonzero; if overwrite is zero,  then the value of name  is  not  changed
  * and returns a success status.
  */
-int	setenv_local(t_vars *list, char *name, char *value, int overwrite)
+int	ft_setenv_local(t_vars *list, char *name, char *value, int overwrite)
 {
 	t_vars	*new;
 
 	if (!list)
 		return (-1);
-	new = getenv_local(list, name);
+	new = ft_getenv_local(list, name);
 	if (!new)
 	{
 		new = ft_varsnew(ft_strdup(name), ft_strdup(value));

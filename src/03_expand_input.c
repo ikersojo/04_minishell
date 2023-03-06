@@ -38,7 +38,7 @@ static int	ft_expand_var(t_data *data, int i, int j)
 	char	*varvalue;
 
 	if (*(data->input + i) == '~')
-		varvalue = getenv_local(data->vars, "HOME")->val;
+		varvalue = ft_getenv_local(data->vars, "HOME")->val;
 	else
 	{
 		varname = (char *)malloc(sizeof(char) * (ft_strlen(data->input) + 1));
@@ -48,7 +48,7 @@ static int	ft_expand_var(t_data *data, int i, int j)
 			ft_exit_w_error(MALLOC_ERROR);
 		}
 		ft_strlcpy(varname, data->input + i + 1, ft_endwrd(data->input, i));
-		varvalue = getenv_local(data->vars, varname)->val;
+		varvalue = ft_getenv_local(data->vars, varname)->val;
 		free(varname);
 	}
 	k = 0;
