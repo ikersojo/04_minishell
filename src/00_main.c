@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:22:47 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/03/05 20:04:00 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/03/06 17:52:43 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ static void prompt()
 	if (ft_input_ok(g_data))
 		ft_process_input();
 	replace_history_entry(history_length, g_data->input, NULL);
-	free (g_data->input);
+	if(g_data->input != NULL)
+		free (g_data->input);
 	g_data->input = NULL;
 }
 
@@ -61,6 +62,10 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 		prompt();
 }
+
+// FIXES:
+	// multiple -n in echo to do nothing (e.g.: echo -n -n -n test tout)
+	//
 
 // TODO : (DONE) Si se borra el path del env hay segfault -> Comprobar si existe path antes de hacer execve (Iker)
 			// He comprobado el resto de variables, y no pasa el input check si no existe. El único problema era con PATH porque lo llamas directamente sin necesidad de ponerlo en el prompt
