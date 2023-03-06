@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 13:18:31 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/03/05 17:58:48 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/03/06 21:52:55 by mvalient         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ char	*ft_get_path(char *cmd, t_data *data)
 		free (*(path_tab + i++));
 		if (access(path, F_OK) == 0)
 			break ;
+		free(path);
 	}
 	while (*(path_tab + i))
 		free (*(path_tab + i++));
