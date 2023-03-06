@@ -26,12 +26,14 @@ void	ft_last_exec(t_data *data)
 		{
 			cmd = ft_get_args(tmp->str);
 			if (*(*(cmd + 0)) == '/' || *(*(cmd + 0)) == '.')
-				cmd_path = *(cmd + 0);
+				setenv_local(data->vars, "_", *(cmd + 0), 1);
 			else
+			{
 				cmd_path = ft_get_path(*(cmd + 0), data);
-			if (cmd_path != NULL)
-				setenv_local(data->vars, "_", cmd_path, 1);
-			free(cmd_path);
+				if (cmd_path != NULL)
+					setenv_local(data->vars, "_", cmd_path, 1);
+				free(cmd_path);
+			}
 			i = 0;
 			while (*(cmd + i))
 				free (*(cmd + i++));
