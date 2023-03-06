@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 19:44:59 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/03/05 18:06:13 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/03/05 19:59:39 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define MINISHELL_H
 
 // DEBUG OR PRODUCTION (1 or 0)
-# define DEBUG 1
+# define DEBUG 0
 
 // Required for readline compatibility
 # define _XOPEN_SOURCE 700 // ??

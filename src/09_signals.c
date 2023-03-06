@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 16:26:38 by mvalient          #+#    #+#             */
-/*   Updated: 2023/03/05 18:37:32 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/03/05 19:57:52 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_parent_signals(int signum, siginfo_t *info, void *context)
 	{
 		printf("\n");
 		rl_on_new_line();
-		rl_replace_line("", 0); // esta librería no está en MacOS ARMx64. igual por esto me falla el prompt
+		// rl_replace_line("", 0); // esta librería no está en MacOS ARMx64. igual por esto me falla el prompt
 		rl_redisplay();
 	}
 }
