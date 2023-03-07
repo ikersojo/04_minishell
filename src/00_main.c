@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:22:47 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/03/06 22:38:57 by mvalient         ###   ########.fr       */
+/*   Updated: 2023/03/07 11:02:10 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,3 +61,9 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 		ft_prompt();
 }
+
+// TODO: fix case of redirections with pipes:
+	// <infile.txt cat >outfile.txt | wc -l
+	// bash: 0
+	// <infile.txt cat >outfile.txt | wc -l <infile.txt
+	// bash: XX
