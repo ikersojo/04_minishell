@@ -22,10 +22,10 @@ BINDIR	=	bin
 
 ## Libraries:
 LIBFT	=	./lib/LIBFT
-LIBS	=	$(LIBFT)/libft.a -lreadline -L/System/Volumes/Data/sgoinfre/goinfre/Perso/isojo-go/homebrew/opt/readline/lib
+LIBS	=	$(LIBFT)/libft.a -lreadline -L/System/Volumes/Data/sgoinfre/goinfre/Perso/mvalient/homebrew/opt/readline/lib
 
 ## Header Files (dedicated and from libraries):
-HEADERS	=	-I ./inc -I $(LIBFT)/inc -I/System/Volumes/Data/sgoinfre/goinfre/Perso/isojo-go/homebrew/opt/readline/include
+HEADERS	=	-I ./inc -I $(LIBFT)/inc -I/System/Volumes/Data/sgoinfre/goinfre/Perso/mvalient/homebrew/opt/readline/include
 
 ## Source Files:
 SRC	=	$(wildcard $(SRCDIR)/*.c)
@@ -33,7 +33,7 @@ OBJ	=	$(SRC:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
 
 ## Compilation flags:
 CC			=	gcc
-CFLAGS		=	-Wall -Wextra -Werror # -g3 -fsanitize=address
+CFLAGS		=	-Wall -Wextra -Werror  -g3 -fsanitize=address
 RM			=	rm -rf
 
 ## Extras:

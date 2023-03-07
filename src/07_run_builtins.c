@@ -20,7 +20,7 @@ static int	ft_run_builtin(char *full_cmd, t_data *data,
 	int		error_flag;
 
 	error_flag = 0;
-	cmd = ft_get_args(full_cmd); // está generando buffer_overflow??
+	cmd = ft_get_args(full_cmd);
 	if (builtin(&data->vars, cmd) == -1)
 		error_flag = 1;
 	i = 0;

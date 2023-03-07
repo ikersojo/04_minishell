@@ -73,7 +73,7 @@ void	ft_parse(t_data *data)
 			i += ft_endsub(data->ex_input, i, "()<>|&");
 		}
 		if (ft_strcmp(str, " ") != 0)
-			ft_cmdadd_back(&data->cmd, ft_cmdnew(ft_strtrim(str, " \t"), j++)); // posible leak?
+			ft_cmdadd_back(&data->cmd, ft_cmdnew(ft_strtrim(str, " \t"), j++));
 		free (str);
 	}
 }

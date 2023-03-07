@@ -61,14 +61,6 @@ static void	ft_init_expand(t_data *data, int *i, int *j)
 	*j = 0;
 }
 
-static void	ft_trim_expand(t_data *data, int *j)
-{
-	*(data->ex_input + *j) = '\0';
-	(*j)--;
-	while (*j > 0 && *(data->ex_input + *j) == ' ')
-		*(data->ex_input + *j--) = '\0';
-}
-
 void	ft_expand(t_data *data)
 {
 	int	i;
@@ -94,5 +86,5 @@ void	ft_expand(t_data *data)
 		else
 			*(data->ex_input + j++) = *(data->input + i++);
 	}
-	ft_trim_expand(data, &j);
+	*(data->ex_input + j) = '\0';
 }

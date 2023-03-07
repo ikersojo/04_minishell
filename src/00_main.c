@@ -32,15 +32,17 @@ static void	ft_process_input(void)
 
 static void	ft_prompt(void)
 {
-	rl_set_prompt(PROMPT);
 	g_data->input = readline(PROMPT);
 	if (!g_data->input)
 		ft_exit_w_error(MALLOC_ERROR);
 	if (g_data->input && ft_strlen(g_data->input) > 0)
+	{
 		add_history(g_data->input);
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
 	if (ft_input_ok(g_data))
 		ft_process_input();
-	replace_history_entry(history_length, g_data->input, NULL);
 	if (g_data->input != NULL)
 		free (g_data->input);
 	g_data->input = NULL;

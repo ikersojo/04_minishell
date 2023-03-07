@@ -113,7 +113,9 @@ int	ft_input_ok(t_data *data)
 
 	errorflag = 0;
 	str = ft_strtrim(data->input, " \t");
-	if (!ft_quotes_ok(str) || !ft_characters_ok(str)
+	if (ft_strlen(str) == 0)
+		errorflag = 1;
+	else if (!ft_quotes_ok(str) || !ft_characters_ok(str)
 		|| ft_ischarset(*str, "|")
 		|| ft_ischarset(*(str + ft_strlen(str) - 1), "|><"))
 	{
@@ -128,7 +130,5 @@ int	ft_input_ok(t_data *data)
 	free (str);
 	if (errorflag == 1)
 		return (0);
-	if (DEBUG == 1)
-		printf("\033[0;92m\n    ----> INPUT OK!\n\033[0;39m");
 	return (1);
 }

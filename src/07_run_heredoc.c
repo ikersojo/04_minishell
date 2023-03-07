@@ -39,9 +39,9 @@ static void	ft_checkline(char *limiter, int fd)
 
 	while (1)
 	{
-		ft_putstr_fd("> ", 1);
 		line = ft_get_input();
-		if (ft_strncmp(line, limiter, ft_strlen(line) - 1) == 0)
+		if ((ft_strncmp(line, limiter, ft_strlen(line) - 1) == 0)
+			|| (ft_strncmp(line, "\0", ft_strlen(line) - 1) == 0))
 		{
 			free (line);
 			return ;

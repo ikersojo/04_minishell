@@ -64,25 +64,27 @@ void	ft_run_command(char *arg, t_data *data, char **envp)
 	char	**cmd;
 	char	*cmd_path;
 	int		i;
-	int		error_flag;
+	int		flag;
 
-	error_flag = 0;
+	flag = 0;
 	cmd = ft_get_args(arg);
 	if (*(*(cmd + 0)) == '/' || *(*(cmd + 0)) == '.')
+	{
 		cmd_path = *(cmd + 0);
+		flag = 2;
+	}
 	else
 		cmd_path = ft_get_path(*(cmd + 0), data);
-	if (DEBUG == 1)
-		ft_check_cmd(cmd_path, cmd);
 	if (cmd_path == NULL)
-		error_flag = 1;
+		flag = 1;
 	else if (execve(cmd_path, cmd, envp) == -1)
-		error_flag = 1;
+		flag = 1;
 	i = 0;
 	while (*(cmd + i))
 		free (*(cmd + i++));
 	free (cmd);
-	free (cmd_path); // en el caso de ejecutable completo, estariamos liberando 2 veces
-	if (error_flag == 1)
+	if (flag == 2)
+		free (cmd_path);
+	if (flag == 1)
 		ft_exit_w_error("Command not found\n");
 }

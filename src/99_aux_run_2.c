@@ -27,12 +27,13 @@ static char	*ft_modified_args(char *arg)
 	{
 		if (ft_ischarset(*(arg + i), "\"\'") && !ft_inquotes(arg, i))
 			i++;
-		if (*(arg + i) == ' ' && !ft_inquotes(arg, i))
-			*(mod + j) = '+';
+		else if (*(arg + i) == ' ' && !ft_inquotes(arg, i))
+		{
+			*(mod + j++) = '+';
+			i++;
+		}
 		else
-			*(mod + j) = *(arg + i);
-		i++;
-		j++;
+			*(mod + j++) = *(arg + i++);
 	}
 	*(mod + j) = '\0';
 	return (mod);
