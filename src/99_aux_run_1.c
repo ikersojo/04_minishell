@@ -1,75 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   99_aux_run.c                                       :+:      :+:    :+:   */
+/*   99_aux_run_1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: isojo-go <isojo-go@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 13:18:31 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/03/07 12:17:52 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/03/07 18:30:44 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-char	**ft_get_args(char *arg)
-{
-	char	**cmd;
-	int		i;
-	int		j;
-	char	*mod;
-
-	mod = (char *)malloc(ft_strlen(arg) + 1);
-	if (mod == NULL)
-		return (NULL);
-	i = 0;
-	j = 0;
-	while (*(arg + i))
-	{
-		if (ft_ischarset(*(arg + i), "\"\'") && !ft_inquotes(arg, i))
-			i++;
-		if (*(arg + i) == ' ' && !ft_inquotes(arg, i))
-			*(mod + j) = '+';
-		else
-			*(mod + j) = *(arg + i);
-		i++;
-		j++;
-	}
-	*(mod + j) = '\0';
-	cmd = ft_split(mod, '+');
-	free(mod);
-	return (cmd);
-}
-
-char	*ft_get_path(char *cmd, t_data *data)
-{
-	int		i;
-	char	**path_tab;
-	char	*path;
-	char	*aux;
-	t_vars	*path_env;
-
-	i = 0;
-	path_env = ft_getenv_local(data->vars, "PATH");
-	if (path_env == NULL)
-		return (NULL);
-	path_tab = ft_split(path_env->val, ':');
-	i = 0;
-	while (*(path_tab + i))
-	{
-		aux = ft_strjoin(*(path_tab + i), "/"); // para cumplir el número de lineas es sacar esta y las 2 siguientes, pero primero arreglar
-		path = ft_strjoin(aux, cmd);
-		free (aux);
-		free (*(path_tab + i++));
-		if (access(path, F_OK) == 0)
-			break ;
-		free(path);
-	}
-	while (*(path_tab + i))
-		free (*(path_tab + i++));
-	free (path_tab);
-	return (path);
-}
 
 static char	*ft_lst_to_str(t_vars *tmp)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   04_parse_cmds.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: isojo-go <isojo-go@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:45:07 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/03/07 12:48:17 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/03/07 17:00:38 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,10 @@ void	ft_last_exec(t_data *data)
 			{
 				cmd_path = ft_get_path(*(cmd + 0), data);
 				if (cmd_path != NULL)
+				{
 					ft_setenv_local(data->vars, "_", cmd_path, 1);
-				free(cmd_path);
+					free(cmd_path);
+				}
 			}
 			ft_free_cmd(&cmd);
 		}
@@ -71,7 +73,7 @@ void	ft_parse(t_data *data)
 			i += ft_endsub(data->ex_input, i, "()<>|&");
 		}
 		if (ft_strcmp(str, " ") != 0)
-			ft_cmdadd_back(&data->cmd, ft_cmdnew(ft_strtrim(str, " \t"), j++));
+			ft_cmdadd_back(&data->cmd, ft_cmdnew(ft_strtrim(str, " \t"), j++)); // posible leak?
 		free (str);
 	}
 }

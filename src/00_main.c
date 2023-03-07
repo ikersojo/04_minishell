@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   00_main.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: isojo-go <isojo-go@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:22:47 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/03/07 12:49:27 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/03/07 18:07:24 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,3 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 		ft_prompt();
 }
-
-// TODO: fix case of redirections with pipes:
-	// <infile.txt cat >outfile.txt | wc -l
-	// bash: 0
-	// <infile.txt cat >outfile.txt | wc -l <infile.txt
-	// bash: XX
-
-// TODO: fix unnecsesary free when non-existing command is launched
-// TODO: norm check on 06 and aux_run after fixing the above

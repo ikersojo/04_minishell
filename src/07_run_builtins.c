@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   07_run_builtins.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: isojo-go <isojo-go@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 18:01:54 by mvalient          #+#    #+#             */
-/*   Updated: 2023/03/04 20:07:25 by mvalient         ###   ########.fr       */
+/*   Updated: 2023/03/07 18:22:36 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	ft_run_builtin(char *full_cmd, t_data *data,
 	int		error_flag;
 
 	error_flag = 0;
-	cmd = ft_get_args(full_cmd);
+	cmd = ft_get_args(full_cmd); // está generando buffer_overflow??
 	if (builtin(&data->vars, cmd) == -1)
 		error_flag = 1;
 	i = 0;

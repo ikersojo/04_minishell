@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+         #
+#    By: isojo-go <isojo-go@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/20 16:19:35 by isojo-go          #+#    #+#              #
-#    Updated: 2023/03/07 10:09:05 by isojo-go         ###   ########.fr        #
+#    Updated: 2023/03/07 18:22:36 by isojo-go         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,10 +22,10 @@ BINDIR	=	bin
 
 ## Libraries:
 LIBFT	=	./lib/LIBFT
-LIBS	=	$(LIBFT)/libft.a -lreadline -L/opt/homebrew/opt/readline/lib
+LIBS	=	$(LIBFT)/libft.a -lreadline -L/System/Volumes/Data/sgoinfre/goinfre/Perso/isojo-go/homebrew/opt/readline/lib
 
 ## Header Files (dedicated and from libraries):
-HEADERS	=	-I ./inc -I $(LIBFT)/inc -I/opt/homebrew/opt/readline/include
+HEADERS	=	-I ./inc -I $(LIBFT)/inc -I/System/Volumes/Data/sgoinfre/goinfre/Perso/isojo-go/homebrew/opt/readline/include
 
 ## Source Files:
 SRC	=	$(wildcard $(SRCDIR)/*.c)
@@ -33,7 +33,7 @@ OBJ	=	$(SRC:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
 
 ## Compilation flags:
 CC			=	gcc
-CFLAGS		=	-Wall -Wextra -Werror -g
+CFLAGS		=	-Wall -Wextra -Werror # -g3 -fsanitize=address
 RM			=	rm -rf
 
 ## Extras:
@@ -56,7 +56,7 @@ all:		$(NAME)
 
 $(NAME):	libft $(OBJ)
 			@mkdir -p $(BINDIR)
-			@$(CC) $(OBJ) $(LIBS) $(HEADERS) -o ./$(BINDIR)/$(NAME)
+			@$(CC) $(CFLAGS) $(OBJ) $(LIBS) $(HEADERS) -o ./$(BINDIR)/$(NAME)
 			@echo "$(GREEN)$(NAME) compiled!$(DEF_COLOR)"
 
 libft:

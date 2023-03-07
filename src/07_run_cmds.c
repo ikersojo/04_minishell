@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   07_run_cmds.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: isojo-go <isojo-go@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 22:32:55 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/03/07 11:00:20 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/03/07 15:38:24 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ int	ft_launch_piped_process(char *str, int infd, int outfd, t_data *data)
 	int		fd[2];
 	int		status;
 
-	(void)outfd;
+	dup2(outfd, STDOUT_FILENO);
+	dup2(infd, STDIN_FILENO);
 	if (pipe(fd) == -1)
 		ft_exit_w_error("errno");
 	pid = fork();
