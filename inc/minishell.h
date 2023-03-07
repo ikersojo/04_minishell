@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 19:44:59 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/03/07 11:28:02 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/03/07 12:46:49 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void	ft_expand(t_data *data);
 
 // 04_parse_cmds
 void	ft_parse(t_data *data);
+void	ft_last_exec(t_data *data);
 
 // 05_setup_redir
 void	ft_setup_redir(t_data *data);
@@ -123,6 +124,7 @@ int		ft_inquotes(char *str, int i);
 int		ft_inside(char *str, int i, char c);
 int		ft_starts_with(const char *str, const char *start);
 int		ft_is_var_definition(char *str); // ver si sobra
+int		ft_get_expanded_len(t_data *data);
 
 // 99_aux_cmds
 void	ft_cmdadd_back(t_cmd **cmd, t_cmd *new);

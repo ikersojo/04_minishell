@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 13:18:31 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/03/06 21:54:01 by mvalient         ###   ########.fr       */
+/*   Updated: 2023/03/07 12:17:52 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	*ft_get_path(char *cmd, t_data *data)
 	i = 0;
 	while (*(path_tab + i))
 	{
-		aux = ft_strjoin(*(path_tab + i), "/");
+		aux = ft_strjoin(*(path_tab + i), "/"); // para cumplir el número de lineas es sacar esta y las 2 siguientes, pero primero arreglar
 		path = ft_strjoin(aux, cmd);
 		free (aux);
 		free (*(path_tab + i++));
@@ -141,7 +141,7 @@ void	ft_run_command(char *arg, t_data *data, char **envp)
 	while (*(cmd + i))
 		free (*(cmd + i++));
 	free (cmd);
-	free (cmd_path);
+	free (cmd_path); // en el caso de ejecutable completo, estariamos liberando 2 veces
 	if (error_flag == 1)
 		ft_exit_w_error("Command not found\n");
 }

@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:22:47 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/03/07 11:02:10 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/03/07 12:49:27 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static void	ft_process_input(void)
 {
 	ft_expand(g_data);
 	ft_parse(g_data);
+	ft_last_exec(g_data);
 	if (DEBUG == 1)
 		ft_show_parsed(g_data);
 	ft_setup_redir(g_data);
@@ -67,3 +68,6 @@ int	main(int argc, char **argv, char **envp)
 	// bash: 0
 	// <infile.txt cat >outfile.txt | wc -l <infile.txt
 	// bash: XX
+
+// TODO: fix unnecsesary free when non-existing command is launched
+// TODO: norm check on 06 and aux_run after fixing the above

@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 18:18:26 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/28 22:37:44 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/03/07 12:35:24 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,23 @@ int	ft_starts_with(const char *str, const char *start)
 		len++;
 	}
 	return (1);
+}
+
+int	ft_get_expanded_len(t_data *data)
+{
+	int		len;
+	int		n;
+	t_vars	*temp;
+
+	len = 0;
+	temp = data->vars;
+	while (temp)
+	{
+		if (ft_strlen(temp->name) > len)
+			len = ft_strlen(temp->name);
+		temp = temp->next;
+	}
+	n = ft_count_chars(data->input, '$') + ft_count_chars(data->input, '~');
+	len = len * n + ft_strlen(data->input) + 1;
+	return (len);
 }

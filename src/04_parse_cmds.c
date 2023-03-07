@@ -6,18 +6,27 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:45:07 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/03/06 22:39:38 by mvalient         ###   ########.fr       */
+/*   Updated: 2023/03/07 12:48:17 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+static void	ft_free_cmd(char ***cmd)
+{
+	int		i;
+
+	i = 0;
+	while (*((*cmd) + i))
+		free (*((*cmd) + i++));
+	free ((*cmd));
+}
 
 void	ft_last_exec(t_data *data)
 {
 	t_cmd	*tmp;
 	char	**cmd;
 	char	*cmd_path;
-	int		i;
 
 	tmp = data->cmd;
 	while (tmp)
@@ -34,10 +43,7 @@ void	ft_last_exec(t_data *data)
 					ft_setenv_local(data->vars, "_", cmd_path, 1);
 				free(cmd_path);
 			}
-			i = 0;
-			while (*(cmd + i))
-				free (*(cmd + i++));
-			free (cmd);
+			ft_free_cmd(&cmd);
 		}
 		tmp = tmp->next;
 	}
@@ -46,11 +52,10 @@ void	ft_last_exec(t_data *data)
 void	ft_parse(t_data *data)
 {
 	int		i;
-	int		index;
-	t_cmd	*temp;
+	int		j;
 	char	*str;
 
-	index = 0;
+	j = 0;
 	i = 0;
 	while (*(data->ex_input + i))
 	{
@@ -66,13 +71,7 @@ void	ft_parse(t_data *data)
 			i += ft_endsub(data->ex_input, i, "()<>|&");
 		}
 		if (ft_strcmp(str, " ") != 0)
-		{
-			temp = ft_cmdnew(ft_strtrim(str, " \t"), index++);
-			ft_cmdadd_back(&data->cmd, temp);
-		}
+			ft_cmdadd_back(&data->cmd, ft_cmdnew(ft_strtrim(str, " \t"), j++));
 		free (str);
-		ft_last_exec(data);
 	}
-	if (DEBUG == 1)
-		printf("\033[0;92m\n    ----> INPUT PARSING OK!\n\033[0;39m");
 }

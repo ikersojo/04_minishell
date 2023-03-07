@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:42:50 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/03/06 22:40:19 by mvalient         ###   ########.fr       */
+/*   Updated: 2023/03/07 12:20:12 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ static int	ft_characters_ok(char *str)
 {
 	int		i;
 
-	i = 0;
-	while (*(str + i))
+	i = -1;
+	while (*(str + (++i)))
 	{
 		if (!ft_inquotes(str, i) && !ft_valid_char(*(str + i)))
 			return (0);
@@ -46,11 +46,7 @@ static int	ft_characters_ok(char *str)
 		if (!ft_inquotes(str, i) && *(str + i) == '.'
 			&& *(str + i + 1) && *(str + i + 1) == 's'
 			&& *(str + i + 2) && *(str + i + 2) == 'h')
-		{
-			ft_putstr_fd("Minishell does not run sh scripts.\n", 2);
 			return (0);
-		}
-		i++;
 	}
 	return (1);
 }
