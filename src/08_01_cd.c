@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 21:50:01 by mvalient          #+#    #+#             */
-/*   Updated: 2023/03/04 20:18:12 by mvalient         ###   ########.fr       */
+/*   Updated: 2023/03/07 11:09:13 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,7 @@ static int	ft_check_dir_permission(char *path)
  */
 static void	ft_set_pwd(t_vars **env, char *path)
 {
-	ft_setenv_local(*env, "OLDPWD", ft_getenv_local(*env, "PWD")->val,
-					1);
+	ft_setenv_local(*env, "OLDPWD", ft_getenv_local(*env, "PWD")->val, 1);
 	ft_setenv_local(*env, "PWD", path, 1);
 }
 
@@ -74,7 +73,7 @@ int	ft_cd_builtin(t_vars **env, char **cmd)
 	else if (cmd[1][0] != '/')
 	{
 		rel_path = ft_build_rel_path(ft_getenv_local(*env, "PWD")->val,
-									 cmd[1]);
+				cmd[1]);
 		if (ft_check_dir_permission(rel_path))
 			ft_set_pwd(env, rel_path);
 		free(rel_path);

@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 19:44:59 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/03/07 10:38:38 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/03/07 11:28:02 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void	ft_child_signals(int signum, siginfo_t *info, void *context);
 
 // -------------------------------------------------------------
 
-//99_aux
+// 99_aux
 void	ft_clear_screen(void);
 int		ft_endsub(char *str, int i, char *charset);
 int		ft_endredir(char *str, int i);
@@ -124,9 +124,13 @@ int		ft_inside(char *str, int i, char c);
 int		ft_starts_with(const char *str, const char *start);
 int		ft_is_var_definition(char *str); // ver si sobra
 
-//99_aux_cmds
+// 99_aux_cmds
 void	ft_cmdadd_back(t_cmd **cmd, t_cmd *new);
 t_cmd	*ft_cmdnew(char *str, int index);
+
+// 99_aux_redir
+char	*ft_filename(char *str);
+void	ft_cmd_clean(t_data *data);
 
 // 99_aux_run
 char	**ft_get_args(char *arg);
@@ -134,7 +138,7 @@ char	*ft_get_path(char *cmd, t_data *data);
 char	**ft_gen_envp(t_data *data);
 void	ft_run_command(char *arg, t_data *data, char **envp);
 
-//99_aux_vars
+// 99_aux_vars
 t_vars	*ft_getenv_local(t_vars *list, char *name);
 int		ft_setenv_local(t_vars *list, char *name, char *value, int overwrite);
 t_vars	*ft_varsnew(char *name, char *value);

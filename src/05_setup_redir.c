@@ -6,21 +6,11 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 14:05:07 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/03/06 22:43:02 by mvalient         ###   ########.fr       */
+/*   Updated: 2023/03/07 11:27:23 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-static char	*ft_filename(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (ft_ischarset(*(str + i), "<>") || ft_isspace(*(str + i)))
-		i++;
-	return (str + i);
-}
 
 static void	ft_redir_in(t_cmd *exec, t_cmd *inredir)
 {
@@ -54,28 +44,22 @@ static void	ft_redir_out(t_cmd *exec, t_cmd *outredir)
 		ft_exit_w_error("errno");
 }
 
-static void	ft_cmd_clean(t_data *data)
+static void	ft_set_to_null(t_cmd **exec, t_cmd **inredir, t_cmd **outredir)
 {
-	t_cmd	*tmp;
-	t_cmd	*current;
+	*exec = NULL;
+	*inredir = NULL;
+	*outredir = NULL;
+}
 
-	while (data->cmd && (data->cmd->is_infd || data->cmd->is_outfd))
-	{
-		current = data->cmd;
-		data->cmd = data->cmd->next;
-		free(current);
-	}
-	tmp = data->cmd;
-	while (tmp)
-	{
-		while (tmp->next && (tmp->next->is_infd || tmp->next->is_outfd))
-		{
-			current = tmp->next;
-			tmp->next = tmp->next->next;
-			free(current);
-		}
-		tmp = tmp->next;
-	}
+static void	ft_filter(t_cmd **tmp, t_cmd **exec, t_cmd **inre, t_cmd **outre)
+{
+	if ((*tmp)->is_outfd)
+		*outre = *tmp;
+	else if ((*tmp)->is_infd)
+		*inre = *tmp;
+	else if ((*tmp)->is_exec || (*tmp)->is_builtin)
+		*exec = *tmp;
+	*tmp = (*tmp)->next;
 }
 
 void	ft_setup_redir(t_data *data)
@@ -88,19 +72,9 @@ void	ft_setup_redir(t_data *data)
 	tmp = data->cmd;
 	while (tmp)
 	{
-		exec = NULL;
-		inredir = NULL;
-		outredir = NULL;
+		ft_set_to_null(&exec, &inredir, &outredir);
 		while (tmp && !tmp->is_pipe)
-		{
-			if (tmp->is_outfd)
-				outredir = tmp;
-			else if (tmp->is_infd)
-				inredir = tmp;
-			else if (tmp->is_exec || tmp->is_builtin)
-				exec = tmp;
-			tmp = tmp->next;
-		}
+			ft_filter(&tmp, &exec, &inredir, &outredir);
 		if (exec && outredir)
 			ft_redir_out(exec, outredir);
 		if (exec && inredir)
