@@ -18,7 +18,7 @@
  */
 static int	ft_valid_char(char c)
 {
-	if (ft_isalnum(c) || ft_ischarset(c, " \t\'\"|<>$-_.+~/=?"))
+	if (ft_isalnum(c) || ft_ischarset(c, " \t\'\"|<>$-_.~/=?"))
 		return (1);
 	return (0);
 }
@@ -122,7 +122,7 @@ int	ft_input_ok(t_data *data)
 		ft_putstr_fd(SYNTAX_ERROR, 2);
 		errorflag = 1;
 	}
-	if (!ft_var_exist(str, data))
+	else if (!ft_var_exist(str, data))
 	{
 		ft_putstr_fd(VAR_ERROR, 2);
 		errorflag = 1;
