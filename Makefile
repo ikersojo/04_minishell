@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: isojo-go <isojo-go@student.42.fr>          +#+  +:+       +#+         #
+#    By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/20 16:19:35 by isojo-go          #+#    #+#              #
-#    Updated: 2023/03/07 18:22:36 by isojo-go         ###   ########.fr        #
+#    Updated: 2023/03/08 18:23:40 by isojo-go         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,10 +22,21 @@ BINDIR	=	bin
 
 ## Libraries:
 LIBFT	=	./lib/LIBFT
-LIBS	=	$(LIBFT)/libft.a -lreadline -L/System/Volumes/Data/sgoinfre/goinfre/Perso/mvalient/homebrew/opt/readline/lib
+
+# to compile in Urduliz:
+# LIBS	=	$(LIBFT)/libft.a -lreadline -L/System/Volumes/Data/sgoinfre/goinfre/Perso/$USER/homebrew/opt/readline/lib
+
+# to compile in my personal laptop:
+LIBS    =   $(LIBFT)/libft.a -lreadline -L/opt/homebrew/opt/readline/lib
 
 ## Header Files (dedicated and from libraries):
-HEADERS	=	-I ./inc -I $(LIBFT)/inc -I/System/Volumes/Data/sgoinfre/goinfre/Perso/mvalient/homebrew/opt/readline/include
+
+# to compile in Urduliz:
+# HEADERS	=	-I ./inc -I $(LIBFT)/inc -I/System/Volumes/Data/sgoinfre/goinfre/Perso/$USER/homebrew/opt/readline/include
+
+# to compile in my personal laptop:
+HEADERS =   -I ./inc -I $(LIBFT)/inc -I/opt/homebrew/opt/readline/include
+
 
 ## Source Files:
 SRC	=	$(wildcard $(SRCDIR)/*.c)
@@ -33,7 +44,7 @@ OBJ	=	$(SRC:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
 
 ## Compilation flags:
 CC			=	gcc
-CFLAGS		=	-Wall -Wextra -Werror  -g3 -fsanitize=address
+CFLAGS		=	-Wall -Wextra -Werror -g3 -fsanitize=address
 RM			=	rm -rf
 
 ## Extras:
