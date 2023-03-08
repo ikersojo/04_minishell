@@ -25,6 +25,8 @@ void	ft_parent_signals(int signum, siginfo_t *info, void *context)
 		rl_replace_line("", 0);
 		rl_redisplay();
 	}
+	if (signum == SIGQUIT)
+		return ;
 }
 
 void	ft_child_signals(int signum, siginfo_t *info, void *context)
@@ -45,4 +47,9 @@ void	ft_signal_handler(
 	sa.sa_sigaction = handler;
 	if (sigaction(SIGINT, &sa, NULL) == -1)
 		write(1, "Error\n", 6);
+	if (handler == ft_parent_signals)
+	{
+		if (sigaction(SIGQUIT, &sa, NULL) == -1)
+			write(1, "Error\n", 6);
+	}
 }
