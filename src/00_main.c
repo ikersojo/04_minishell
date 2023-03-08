@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   00_main.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isojo-go <isojo-go@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:22:47 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/03/07 18:07:24 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/03/08 21:23:27 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	ft_prompt(void)
 {
 	g_data->input = readline(PROMPT);
 	if (!g_data->input)
-		ft_exit_w_error(MALLOC_ERROR);
+		exit(EXIT_SUCCESS);
 	if (g_data->input && ft_strlen(g_data->input) > 0)
 	{
 		add_history(g_data->input);
