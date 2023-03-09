@@ -24,7 +24,8 @@ int	ft_env_builtin(t_vars **env, char **cmd)
 	while (tmp)
 	{
 		if (ft_strcmp(tmp->name, "?"))
-			printf("%s=%s\n", tmp->name, tmp->val);
+			if (tmp->val != NULL)
+				printf("%s=%s\n", tmp->name, tmp->val);
 		tmp = tmp->next;
 	}
 	return (0);

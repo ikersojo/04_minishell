@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:26:53 by mvalient          #+#    #+#             */
-/*   Updated: 2023/03/06 22:08:46 by mvalient         ###   ########.fr       */
+/*   Updated: 2023/03/09 20:09:11 by mvalient         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,13 @@ static int	ft_export_list(t_vars *env)
 {
 	while (env)
 	{
-		if (env->is_exp)
-			if (ft_strcmp(env->name, "_"))
-				printf("declare -x %s=%s\n", env->name, env->val);
+		if (ft_strcmp(env->name, "_"))
+		{
+			if (env->val != NULL)
+				printf("declare -x %s=\"%s\"\n", env->name, env->val);
+			else
+				printf("declare -x %s", env->name);
+		}
 		env = env->next;
 	}
 	return (0);
@@ -73,11 +77,12 @@ int	ft_export_builtin(t_vars **env, char **cmd)
 	while (cmd[i])
 	{
 		if (!ft_count_chars(cmd[i], '='))
-			ft_setenv_local(*env, cmd[i], "", 1);
+			ft_setenv_local(*env, cmd[i], NULL, 1);
 		else if (ft_strlen(cmd[i]) > 1)
 		{
 			variable = ft_trim_str(cmd[i]);
 			ft_setenv_local(*env, variable[0], variable[1], 1);
+			ft_getenv_local(*env, variable[0])->is_exp = 1;
 			free(variable[0]);
 			free(variable[1]);
 			free(variable);
