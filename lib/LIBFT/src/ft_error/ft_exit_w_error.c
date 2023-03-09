@@ -6,11 +6,12 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 19:31:25 by isojo-go          #+#    #+#             */
-/*   Updated: 2022/12/10 19:58:18 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/03/09 19:42:42 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/libft.h"
+#include <errno.h>
 
 /* DESCRIPTION:
 Exits the program, outputting a string with the details on the error to STDOUT.
@@ -30,5 +31,5 @@ void	ft_exit_w_error(char *str)
 		ft_putstr_fd(str, 2);
 		ft_putstr_fd("\033[0;39m", 2);
 	}
-	exit(EXIT_FAILURE);
+	exit(127);
 }

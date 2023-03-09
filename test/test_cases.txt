@@ -6,27 +6,47 @@
 #    By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/09 17:37:25 by isojo-go          #+#    #+#              #
-#    Updated: 2023/03/09 17:46:30 by isojo-go         ###   ########.fr        #
+#    Updated: 2023/03/09 19:33:46 by isojo-go         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-# BASIC COMMANDS
+# BASIC COMMANDS TESTS
 /bin/ls
 (empty)
 (spaces)
 
-# ARGUMENTS
+
+# ARGUMENTS TESTS
 /bin/ls -lap
-/bin/wc Makefile
-
-
 
 
 # ECHO TESTS
-echo test tout
-echo test      tout
-echo -n test tout
-echo -n -n -n test tout
+echo hello world
+echo "hello world"
+echo 'hello world'
+echo "hello" word 'my friends'
+echo hello        world
+echo -n hello world
+echo -n -n -n hello world
+
+
+# EXIT
+exit
+exit 42
+exit 42 53
+exit 259
+
+
+# RETURN VALUE
+/bin/ls -lap
+echo $?
+
+/bin/ls archivo_que_no_existe
+echo $?
+
+expr $?
+expr $? + $?
+
 
 
 # CD TESTS

@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 21:50:01 by mvalient          #+#    #+#             */
-/*   Updated: 2023/03/07 11:09:13 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/03/09 22:08:08 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,16 @@ static int	ft_check_dir_permission(char *path)
  */
 static void	ft_set_pwd(t_vars **env, char *path)
 {
-	ft_setenv_local(*env, "OLDPWD", ft_getenv_local(*env, "PWD")->val, 1);
+
+	if (ft_getenv_local(*env, "PWD") != NULL)
+		ft_setenv_local(*env, "OLDPWD", ft_getenv_local(*env, "PWD")->val, 1);
 	ft_setenv_local(*env, "PWD", path, 1);
 }
 
 /*
  * Build relative path from current path and new path.
  */
-static char	*ft_build_rel_path(char *current, char *new)
+static char	*ft_rel_path(char *current, char *new)
 {
 	char	*pre_rel_path;
 	char	*rel_path;
@@ -58,8 +60,6 @@ int	ft_cd_builtin(t_vars **env, char **cmd)
 {
 	char	*rel_path;
 
-	if (ft_strcmp(cmd[0], "cd"))
-		return (!printf("RTFM: Undefined error.\n"));
 	if (cmd[1] && cmd[2])
 		return (!printf("pwd: Too many arguments\n"));
 	if (!cmd[1])
@@ -72,8 +72,7 @@ int	ft_cd_builtin(t_vars **env, char **cmd)
 		ft_set_pwd(env, cmd[1]);
 	else if (cmd[1][0] != '/')
 	{
-		rel_path = ft_build_rel_path(ft_getenv_local(*env, "PWD")->val,
-				cmd[1]);
+		rel_path = ft_rel_path(ft_getenv_local(*env, "PWD")->val, cmd[1]);
 		if (ft_check_dir_permission(rel_path))
 			ft_set_pwd(env, rel_path);
 		free(rel_path);

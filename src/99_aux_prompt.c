@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 22:31:22 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/03/09 12:53:45 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/03/09 21:56:37 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*ft_gen_prompt(t_data *data)
 	if (!prompt)
 		return (NULL);
 	i = 0;
-	ft_fill(&prompt, "\n\033[0;96m", &i);
+	ft_fill(&prompt, "\033[0;96m", &i);
 	ft_fill(&prompt, str_user, &i);
 	ft_fill(&prompt, "\033[0;90m @ \033[0;94m", &i);
 	ft_fill(&prompt, str_pwd, &i);
