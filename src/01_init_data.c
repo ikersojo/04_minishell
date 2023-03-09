@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:43:22 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/03/06 22:47:02 by mvalient         ###   ########.fr       */
+/*   Updated: 2023/03/09 11:12:21 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ t_data	*ft_init_data(char **envp)
 	ft_import_envp(data, envp);
 	data->baseline_infd = dup(STDIN_FILENO);
 	data->baseline_outfd = dup(STDOUT_FILENO);
-	if (DEBUG == 1)
-		printf("\033[0;92m\n    ----> DATA INITIALIZATION OK!\n\033[0;39m");
+	data->prompt = NULL;
 	return (data);
 }

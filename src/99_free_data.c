@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 21:01:27 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/26 13:09:57 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/03/09 11:13:01 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ void	ft_free_all(t_data *data)
 		free (data->input);
 	if (data->ex_input != NULL)
 		free (data->ex_input);
+	if (data->prompt != NULL)
+		free (data->prompt);
 	if (data->vars != NULL)
 		ft_freevars(data);
 	if (data->cmd != NULL)

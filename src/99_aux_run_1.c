@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   99_aux_run_1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isojo-go <isojo-go@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 13:18:31 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/03/07 18:30:44 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/03/09 12:50:58 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,22 +69,19 @@ void	ft_run_command(char *arg, t_data *data, char **envp)
 	flag = 0;
 	cmd = ft_get_args(arg);
 	if (*(*(cmd + 0)) == '/' || *(*(cmd + 0)) == '.')
-	{
-		cmd_path = *(cmd + 0);
-		flag = 2;
-	}
+		cmd_path = *(cmd + flag++);
 	else
 		cmd_path = ft_get_path(*(cmd + 0), data);
 	if (cmd_path == NULL)
-		flag = 1;
+		flag = 2;
 	else if (execve(cmd_path, cmd, envp) == -1)
-		flag = 1;
+		flag = 2;
 	i = 0;
 	while (*(cmd + i))
 		free (*(cmd + i++));
 	free (cmd);
-	if (flag == 2)
+	if (flag != 1)
 		free (cmd_path);
-	if (flag == 1)
+	if (flag == 2)
 		ft_exit_w_error("Command not found\n");
 }

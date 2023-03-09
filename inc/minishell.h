@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 19:44:59 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/03/07 12:46:49 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/03/09 12:09:48 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct s_data
 {
 	char	*input;
 	char	*ex_input;
+	char	*prompt;
 	int		baseline_infd;
 	int		baseline_outfd;
 	char	**custom_envp;
@@ -156,5 +157,8 @@ void	ft_print_redir(char *str, t_cmd *exec, char *redir);
 void	ft_free_all(t_data *data);
 void	ft_freecmd(t_data *data);
 void	ft_free_custom_envp(t_data *data);
+
+// 99_aux_prompt
+char	*ft_gen_prompt(t_data *data);
 
 #endif
