@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 16:26:38 by mvalient          #+#    #+#             */
-/*   Updated: 2023/03/09 14:38:36 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/03/09 15:29:15 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,7 @@ void	ft_parent_signals(int signum, siginfo_t *info, void *context)
 		rl_redisplay();
 	}
 	if (signum == SIGQUIT)
-	{
-		printf("\n");
 		return ;
-	}
 }
 
 void	ft_child_signals(int signum, siginfo_t *info, void *context)

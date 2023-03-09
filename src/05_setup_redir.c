@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 14:05:07 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/03/09 14:18:48 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/03/09 16:15:48 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ static void	ft_filter(t_cmd **tmp, t_cmd **exec, t_cmd **inre, t_cmd **outre)
 		*outre = *tmp;
 	else if ((*tmp)->is_infd)
 	{
-		ft_heredoc(ft_filename((*tmp)->str));
+		if (*((*tmp)->str + 1) == '<')
+			ft_heredoc(ft_filename((*tmp)->str));
 		*inre = *tmp;
 	}
 	else if ((*tmp)->is_exec || (*tmp)->is_builtin)
