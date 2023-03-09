@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 11:52:54 by mvalient          #+#    #+#             */
-/*   Updated: 2023/03/06 22:41:55 by mvalient         ###   ########.fr       */
+/*   Updated: 2023/03/09 20:20:04 by mvalient         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,10 @@ int	ft_setenv_local(t_vars *list, char *name, char *value, int overwrite)
 	new = ft_getenv_local(list, name);
 	if (!new)
 	{
-		new = ft_varsnew(ft_strdup(name), ft_strdup(value));
+		if (value == NULL)
+			new = ft_varsnew(ft_strdup(name), NULL);
+		else
+			new = ft_varsnew(ft_strdup(name), ft_strdup(value));
 		if (!new)
 			return (-1);
 		while (list->next)
@@ -71,8 +74,10 @@ int	ft_setenv_local(t_vars *list, char *name, char *value, int overwrite)
 	}
 	else if (overwrite)
 	{
-		free(new->val);
-		new->val = ft_strdup(value);
+		if (value != NULL)
+			free(new->val);
+		if (value != NULL)
+			new->val = ft_strdup(value);
 		return (0);
 	}
 	return (1);
