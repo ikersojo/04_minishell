@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 13:18:31 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/03/09 12:50:58 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/03/09 17:46:30 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,22 +66,22 @@ void	ft_run_command(char *arg, t_data *data, char **envp)
 	int		i;
 	int		flag;
 
-	flag = 0;
+	flag = 1;
 	cmd = ft_get_args(arg);
 	if (*(*(cmd + 0)) == '/' || *(*(cmd + 0)) == '.')
 		cmd_path = *(cmd + flag++);
 	else
 		cmd_path = ft_get_path(*(cmd + 0), data);
 	if (cmd_path == NULL)
-		flag = 2;
+		flag *= -1;
 	else if (execve(cmd_path, cmd, envp) == -1)
-		flag = 2;
+		flag *= -1;
 	i = 0;
 	while (*(cmd + i))
 		free (*(cmd + i++));
 	free (cmd);
-	if (flag != 1)
+	if (flag == 1 || flag == -1)
 		free (cmd_path);
-	if (flag == 2)
+	if (flag < 0)
 		ft_exit_w_error("Command not found\n");
 }
