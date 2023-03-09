@@ -82,7 +82,6 @@ int	ft_export_builtin(t_vars **env, char **cmd)
 		{
 			variable = ft_trim_str(cmd[i]);
 			ft_setenv_local(*env, variable[0], variable[1], 1);
-			ft_getenv_local(*env, variable[0])->is_exp = 1;
 			free(variable[0]);
 			free(variable[1]);
 			free(variable);

@@ -6,11 +6,20 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 11:52:54 by mvalient          #+#    #+#             */
-/*   Updated: 2023/03/09 20:20:04 by mvalient         ###   ########.fr       */
+/*   Updated: 2023/03/09 20:59:15 by mvalient         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+int	ft_write_val(t_vars *new, char *value)
+{
+	if (value != NULL)
+		free(new->val);
+	if (value != NULL)
+		new->val = ft_strdup(value);
+	return (0);
+}
 
 t_vars	*ft_varsnew(char *name, char *value)
 {
@@ -73,13 +82,7 @@ int	ft_setenv_local(t_vars *list, char *name, char *value, int overwrite)
 		return (0);
 	}
 	else if (overwrite)
-	{
-		if (value != NULL)
-			free(new->val);
-		if (value != NULL)
-			new->val = ft_strdup(value);
-		return (0);
-	}
+		return (ft_write_val(new, value));
 	return (1);
 }
 
