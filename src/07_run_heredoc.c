@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 16:04:10 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/02/26 13:47:19 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/03/09 14:21:22 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static void	ft_checkline(char *limiter, int fd)
 
 	while (1)
 	{
+		ft_putstr_fd(" > ", 1);
 		line = ft_get_input();
 		if ((ft_strncmp(line, limiter, ft_strlen(line) - 1) == 0)
 			|| (ft_strncmp(line, "\0", ft_strlen(line) - 1) == 0))

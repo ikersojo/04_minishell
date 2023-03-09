@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 19:44:59 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/03/09 12:09:48 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/03/09 12:58:32 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # define DEBUG 0
 
 // Required for readline compatibility
-# define _XOPEN_SOURCE 700 // ??
+# define _XOPEN_SOURCE 700
 
 // INCLUDES
 # include "../lib/LIBFT/inc/libft.h"

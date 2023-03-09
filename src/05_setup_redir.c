@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 14:05:07 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/03/07 11:27:23 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/03/09 14:18:48 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,7 @@
 static void	ft_redir_in(t_cmd *exec, t_cmd *inredir)
 {
 	if (*(inredir->str + 1) == '<')
-	{
-		ft_heredoc(ft_filename(inredir->str));
-		if (exec->outfd == STDOUT_FILENO)
-			exec->infd = open(".tempfd", O_RDONLY);
-	}
+		exec->infd = open(".tempfd", O_RDONLY);
 	else
 	{
 		if (DEBUG == 1)
@@ -56,7 +52,10 @@ static void	ft_filter(t_cmd **tmp, t_cmd **exec, t_cmd **inre, t_cmd **outre)
 	if ((*tmp)->is_outfd)
 		*outre = *tmp;
 	else if ((*tmp)->is_infd)
+	{
+		ft_heredoc(ft_filename((*tmp)->str));
 		*inre = *tmp;
+	}
 	else if ((*tmp)->is_exec || (*tmp)->is_builtin)
 		*exec = *tmp;
 	*tmp = (*tmp)->next;
