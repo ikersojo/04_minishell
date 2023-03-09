@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:26:53 by mvalient          #+#    #+#             */
-/*   Updated: 2023/03/09 20:09:11 by mvalient         ###   ########.fr       */
+/*   Updated: 2023/03/09 22:38:30 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,12 @@ static int	ft_export_list(t_vars *env)
 {
 	while (env)
 	{
-		if (ft_strcmp(env->name, "_"))
+		if (ft_strcmp(env->name, "_") && ft_strcmp(env->name, "?"))
 		{
 			if (env->val != NULL)
 				printf("declare -x %s=\"%s\"\n", env->name, env->val);
 			else
-				printf("declare -x %s", env->name);
+				printf("declare -x %s\n", env->name);
 		}
 		env = env->next;
 	}

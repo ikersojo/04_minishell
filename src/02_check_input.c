@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:42:50 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/03/07 12:20:12 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/03/09 22:48:49 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
  */
 static int	ft_valid_char(char c)
 {
-	if (ft_isalnum(c) || ft_ischarset(c, " \t\'\"|<>$-_.~/=?"))
+	if (ft_isalnum(c) || ft_ischarset(c, " \t\'\"|<>$-_.~/=?+"))
 		return (1);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   99_aux_run_2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isojo-go <isojo-go@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 18:24:16 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/03/07 18:38:32 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/03/09 22:48:49 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static char	*ft_modified_args(char *arg)
 			i++;
 		else if (*(arg + i) == ' ' && !ft_inquotes(arg, i))
 		{
-			*(mod + j++) = '+';
+			*(mod + j++) = '&';
 			i++;
 		}
 		else
@@ -47,7 +47,7 @@ char	**ft_get_args(char *arg)
 	if (arg == NULL)
 		return (NULL);
 	mod = ft_modified_args(arg);
-	cmd = ft_split(mod, '+');
+	cmd = ft_split(mod, '&');
 	free(mod);
 	return (cmd);
 }

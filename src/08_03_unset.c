@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 20:37:00 by mvalient          #+#    #+#             */
-/*   Updated: 2023/03/09 22:08:04 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/03/09 22:41:10 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ int	ft_delete_node(t_vars **env, char *name)
  * environment.
  *
  * Returns
- * 		0: On Failure
- * 		1: On Success
+ * 		1: On Failure
+ * 		0: On Success
  */
 int	ft_unset_builtin(t_vars **env, char **cmd)
 {
@@ -66,5 +66,5 @@ int	ft_unset_builtin(t_vars **env, char **cmd)
 	status = 0;
 	while (cmd[++i])
 		status += ft_delete_node(env, cmd[i]);
-	return (!status);
+	return (status);
 }

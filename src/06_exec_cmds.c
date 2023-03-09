@@ -3,42 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   06_exec_cmds.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isojo-go <isojo-go@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:45:39 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/03/07 18:21:42 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/03/09 22:46:19 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-static int	ft_check_final_seq(t_data *data)
-{
-	t_cmd	*tmp;
-	int		error_flag;
-	int		expected;
-
-	error_flag = 0;
-	expected = 1;
-	tmp = data->cmd;
-	while (tmp)
-	{
-		if ((expected == 1 && (tmp->is_exec || tmp->is_builtin))
-			|| (expected == -1 && tmp->is_pipe))
-			expected *= -1;
-		else
-			error_flag = 1;
-		if (tmp->is_builtin && tmp->infd != STDIN_FILENO)
-			error_flag = 1;
-		tmp = tmp->next;
-	}
-	if (expected == 1 || error_flag == 1)
-	{
-		printf(SYNTAX_ERROR);
-		return (1);
-	}
-	return (0);
-}
 
 static int	ft_piped_exec(t_cmd *tmp, t_data *data)
 {
@@ -86,8 +58,6 @@ void	ft_exec_cmds(t_data *data)
 	char	*status_str;
 
 	status = 1;
-	if (ft_check_final_seq(data) == 1)
-		return ;
 	tmp = data->cmd;
 	while (tmp)
 	{
