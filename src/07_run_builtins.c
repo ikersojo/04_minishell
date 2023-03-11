@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 18:01:54 by mvalient          #+#    #+#             */
-/*   Updated: 2023/03/09 22:30:14 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/03/11 18:24:15 by mvalient         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	ft_options(char *str, t_data *data)
 	if (ft_starts_with(str, "echo"))
 		status = ft_run_builtin(str, data, ft_echo_builtin);
 	if (ft_starts_with(str, "cd"))
-		status = ft_run_builtin(str, data, ft_cd_builtin);
+		status = ft_run_builtin(str, data, ft_cd_builtin_one);
 	if (ft_starts_with(str, "pwd"))
 		status = ft_run_builtin(str, data, ft_pwd_builtin);
 	if (ft_starts_with(str, "export"))

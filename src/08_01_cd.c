@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 21:50:01 by mvalient          #+#    #+#             */
-/*   Updated: 2023/03/11 17:52:45 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/03/11 18:23:42 by mvalient         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,6 @@ static int	ft_check_dir_permission(char *path)
 }
 
 /*
- * Automatically sets OLDPWD and sets PWD to given path.
- */
-static void	ft_set_pwd(t_vars **env, char *path)
-{
-	if (ft_getenv_local(*env, "PWD") != NULL)
-		ft_setenv_local(*env, "OLDPWD", ft_getenv_local(*env, "PWD")->val, 1);
-	ft_setenv_local(*env, "PWD", path, 1);
-}
-
-/*
  * Build relative path from current path and new path.
  */
 static char	*ft_rel_path(char *current, char *new)
@@ -51,24 +41,16 @@ static char	*ft_rel_path(char *current, char *new)
 	return (ft_route_parser(rel_path));
 }
 
-/*
- * This builtin is ultimately the way that all user-visible commands should
- * change the current working directory.
- */
-int	ft_cd_builtin(t_vars **env, char **cmd)
+static int	ft_cd_builtin_two(t_vars **env, char **cmd)
 {
 	char	*rel_path;
 
-	rel_path = getcwd(NULL, 0);
-	if (ft_getenv_local(*env, "PWD") == NULL)
-		ft_setenv_local(*env, "PWD", rel_path, 1);
-	free(rel_path);
 	if (cmd[1] && cmd[2])
 		return (!printf("cd: Too many arguments\n"));
 	if (!cmd[1])
 	{
 		if (!ft_check_dir_permission(ft_getenv_local(*env, "HOME")->val))
-			return (0);
+			return (1);
 		ft_set_pwd(env, ft_getenv_local(*env, "HOME")->val);
 	}
 	else if (cmd[1][0] == '/' && ft_check_dir_permission(cmd[1]))
@@ -80,7 +62,28 @@ int	ft_cd_builtin(t_vars **env, char **cmd)
 			ft_set_pwd(env, rel_path);
 		free(rel_path);
 	}
-	return (chdir(ft_getenv_local(*env, "PWD")->val));
+	return (0);
+}
+
+/*
+ * This builtin is ultimately the way that all user-visible commands should
+ * change the current working directory.
+ */
+int	ft_cd_builtin_one(t_vars **env, char **cmd)
+{
+	char	*rel_path;
+
+	rel_path = getcwd(NULL, 0);
+	if (ft_getenv_local(*env, "PWD") == NULL)
+		ft_setenv_local(*env, "PWD", rel_path, 1);
+	ft_cd_builtin_two(env, cmd);
+	if (ft_strcmp(rel_path, ft_getenv_local(*env, "PWD")->val))
+	{
+		free(rel_path);
+		return (chdir(ft_getenv_local(*env, "PWD")->val));
+	}
+	free(rel_path);
+	return (1);
 }
 
 /*

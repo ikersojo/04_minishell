@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 19:44:59 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/03/09 12:58:32 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/03/11 18:13:44 by mvalient         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	ft_heredoc(char *eof);
 
 // 08_builtins
 int		ft_echo_builtin(t_vars **env, char **cmd);
-int		ft_cd_builtin(t_vars **env, char **cmd);
+int		ft_cd_builtin_one(t_vars **env, char **cmd);
 int		ft_pwd_builtin(t_vars **env, char **cmd);
 int		ft_export_builtin(t_vars **env, char **cmd);
 int		ft_unset_builtin(t_vars **env, char **cmd);
@@ -108,6 +108,7 @@ int		ft_env_builtin(t_vars **env, char **cmd);
 char	*ft_route_parser(char *route);
 char	*ft_strjoin_arr(char **arr, char *del);
 void	*ft_free_null(void *ptr);
+void	ft_set_pwd(t_vars **env, char *path);
 
 // 09_signals
 void	ft_signal_handler(void (*handler)

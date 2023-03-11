@@ -13,6 +13,16 @@
 #include "../inc/minishell.h"
 
 /*
+ * Automatically sets OLDPWD and sets PWD to given path.
+ */
+void	ft_set_pwd(t_vars **env, char *path)
+{
+	if (ft_getenv_local(*env, "PWD") != NULL)
+		ft_setenv_local(*env, "OLDPWD", ft_getenv_local(*env, "PWD")->val, 1);
+	ft_setenv_local(*env, "PWD", path, 1);
+}
+
+/*
  * Given a route, it returns the full route.
  * 		Example:
  * 			./a/b/../c/./d -> /a/c/d
