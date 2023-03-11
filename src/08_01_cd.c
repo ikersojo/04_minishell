@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 21:50:01 by mvalient          #+#    #+#             */
-/*   Updated: 2023/03/09 22:24:51 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/03/11 17:52:45 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	ft_cd_builtin(t_vars **env, char **cmd)
 			ft_set_pwd(env, rel_path);
 		free(rel_path);
 	}
-	return (!chdir(ft_getenv_local(*env, "PWD")->val));
+	return (chdir(ft_getenv_local(*env, "PWD")->val));
 }
 
 /*
