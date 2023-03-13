@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+         #
+#    By: isojo-go <isojo-go@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/20 16:19:35 by isojo-go          #+#    #+#              #
-#    Updated: 2023/03/08 18:23:40 by isojo-go         ###   ########.fr        #
+#    Updated: 2023/03/13 08:25:58 by isojo-go         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,18 +24,18 @@ BINDIR	=	bin
 LIBFT	=	./lib/LIBFT
 
 # to compile in Urduliz:
-# LIBS	=	$(LIBFT)/libft.a -lreadline -L/System/Volumes/Data/sgoinfre/goinfre/Perso/$USER/homebrew/opt/readline/lib
+LIBS	=	$(LIBFT)/libft.a -lreadline -L/System/Volumes/Data/sgoinfre/goinfre/Perso/$(USER)/homebrew/opt/readline/lib
 
 # to compile in my personal laptop:
-LIBS    =   $(LIBFT)/libft.a -lreadline -L/opt/homebrew/opt/readline/lib
+# LIBS    =   $(LIBFT)/libft.a -lreadline -L/opt/homebrew/opt/readline/lib
 
 ## Header Files (dedicated and from libraries):
 
 # to compile in Urduliz:
-# HEADERS	=	-I ./inc -I $(LIBFT)/inc -I/System/Volumes/Data/sgoinfre/goinfre/Perso/$USER/homebrew/opt/readline/include
+HEADERS	=	-I ./inc -I $(LIBFT)/inc -I/System/Volumes/Data/sgoinfre/goinfre/Perso/$(USER)/homebrew/opt/readline/include
 
 # to compile in my personal laptop:
-HEADERS =   -I ./inc -I $(LIBFT)/inc -I/opt/homebrew/opt/readline/include
+# HEADERS =   -I ./inc -I $(LIBFT)/inc -I/opt/homebrew/opt/readline/include
 
 
 ## Source Files:

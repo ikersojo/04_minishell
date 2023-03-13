@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   99_aux_run_1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: isojo-go <isojo-go@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 13:18:31 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/03/09 19:42:08 by isojo-go         ###   ########.fr       */
+/*   Updated: 2023/03/13 08:28:50 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	ft_run_command(char *arg, t_data *data, char **envp)
 	flag = 1;
 	cmd = ft_get_args(arg);
 	if (*(*(cmd + 0)) == '/' || *(*(cmd + 0)) == '.')
-		cmd_path = *(cmd + flag++);
+		cmd_path = *(cmd + (flag++ - 1));
 	else
 		cmd_path = ft_get_path(*(cmd + 0), data);
 	if (cmd_path == NULL)
