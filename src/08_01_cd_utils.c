@@ -6,7 +6,7 @@
 /*   By: mvalient <mvalient@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 20:12:50 by mvalient          #+#    #+#             */
-/*   Updated: 2023/03/04 20:17:19 by mvalient         ###   ########.fr       */
+/*   Updated: 2023/03/15 21:05:35 by mvalient         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,11 @@ char	*ft_route_parser(char *route)
 		}
 		i++;
 	}
+	if (!split[0])
+		return (free(split), free(route), ft_strdup("/"));
 	temp_route = ft_strjoin_arr(split, "/");
 	full_route = ft_strjoin("/", temp_route);
-	free(temp_route);
-	free(split);
-	free(route);
-	return (full_route);
+	return (free(temp_route), free(split), free(route), full_route);
 }
 
 char	*ft_strjoin_arr(char **arr, char *del)
