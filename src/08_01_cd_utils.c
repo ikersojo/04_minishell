@@ -6,7 +6,7 @@
 /*   By: mvalient <mvalient@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 20:12:50 by mvalient          #+#    #+#             */
-/*   Updated: 2023/03/15 21:05:35 by mvalient         ###   ########.fr       */
+/*   Updated: 2023/03/15 23:08:55 by mvalient         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,34 +50,33 @@ char	*ft_route_parser(char *route)
 	}
 	if (!split[0])
 		return (free(split), free(route), ft_strdup("/"));
-	temp_route = ft_strjoin_arr(split, "/");
+	temp_route = ft_strjoin_arr(split, "/", i);
 	full_route = ft_strjoin("/", temp_route);
 	return (free(temp_route), free(split), free(route), full_route);
 }
 
-char	*ft_strjoin_arr(char **arr, char *del)
+char	*ft_strjoin_arr(char **arr, char *del, int length)
 {
 	char	*str;
 	int		i;
 	int		len;
 
-	i = 0;
 	len = 0;
-	if (!arr[i])
+	if (!arr[0])
 		return (malloc(1));
-	while (arr[i])
-	{
+	i = -1;
+	while (arr[++i])
 		len += ft_strlen(arr[i]);
-		i++;
-	}
-	str = ft_calloc(1, sizeof(char) * (len + i));
+	str = ft_calloc(1, sizeof(char) * (len + (length * 2) + 1));
 	i = 0;
-	while (arr[i])
+	while (length--)
 	{
-		ft_strcat(str, arr[i]);
+		if (arr[i])
+			ft_strcat(str, arr[i]);
+		if (arr[i])
+			free(arr[i]);
 		if (arr[i + 1])
 			ft_strcat(str, del);
-		free(arr[i]);
 		i++;
 	}
 	return (str);
@@ -87,4 +86,19 @@ void	*ft_free_null(void *ptr)
 {
 	free(ptr);
 	return (NULL);
+}
+
+/*
+ * Check if user has permissions over a path.
+ * 		Returns:
+ * 			0: False
+ * 			1: True
+ */
+int	ft_check_dir_permission(char *path)
+{
+	if (access(path, F_OK) == -1)
+		return (!printf("cd: Directory does not exist\n"));
+	if (access(path, R_OK) == -1)
+		return (!printf("cd: Access denied\n"));
+	return (1);
 }

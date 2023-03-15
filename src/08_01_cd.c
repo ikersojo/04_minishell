@@ -6,26 +6,11 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 21:50:01 by mvalient          #+#    #+#             */
-/*   Updated: 2023/03/15 21:05:35 by mvalient         ###   ########.fr       */
+/*   Updated: 2023/03/15 23:12:21 by mvalient         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-/*
- * Check if user has permissions over a path.
- * 		Returns:
- * 			0: False
- * 			1: True
- */
-static int	ft_check_dir_permission(char *path)
-{
-	if (access(path, F_OK) == -1)
-		return (!printf("cd: Directory does not exist\n"));
-	if (access(path, R_OK) == -1)
-		return (!printf("cd: Access denied\n"));
-	return (1);
-}
 
 /*
  * Build relative path from current path and new path.
@@ -41,6 +26,17 @@ static char	*ft_rel_path(char *current, char *new)
 	return (ft_route_parser(rel_path));
 }
 
+static int	ft_absolute_path(t_vars **env, char **cmd)
+{
+	int	flag;
+
+	flag = 0;
+	flag = ft_check_dir_permission(cmd[1]);
+	if (flag)
+		ft_set_pwd(env, cmd[1]);
+	return (flag);
+}
+
 static int	ft_cd_builtin_two(t_vars **env, char **cmd)
 {
 	int		flag;
@@ -49,16 +45,14 @@ static int	ft_cd_builtin_two(t_vars **env, char **cmd)
 	flag = 0;
 	if (!cmd[1])
 	{
-		if (!ft_check_dir_permission(ft_getenv_local(*env, "HOME")->val))
-			return (1);
+		if (!ft_getenv_local(*env, "HOME")
+			|| !ft_check_dir_permission(ft_getenv_local(*env, "HOME")->val))
+			return (!printf("cd: Home not defined\n"));
 		ft_set_pwd(env, ft_getenv_local(*env, "HOME")->val);
+		flag = 1;
 	}
 	else if (cmd[1][0] == '/')
-	{
-		flag = ft_check_dir_permission(cmd[1]);
-		if (flag)
-			ft_set_pwd(env, cmd[1]);
-	}
+		flag = ft_absolute_path(env, cmd);
 	else if (cmd[1][0] != '/')
 	{
 		rel_path = ft_rel_path(ft_getenv_local(*env, "PWD")->val, cmd[1]);

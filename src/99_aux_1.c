@@ -28,20 +28,6 @@ void	ft_clear_screen(void)
 	ft_putstr_fd(DEF_COLOR, 1);
 }
 
-int	ft_is_var_definition(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (*(str + i))
-	{
-		if (*(str + i) == '=' && !ft_inquotes(str, i))
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
 int	ft_starts_with(const char *str, const char *start)
 {
 	int	len;

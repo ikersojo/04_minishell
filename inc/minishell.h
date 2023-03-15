@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 19:44:59 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/03/11 18:13:44 by mvalient         ###   ########.fr       */
+/*   Updated: 2023/03/15 23:13:50 by mvalient         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,9 +106,10 @@ int		ft_env_builtin(t_vars **env, char **cmd);
 
 // 08_builtin_utils
 char	*ft_route_parser(char *route);
-char	*ft_strjoin_arr(char **arr, char *del);
+char	*ft_strjoin_arr(char **arr, char *del, int length);
 void	*ft_free_null(void *ptr);
 void	ft_set_pwd(t_vars **env, char *path);
+int		ft_check_dir_permission(char *path);
 
 // 09_signals
 void	ft_signal_handler(void (*handler)
@@ -125,7 +126,6 @@ int		ft_endredir(char *str, int i);
 int		ft_inquotes(char *str, int i);
 int		ft_inside(char *str, int i, char c);
 int		ft_starts_with(const char *str, const char *start);
-int		ft_is_var_definition(char *str); // ver si sobra
 int		ft_get_expanded_len(t_data *data);
 
 // 99_aux_cmds
