@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: mvalient <mvalient@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/12 19:44:59 by isojo-go          #+#    #+#             */
-/*   Updated: 2023/03/15 23:13:50 by mvalient         ###   ########.fr       */
+/*   Created: 2023/03/17 14:53:58 by mvalient          #+#    #+#             */
+/*   Updated: 2023/03/17 14:53:58 by mvalient         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

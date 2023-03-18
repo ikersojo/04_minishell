@@ -1,6 +1,9 @@
-# 04_minishell
-04_minishell
+# Minishell ![norminette](https://github.com/tinitiuset/minishell/workflows/norminette/badge.svg)
 
+This project is a simple shell.
+
+## Mark:
+![100/100](./doc/img/mark.png)
 
 # Reference Information:
 https://www.cs.purdue.edu/homes/grr/SystemsProgrammingBook/Book/Chapter5-WritingYourOwnShell.pdf

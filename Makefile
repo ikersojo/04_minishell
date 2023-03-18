@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: isojo-go <isojo-go@student.42.fr>          +#+  +:+       +#+         #
+#    By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/09/20 16:19:35 by isojo-go          #+#    #+#              #
-#    Updated: 2023/03/13 08:25:58 by isojo-go         ###   ########.fr        #
+#    Created: 2023/03/18 10:41:32 by isojo-go          #+#    #+#              #
+#    Updated: 2023/03/18 10:41:35 by isojo-go         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,18 +24,18 @@ BINDIR	=	bin
 LIBFT	=	./lib/LIBFT
 
 # to compile in Urduliz:
-LIBS	=	$(LIBFT)/libft.a -lreadline -L/System/Volumes/Data/sgoinfre/goinfre/Perso/$(USER)/homebrew/opt/readline/lib
+# LIBS	=	$(LIBFT)/libft.a -lreadline -L/System/Volumes/Data/sgoinfre/goinfre/Perso/$(USER)/homebrew/opt/readline/lib
 
 # to compile in my personal laptop:
-# LIBS    =   $(LIBFT)/libft.a -lreadline -L/opt/homebrew/opt/readline/lib
+LIBS    =   $(LIBFT)/libft.a -lreadline -L/opt/homebrew/opt/readline/lib
 
 ## Header Files (dedicated and from libraries):
 
 # to compile in Urduliz:
-HEADERS	=	-I ./inc -I $(LIBFT)/inc -I/System/Volumes/Data/sgoinfre/goinfre/Perso/$(USER)/homebrew/opt/readline/include
+# HEADERS	=	-I ./inc -I $(LIBFT)/inc -I/System/Volumes/Data/sgoinfre/goinfre/Perso/$(USER)/homebrew/opt/readline/include
 
 # to compile in my personal laptop:
-# HEADERS =   -I ./inc -I $(LIBFT)/inc -I/opt/homebrew/opt/readline/include
+HEADERS =   -I ./inc -I $(LIBFT)/inc -I/opt/homebrew/opt/readline/include
 
 
 ## Source Files:
@@ -43,9 +43,9 @@ SRC	=	$(wildcard $(SRCDIR)/*.c)
 OBJ	=	$(SRC:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
 
 ## Compilation flags:
-CC			=	gcc
-CFLAGS		=	-Wall -Wextra -Werror -g3 -fsanitize=address
-RM			=	rm -rf
+CC		=	gcc
+CFLAGS	=	-Wall -Wextra -Werror
+RM		=	rm -rf
 
 ## Extras:
 ### Colors:
